@@ -1,0 +1,50 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<ui:define name="titulo">Produto</ui:define>
+
+	<ui:define name="corpo">
+		<p:panel header="Cadastro de Produto">
+
+
+			<div class="card">
+				<h:form>				
+					<p:toolbar style="margin-top:20px">
+
+						<p:toolbarGroup>
+							<p:commandButton type="button" value="Novo" icon="pi pi-file"
+							style="margin-right:10px" styleClass="mr-2"/>
+							<p:commandButton value="Salvar" icon="pi pi-save"
+								styleClass="ui-button-help mr-2" />
+						</p:toolbarGroup>
+
+						<p:toolbarGroup align="left">
+							<p:commandButton value="Pesquisar" 
+								styleClass="ui-button-help mr-2" />
+						</p:toolbarGroup>
+					</p:toolbar>
+					
+					<p:panelGrid columns="2" style="width:100%; margin-top:20px" columnClasses="rotulo,campo">
+					<p:outputLabel value="SKU" for="sku"/>
+					<p:inputText id="sku" value=""/>
+					
+					<p:outputLabel value="Nome" for="nome"/>
+					<p:inputText id="nome" value="" style="width:50%"/>
+					
+					<p:outputLabel value="Produto" for="produto"/>
+					<p:selectOneMenu id="produto" value="">
+					<f:selectItem itemLabel="Selecione o Produto"/>
+					<f:selectItems value="#{cadastroProdutoController.selectItem}"/>
+					</p:selectOneMenu>
+					</p:panelGrid>
+				</h:form>
+
+			</div>
+		</p:panel>
+
+	</ui:define>
+</ui:composition>
