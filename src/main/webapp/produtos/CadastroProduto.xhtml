@@ -19,7 +19,7 @@
 							<p:commandButton type="button" value="Novo" icon="pi pi-file"
 							style="margin-right:10px" styleClass="mr-2"/>
 							<p:commandButton value="Salvar" icon="pi pi-save"
-								styleClass="ui-button-help mr-2" />
+								action="#{cadastroProdutoController.novo}" styleClass="ui-button-help mr-2" />
 						</p:toolbarGroup>
 
 						<p:toolbarGroup align="left">
@@ -35,11 +35,26 @@
 					<p:outputLabel value="Nome" for="nome"/>
 					<p:inputText id="nome" value="" style="width:50%"/>
 					
-					<p:outputLabel value="Produto" for="produto"/>
-					<p:selectOneMenu id="produto" value="">
+					<p:outputLabel value="Categoria" for="categoria"/>
+					<p:selectOneMenu id="categoria" value="#{cadastroProdutoController.produto.categoria}">
 					<f:selectItem itemLabel="Selecione o Produto"/>
 					<f:selectItems value="#{cadastroProdutoController.selectItem}"/>
 					</p:selectOneMenu>
+					
+					
+					<p:outputLabel value="Subcategoria" for="subCategoria"/>
+					<p:selectOneMenu id="subCategoria" value="#{cadastroProdutoController.produto.subCategoria}">
+					<f:selectItem itemLabel="Seleciona a Sub categoria"/>
+					<f:selectItems value="#{cadastroProdutoController.selectItem}"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel value="Valor unitário" for="vUnitario"/>
+					<p:inputText id="vUnitario" value="#{cadastroProdutoController.produto.valorUnitario}" style="width:30%"/>
+					
+					
+					<p:outputLabel value="Estoque" for="estoque"/>
+					<p:inputText id="estoque" value="#{cadastroProdutoController.produto.estoque}" style="width:30%"/>
+					
 					</p:panelGrid>
 				</h:form>
 

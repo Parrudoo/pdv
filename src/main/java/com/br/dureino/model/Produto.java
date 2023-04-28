@@ -1,36 +1,32 @@
 package com.br.dureino.model;
 
+import java.math.BigDecimal;
+
+import com.br.dureino.model.enums.Categoria;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Produto {
 	
 	private Integer id;
 	
 	private String nome;
 	
-	public Produto() {
-		
-	}
-
-	public Produto(Integer id, String nome) {
-		
-		this.id = id;
-		this.nome = nome;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+	private String categoria;
+	
+	private String subCategoria;
+	
+	private BigDecimal valorUnitario;
+	
+	private Integer estoque;
+	
 	
 	
 

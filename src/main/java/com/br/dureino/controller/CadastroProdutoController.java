@@ -1,6 +1,7 @@
 package com.br.dureino.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,13 @@ import javax.faces.model.SelectItem;
 import javax.inject.Named;
 
 import com.br.dureino.model.Produto;
+import com.br.dureino.model.enums.Categoria;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Named
 @SessionScoped
 public class CadastroProdutoController implements Serializable  {
@@ -25,25 +32,27 @@ public class CadastroProdutoController implements Serializable  {
 	
 	private List<SelectItem> selectItem;
 	
-	@PostConstruct
-	public void init() {
-		getSelectItem();
-	}
 	
+	private Produto produto = new Produto();
 	
 	public List<SelectItem> getSelectItem(){
 		
-		List<Produto> items = Arrays.asList(new Produto(1,"Arroz"), new Produto(2,"Feijão"));
+		List<Produto> items = Arrays.asList(new Produto(3, "Crescimento", "Caprino", "CAPRINO", new BigDecimal(12.0), 12));
 		List<SelectItem> list = new ArrayList<>();
 		for(Produto produto : items) {
 			Object value = produto;			
 			String label = produto.getNome();
 			
-			selectItem.add(new SelectItem(value,label));
+			list.add(new SelectItem(value,label));
 		}
 		
-		return selectItem;
+		return list;
 
 	}
+	
+	public Produto novo() {
+		return this.produto = new Produto();
+	}
+	
 
 }
