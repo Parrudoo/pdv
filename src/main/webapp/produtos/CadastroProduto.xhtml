@@ -80,9 +80,15 @@
 			height="90%" width="90%" widgetVar="dialogPesquisaProdutos"
 			closable="true">
 			<h:form>
+			<p:panel header="Consultar">
 				<span class="ui-input-icon-left"> <i class="pi pi-search" />
 					<p:inputText placeholder="Search" />
+					<p:commandButton value="Pesquisar" style="margin-left:5px"/>
 				</span>
+				<p:dataTable style="margin-top:20px">
+				
+				</p:dataTable>
+				</p:panel>
 			</h:form>
 		</p:dialog>
 	</ui:define>
