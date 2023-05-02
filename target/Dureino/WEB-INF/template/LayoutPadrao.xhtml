@@ -15,20 +15,31 @@
 	<header>
 	<div>
 		<h:link>
-			<h:graphicImage library="img" name="dureino.png" />
+			<h:graphicImage library="img" name="logo.png" />
 		</h:link>
 	</div>
 	</header>
-</h:body>
 
 	<div id="conteudo">
 		<ui:insert name="corpo" />
+
+		<p:ajaxStatus styleClass="ajax-status">
+			<f:facet name="start">
+				<p:graphicImage id="load" library="img" name="gif.gif" />
+			</f:facet>
+			<f:facet name="complete">
+				<h:outputText value="" />
+			</f:facet>
+		</p:ajaxStatus>
 	</div>
-	
-	<p:separator style="margin-top: 20px"/>
-	
+
+	<p:separator style="margin-top: 20px" />
+
 	<footer>
 	<h3>Sistema de Gestão Industrial</h3>
-	
+
 	</footer>
+</h:body>
+
+
 </html>

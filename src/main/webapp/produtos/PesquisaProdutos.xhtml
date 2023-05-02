@@ -1,0 +1,81 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+	<ui:define name="titulo">Pesquisa de produtos</ui:define>
+
+
+	<ui:define name="corpo">
+
+
+		<p:panel header="Pesquisa de Produtos">
+			<h:form id="frm">
+
+				<p:messages id="message" autoUpdate="true" closable="true" />
+				<p:toolbar style="margin-top: 20px">
+					<p:toolbarGroup>
+						<p:commandButton value="Pesquisar" />
+					</p:toolbarGroup>
+					<p:toolbarGroup>
+						<p:commandButton value="Novo" />
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:panelGrid columns="2" style="width:100%; margin-top:20px">
+					<p:outputLabel value="Sku" />
+					<p:inputText value="" style="width:30%" />
+
+					<p:outputLabel value="Nome" />
+					<p:inputText value="" style="width:30%" />
+				</p:panelGrid>
+
+				<p:dataTable id="dataTable" emptyMessage="not car found"
+				 value="#{pesquisaProdutoController.produtos}" var="produto" lazy="false" style="margin-top:20px">
+
+					<p:column headerText="Código">
+						<h:outputText value="#{produto.codigo}" />
+					</p:column>
+
+					<p:column headerText="Sku">
+						<h:outputText value="produto.sku" />
+					</p:column>
+
+					<p:column headerText="Nome">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="Categoria">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="Sub Categoria">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="Valor Unitário">
+						<h:outputText value="" />
+					</p:column>
+					
+					<p:column headerText="QT estoque">
+						<h:outputText value="" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+
+
+
+
+
+
+
+
+
+
+		</p:panel>
+	</ui:define>
+</ui:composition>
+
