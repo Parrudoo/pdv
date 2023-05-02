@@ -7,11 +7,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.br.dureino.model.Produto;
+import com.br.dureino.service.CadastroProdutoService;
+import com.br.dureino.service.NegocioException;
+import com.br.dureino.util.jsf.FacesUtil;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +24,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Named
-@ViewScoped
+@RequestScoped
 public class CadastroProdutoController implements Serializable {
 
 	/**
@@ -31,10 +36,24 @@ public class CadastroProdutoController implements Serializable {
 
 	private Produto produto;
 
+	@Inject
+	private CadastroProdutoService cadastroProdutoService;
+
+	public void salvar() throws NegocioException {
+		try {
+			cadastroProdutoService.salvarProduto(produto);
+			FacesUtil.addSucessoMessage("Produto salvo com sucesso!");
+			novo();
+		}catch (Exception e) {
+			FacesUtil.addErrorMessage(e.getMessage());
+
+		}
+	}
+
 	public List<SelectItem> getSelectItem() {
 
 		List<Produto> items = Arrays
-				.asList(new Produto(1, "234","Arroz", "55642", "Caprino", new BigDecimal(12.0), 12));
+				.asList(new Produto(1, "234", "Arroz", "55642", "Caprino", new BigDecimal(12.0), 12));
 		List<SelectItem> list = new ArrayList<>();
 		for (Produto produto : items) {
 			Object value = produto;
@@ -51,7 +70,7 @@ public class CadastroProdutoController implements Serializable {
 	public void init() {
 		this.produto = new Produto();
 	}
-	
+
 	public void novo() {
 		this.produto = new Produto();
 	}

@@ -13,20 +13,22 @@
 
 
 			<h:form id="form">
-			<p:messages id="messages" autoUpdate="true" closable="true" />
+				<p:messages id="messages" autoUpdate="true" closable="true" />
 				<p:toolbar style="margin-top:20px">
 
 					<p:toolbarGroup>
 						<p:commandButton value="Novo" icon="pi pi-file"
 							action="#{cadastroProdutoController.novo}"
-							style="margin-right:10px" styleClass="mr-2" update="form"/>
-							
-						<p:commandButton value="Salvar" icon="pi pi-save"						 
-							styleClass="ui-button-help mr-2" />
+							style="margin-right:10px" styleClass="mr-2" update="form" />
+
+						<p:commandButton value="Salvar" icon="pi pi-save"
+							action="#{cadastroProdutoController.salvar}"
+							styleClass="ui-button-help mr-2" update="form" />
 					</p:toolbarGroup>
 
 					<p:toolbarGroup align="left">
 						<p:commandButton value="Pesquisar"
+							onclick="PF('dialogPesquisaProdutos').show()"
 							styleClass="ui-button-help mr-2" />
 					</p:toolbarGroup>
 				</p:toolbar>
@@ -60,7 +62,7 @@
 					<p:outputLabel value="Valor unitário" for="vUnitario" />
 					<p:inputNumber id="vUnitario"
 						value="#{cadastroProdutoController.produto.valorUnitario}"
-						style="width:30%" symbol="R$:" />
+						style="width:30%" />
 
 
 					<p:outputLabel value="Estoque" for="estoque" />
@@ -73,5 +75,15 @@
 
 		</p:panel>
 
+
+		<p:dialog id="dialogPesquisaProdutos" header="Pesquisa de Produtos"
+			height="90%" width="90%" widgetVar="dialogPesquisaProdutos"
+			closable="true">
+			<h:form>
+				<span class="ui-input-icon-left"> <i class="pi pi-search" />
+					<p:inputText placeholder="Search" />
+				</span>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
