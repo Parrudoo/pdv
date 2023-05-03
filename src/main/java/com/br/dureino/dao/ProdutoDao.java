@@ -30,9 +30,7 @@ public class ProdutoDao implements Serializable {
 
 
 	
-	public Produto salvar(Produto produto) {
-		
-		
+	public Produto salvar(Produto produto) {				
 		/*
 		 * o codigo foi comentado, pois usei uma classe para fazer a transação, e nao
 		 * precisar ficar implementando toda vez
@@ -44,6 +42,15 @@ public class ProdutoDao implements Serializable {
 		produto = entityManager.merge(produto);
 		/* trx.commit(); */
 		return produto;
+	}
+
+
+
+	public List<Produto> buscarNome(String nome) {
+		
+		return entityManager.createQuery("select p from Produto p where p.nome like CONCAT(:nome ,'%')",Produto.class).
+				setParameter("nome", nome)
+				.getResultList();
 	}
 
 }

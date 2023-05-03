@@ -1,13 +1,10 @@
 package com.br.dureino.controller;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import com.br.dureino.dao.ProdutoDao;
@@ -37,14 +34,13 @@ public class PesquisaProdutoController implements Serializable {
 	
 	@PostConstruct
 	public void init() {
-		listarProduto();
-		System.out.println("valor dos produtos:"+produtos);
+		listarProduto();		
 	}
 	
 	public void listarProduto() {
 		
-//		this.produtos = produtoDao.listar();
-		this.produtos = Arrays.asList(new Produto(1, "12", "Arroz", null, null, new BigDecimal(12.0), 12));
+		this.produtos = produtoDao.listar();
+		
 	}
 
 }

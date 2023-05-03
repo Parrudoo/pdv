@@ -1,21 +1,19 @@
 package com.br.dureino.controller;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ViewScoped;
+
 import javax.faces.model.SelectItem;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.br.dureino.model.Produto;
-import com.br.dureino.service.CadastroProdutoService;
 import com.br.dureino.service.NegocioException;
+import com.br.dureino.service.ProdutoService;
 import com.br.dureino.util.jsf.FacesUtil;
 
 import lombok.Getter;
@@ -24,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Named
-@RequestScoped
+@ViewScoped
 public class CadastroProdutoController implements Serializable {
 
 	/**
@@ -36,15 +34,28 @@ public class CadastroProdutoController implements Serializable {
 
 	private Produto produto;
 
+	private List<Produto> produtos;
+
+	private List<Produto> produtosNome;
+
+	private String nomeDigitado;
+
 	@Inject
-	private CadastroProdutoService cadastroProdutoService;
+	private ProdutoService cadastroProdutoService;
+
+	@PostConstruct
+	public void init() {
+		listarProduto();
+		this.produto = new Produto();
+
+	}
 
 	public void salvar() throws NegocioException {
 		try {
 			cadastroProdutoService.salvarProduto(produto);
 			FacesUtil.addSucessoMessage("Produto salvo com sucesso!");
 			novo();
-		}catch (Exception e) {
+		} catch (Exception e) {
 			FacesUtil.addErrorMessage(e.getMessage());
 
 		}
@@ -52,10 +63,8 @@ public class CadastroProdutoController implements Serializable {
 
 	public List<SelectItem> getSelectItem() {
 
-		List<Produto> items = Arrays
-				.asList(new Produto(1, "234", "Arroz", "55642", "Caprino", new BigDecimal(12.0), 12));
 		List<SelectItem> list = new ArrayList<>();
-		for (Produto produto : items) {
+		for (Produto produto : produtos) {
 			Object value = produto;
 			String label = produto.getNome();
 
@@ -66,9 +75,19 @@ public class CadastroProdutoController implements Serializable {
 
 	}
 
-	@PostConstruct
-	public void init() {
-		this.produto = new Produto();
+	private void listarProduto() {
+		this.produtos = cadastroProdutoService.listar();
+
+	}
+
+	public void buscarProdutos() {
+
+		if (nomeDigitado != null && !nomeDigitado.isEmpty()) {
+			this.produtosNome = cadastroProdutoService.buscarNome(nomeDigitado);
+		} else {
+			this.produtosNome = new ArrayList<>();
+		}
+
 	}
 
 	public void novo() {

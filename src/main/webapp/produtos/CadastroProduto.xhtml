@@ -77,17 +77,39 @@
 
 
 		<p:dialog id="dialogPesquisaProdutos" header="Pesquisa de Produtos"
-			height="90%" width="90%" widgetVar="dialogPesquisaProdutos"
-			closable="true">
-			<h:form>
-			<p:panel header="Consultar">
-				<span class="ui-input-icon-left"> <i class="pi pi-search" />
-					<p:inputText placeholder="Search" />
-					<p:commandButton value="Pesquisar" style="margin-left:5px"/>
-				</span>
-				<p:dataTable style="margin-top:20px">
-				
-				</p:dataTable>
+			modal="true" appendTo="@(body)" height="90%" width="90%"
+			widgetVar="dialogPesquisaProdutos" closable="true">
+			<h:form id="frmPesquisa">
+				<p:panel header="Consultar">
+					<span class="ui-input-icon-left"> <i class="pi pi-search" />
+						<p:inputText value="#{cadastroProdutoController.nomeDigitado}"
+							placeholder="Search" /> <p:commandButton value="Pesquisar"
+							ajax="true"
+							actionListener="#{cadastroProdutoController.buscarProdutos()}"
+							update="@form" style="margin-left:5px" />
+					</span>
+					<p:dataTable style="margin-top:20px"
+						value="#{cadastroProdutoController.produtosNome}" var="produto">
+						<p:column headerText="sku">
+							<h:outputText value="#{produto.sku}" />
+						</p:column>
+						
+						<p:column headerText="nome">
+							<h:outputText value="#{produto.nome}" />
+						</p:column>
+
+						<p:column headerText="categoria">
+							<h:outputText value="#{produto.categoria}" />
+						</p:column>
+
+						<p:column headerText="Valor Unitario">
+							<h:outputText value="#{produto.valorUnitario}" />
+						</p:column>
+
+						<p:column headerText="Estoque">
+							<h:outputText value="#{produto.estoque}" />
+						</p:column>
+					</p:dataTable>
 				</p:panel>
 			</h:form>
 		</p:dialog>
