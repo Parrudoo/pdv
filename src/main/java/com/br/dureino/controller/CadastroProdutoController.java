@@ -37,6 +37,8 @@ public class CadastroProdutoController implements Serializable {
 	private List<Produto> produtos;
 
 	private List<Produto> produtosNome;
+	
+	private Produto produtoSelecionado;
 
 	private String nomeDigitado;
 
@@ -88,6 +90,15 @@ public class CadastroProdutoController implements Serializable {
 			this.produtosNome = new ArrayList<>();
 		}
 
+	}
+	
+	public Produto selecionar() {
+		
+		Produto produto = new Produto();		
+		produto.setEstoque(produtoSelecionado.getEstoque());
+		produto.setNome(produtoSelecionado.getNome());
+		return produto;
+		
 	}
 
 	public void novo() {
