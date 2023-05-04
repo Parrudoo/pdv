@@ -11,7 +11,6 @@
 		<p:panel header="Cadastro de Produto">
 
 
-
 			<h:form id="form">
 				<p:messages id="messages" autoUpdate="true" closable="true" />
 				<p:toolbar style="margin-top:20px">
@@ -71,14 +70,38 @@
 						style="width:30%" />
 
 				</p:panelGrid>
-			</h:form>
 
+
+				<p:panel header="Produto Selecionado">				
+
+					<p:dataTable
+						value="#{cadastroProdutoController.produtoSelecionado}" var="prod">
+						<p:column headerText="sku">
+							<h:outputText value="#{prod.sku}" />
+						</p:column>
+
+						<p:column headerText="Nome">
+							<h:outputText value="#{prod.nome}" />
+						</p:column>
+						
+						<p:column headerText="Valor Unitário">
+							<h:outputText value="#{prod.valorUnitario}" />
+						</p:column>
+						<p:column headerText="Ação">
+						
+						<p:commandButton value="Calcular" title="Calcular" />
+						<p:button value="Editar" style="margin-left:10px"/>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+				
+			</h:form>
 		</p:panel>
 
-
 		<p:dialog id="dialogPesquisaProdutos" header="Pesquisa de Produtos"
-			modal="true" appendTo="@(body)" height="90%" width="90%"
-			widgetVar="dialogPesquisaProdutos" closable="true">
+			modal="true" appendTo="@(body)" height="50%" width="90%"
+			widgetVar="dialogPesquisaProdutos" closable="true"
+			style="overflow:auto;">
 			<h:form id="frmPesquisa">
 				<p:panel header="Consultar">
 					<span class="ui-input-icon-left"> <i class="pi pi-search" />
@@ -89,11 +112,16 @@
 							update="@form" style="margin-left:5px" />
 					</span>
 					<p:dataTable style="margin-top:20px"
-						value="#{cadastroProdutoController.produtosNome}" var="produto">
+						value="#{cadastroProdutoController.produtosNome}" var="produto"
+						selection="#{cadastroProdutoController.produtoSelecionado}"
+						rowKey="#{produto.id}">
+
+						<p:column selectionMode="single" width="60" />
+
 						<p:column headerText="sku">
 							<h:outputText value="#{produto.sku}" />
 						</p:column>
-						
+
 						<p:column headerText="nome">
 							<h:outputText value="#{produto.nome}" />
 						</p:column>
@@ -111,6 +139,11 @@
 						</p:column>
 					</p:dataTable>
 				</p:panel>
+
+				<p:commandButton value="Selecionar"
+					action="#{cadastroProdutoController.selecionar()}" update="form" style="margin-top:20px;"
+					onclick="PF('dialogPesquisaProdutos').hide()" />
+
 			</h:form>
 		</p:dialog>
 	</ui:define>
