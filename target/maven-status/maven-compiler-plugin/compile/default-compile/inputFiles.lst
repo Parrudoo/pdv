@@ -1,11 +1,12 @@
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\util\cdi\CDIServiceLocator.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\util\cdi\ViewContextExtension.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\model\enums\Categoria.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\util\cdi\ViewScopedContext.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\controller\CadastroProdutoController.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\model\Produto.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\dao\ProdutoDao.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\util\jpa\EntityManagerProducer.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\controller\PesquisaProdutoController.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\util\jpa\TransactionInterceptor.java
-C:\Users\Diego Dias\eclipse-workspace\Dureino\src\main\java\com\br\dureino\util\jpa\Transactional.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\service\ProdutoService.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\util\jpa\Transactional.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\util\jsf\FacesUtil.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\util\jpa\EntityManagerProducer.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\controller\PesquisaProdutoController.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\model\Produto.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\dao\ProdutoDao.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\util\cdi\CDIServiceLocator.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\util\jpa\TransactionInterceptor.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\model\enums\Categoria.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\controller\CadastroProdutoController.java
+C:\Users\diegodias\Desktop\dureino\src\main\java\com\br\dureino\service\NegocioException.java

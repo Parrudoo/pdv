@@ -3,16 +3,23 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
 
 	<ui:define name="titulo">Produto</ui:define>
 
 	<ui:define name="corpo">
+	
+	<f:metadata>
+	<o:viewParam name="produto" value="#{cadastroProdutoController.produto}" converter="#{produtoConverter}">
+	</o:viewParam>	
+	</f:metadata>
+	
 		<p:panel header="Cadastro de Produto">
 
 
 			<h:form id="form">
-				<p:messages id="messages" autoUpdate="true" closable="true" />
+				<p:messages id="messages" autoUpdate="true" closable="true"/>
 				<p:toolbar style="margin-top:20px">
 
 					<p:toolbarGroup>
@@ -32,8 +39,8 @@
 					</p:toolbarGroup>
 				</p:toolbar>
 
-				<p:panelGrid columns="2" style="width:100%; margin-top:20px"
-					columnClasses="rotulo,campo">
+				<p:panelGrid columns="6" style="width:100%; margin-top:20px"
+					columnClasses="rotulo,campo" layout="grid">
 					<p:outputLabel value="SKU" for="sku" />
 					<p:inputText id="sku"
 						value="#{cadastroProdutoController.produto.sku}" />
@@ -44,17 +51,17 @@
 						style="width:50%" />
 
 					<p:outputLabel value="Categoria" for="categoria" />
-					<p:selectOneMenu id="categoria"
+					<p:selectOneMenu id="categoria" 
 						value="#{cadastroProdutoController.produto.categoria}">
-						<f:selectItem itemLabel="Selecione o Produto" />
+						<f:selectItem itemLabel="Selecione" />
 						<f:selectItems value="#{cadastroProdutoController.selectItem}" />
 					</p:selectOneMenu>
 
 
 					<p:outputLabel value="Subcategoria" for="subCategoria" />
-					<p:selectOneMenu id="subCategoria"
+					<p:selectOneMenu id="subCategoria" 
 						value="#{cadastroProdutoController.produto.subCategoria}">
-						<f:selectItem itemLabel="Seleciona a Sub categoria" />
+						<f:selectItem itemLabel="Selecione" />
 						<f:selectItems value="#{cadastroProdutoController.selectItem}" />
 					</p:selectOneMenu>
 
@@ -72,7 +79,7 @@
 				</p:panelGrid>
 
 
-				<p:panel header="Produto Selecionado">				
+				<p:panel header="Produto Selecionado">
 
 					<p:dataTable
 						value="#{cadastroProdutoController.produtoSelecionado}" var="prod">
@@ -83,25 +90,30 @@
 						<p:column headerText="Nome">
 							<h:outputText value="#{prod.nome}" />
 						</p:column>
-						
+
 						<p:column headerText="Valor Unitário">
 							<h:outputText value="#{prod.valorUnitario}" />
 						</p:column>
-						<p:column headerText="Ação">
 						
-						<p:commandButton value="Calcular" title="Calcular" />
-						<p:button value="Editar" style="margin-left:10px"/>
+						<p:column headerText="Ação">
+							<p:commandButton title="Calcular" icon="pi pi-calculator"/>		
+												
+							<p:button outcome="/produtos/CadastroProduto.xhtml" title="Editar" icon="pi pi-file-edit" style="margin-left:10px">
+							<f:param name="produto" value="#{prod.id}"/>
+							</p:button>
+															
+							<p:button title="Excluir" icon="pi pi-trash" style="margin-left:10px" />
 						</p:column>
 					</p:dataTable>
 				</p:panel>
-				
+
 			</h:form>
 		</p:panel>
 
 		<p:dialog id="dialogPesquisaProdutos" header="Pesquisa de Produtos"
 			modal="true" appendTo="@(body)" height="50%" width="90%"
 			widgetVar="dialogPesquisaProdutos" closable="true"
-			style="overflow:auto;">
+			styleClass="ui-dialog" style="overflow:auto;">
 			<h:form id="frmPesquisa">
 				<p:panel header="Consultar">
 					<span class="ui-input-icon-left"> <i class="pi pi-search" />
@@ -137,11 +149,17 @@
 						<p:column headerText="Estoque">
 							<h:outputText value="#{produto.estoque}" />
 						</p:column>
+
+						<p:column headerText="Ação">
+							<p:button icon="ui-icon-pencil" />
+							<p:button value="Editar" style="margin-left:10px;" />
+						</p:column>
 					</p:dataTable>
 				</p:panel>
 
 				<p:commandButton value="Selecionar"
-					action="#{cadastroProdutoController.selecionar()}" update="form" style="margin-top:20px;"
+					action="#{cadastroProdutoController.selecionar()}" update="form"
+					style="margin-top:20px;"
 					onclick="PF('dialogPesquisaProdutos').hide()" />
 
 			</h:form>

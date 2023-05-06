@@ -24,6 +24,16 @@ header>div {
 	padding: 0px 8px;
 }
 
+.ui-dialog{
+	width: 80% !important;
+	height: 70% !important;	
+}
+
+
+.gravar{
+	background-image: url("img/calculator.png") !important;
+}
+
 footer {
 	margin: 0px 8px;
 	margin-bottom: 10px;

@@ -53,4 +53,10 @@ public class ProdutoDao implements Serializable {
 				.getResultList();
 	}
 
+
+
+	public Produto buscarPeloCodigo(Long codigo) {		
+		return entityManager.find(Produto.class, codigo);
+	}
+
 }
