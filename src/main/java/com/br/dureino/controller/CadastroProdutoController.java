@@ -51,6 +51,10 @@ public class CadastroProdutoController implements Serializable {
 		this.produto = new Produto();
 
 	}
+	
+	public void inicializar() {
+		this.produto = new Produto();
+	}
 
 	public void salvar() throws NegocioException {
 		try {

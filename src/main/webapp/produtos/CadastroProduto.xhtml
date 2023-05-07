@@ -11,8 +11,9 @@
 	<ui:define name="corpo">
 	
 	<f:metadata>
-	<o:viewParam name="produto" value="#{cadastroProdutoController.produto}" converter="#{produtoConverter}">
-	</o:viewParam>	
+	<f:viewParam name="produto" value="#{cadastroProdutoController.produto}">
+	<!--  <f:event listener="#{cadastroProdutoController.inicializar}" type="preRenderView"/> -->
+	</f:viewParam>	
 	</f:metadata>
 	
 		<p:panel header="Cadastro de Produto">
@@ -50,20 +51,20 @@
 						value="#{cadastroProdutoController.produto.nome}"
 						style="width:50%" />
 
-					<p:outputLabel value="Categoria" for="categoria" />
+				<!-- 	<p:outputLabel value="Categoria" for="categoria" />
 					<p:selectOneMenu id="categoria" 
 						value="#{cadastroProdutoController.produto.categoria}">
 						<f:selectItem itemLabel="Selecione" />
 						<f:selectItems value="#{cadastroProdutoController.selectItem}" />
-					</p:selectOneMenu>
+					</p:selectOneMenu> -->
 
 
-					<p:outputLabel value="Subcategoria" for="subCategoria" />
+				<!-- 	<p:outputLabel value="Subcategoria" for="subCategoria" />
 					<p:selectOneMenu id="subCategoria" 
 						value="#{cadastroProdutoController.produto.subCategoria}">
 						<f:selectItem itemLabel="Selecione" />
 						<f:selectItems value="#{cadastroProdutoController.selectItem}" />
-					</p:selectOneMenu>
+					</p:selectOneMenu> -->
 
 					<p:outputLabel value="Valor unitário" for="vUnitario" />
 					<p:inputNumber id="vUnitario"
