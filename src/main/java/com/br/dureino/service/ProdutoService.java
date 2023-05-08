@@ -42,6 +42,12 @@ public class ProdutoService implements Serializable {
 		produtoDao.deletar(produtoSelecionado);
 		
 	}
+
+	@Transactional
+	public void deletar(List<Produto> produtoSelecionado) {
+		produtoDao.deletar(produtoSelecionado);
+		
+	}
 	
 
 }

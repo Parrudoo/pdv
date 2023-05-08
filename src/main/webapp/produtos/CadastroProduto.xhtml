@@ -85,8 +85,8 @@
 
 				<p:panel header="Produto Selecionado">
 
-					<p:dataTable id="prodSelecionado" emptyMessage="Nenhum produto selecionado" 
-						value="#{cadastroProdutoController.produtoSelecionado}" var="prod">
+					<p:dataTable id="prodSelecionado" rendered="#{cadastroProdutoController.habilitarDatatable()}"  emptyMessage="Nenhum produto selecionado" 
+						value="#{cadastroProdutoController.produtosSelecionados}" var="prod">
 						<p:column headerText="sku">
 							<h:outputText value="#{prod.sku}" />
 						</p:column>
@@ -111,7 +111,7 @@
 								onclick="PF('dialogExcluirProduto').show()"
 								style="margin-left:10px">
 								<f:setPropertyActionListener value="#{prod}"
-									target="#{cadastroProdutoController.produtoSelecionado}" />
+									target="#{cadastroProdutoController.produtosSelecionados}" />
 							</p:commandButton>
 
 						</p:column>
@@ -126,7 +126,7 @@
 					closable="true">
 					<p:commandButton value="Sim"
 						actionListener="#{cadastroProdutoController.deletar()}"
-						update=":form:prodSelecionado"
+						update="form:prodSelecionado,frmPesquisa:datatablePesquisa"						
 						onclick="PF('dialogExcluirProduto').hide()"
 						style="margin-left:10px"/>
 						
@@ -141,8 +141,6 @@
 
 
 
-
-
 		<p:dialog id="dialogPesquisaProdutos" header="Pesquisa de Produtos"
 			modal="true" appendTo="@(body)" widgetVar="dialogPesquisaProdutos"
 			closable="true" styleClass="ui-dialog" style="overflow:auto;">
@@ -153,14 +151,14 @@
 							placeholder="Search" /> <p:commandButton value="Pesquisar"
 							ajax="true"
 							actionListener="#{cadastroProdutoController.buscarProdutos()}"
-							update="@form" style="margin-left:5px" />
+							update="frmPesquisa" style="margin-left:5px" />
 					</span>
 					<p:dataTable id="datatablePesquisa" style="margin-top:20px"
 						value="#{cadastroProdutoController.produtosNome}" var="produto"
-						selection="#{cadastroProdutoController.produtoSelecionado}"
+						selection="#{cadastroProdutoController.produtosSelecionados}"
 						rowKey="#{produto.id}">
 
-						<p:column selectionMode="single" width="60" />
+						<p:column selectionMode="multiple" width="60" />
 
 						<p:column headerText="sku">
 							<h:outputText value="#{produto.sku}" />
@@ -184,7 +182,7 @@
 
 						<p:column headerText="Ação">
 							<p:commandButton icon="pi pi-trash" onclick="PF('dialogExcluirProduto').show()" update="frmPesquisa:datatablePesquisa">
-							<f:setPropertyActionListener value="#{produto}" target="#{cadastroProdutoController.produtoSelecionado}"/>
+							<f:setPropertyActionListener value="#{produto}" target="#{cadastroProdutoController.produtosSelecionados}"/>
 							</p:commandButton>
 							<p:button icon="pi pi-pencil" style="margin-left:10px;">
 								<f:param name="produto" value="#{produto.id}" />

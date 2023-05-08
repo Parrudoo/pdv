@@ -2,10 +2,10 @@ package com.br.dureino.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -38,7 +38,7 @@ public class CadastroProdutoController implements Serializable {
 
 	private List<Produto> produtosNome;
 	
-	private Produto produtoSelecionado;
+	private List<Produto> produtosSelecionados;
 	
 	private Produto deleteProduto;
 
@@ -71,11 +71,25 @@ public class CadastroProdutoController implements Serializable {
 	
 	public void deletar() {
 		try {			
-			cadastroProdutoService.deletar(this.produtoSelecionado);
-			this.produtoSelecionado = new Produto();
+			cadastroProdutoService.deletar(this.produtosSelecionados);
+			this.produtosSelecionados = new ArrayList<Produto>();
+			FacesUtil.addSucessoMessage("Produto excluido com sucesso!");
+			buscarProdutos();
+			listarProduto();
 		} catch (Exception e) {
 			FacesUtil.addErrorMessage(e.getMessage());
 		}
+	}
+	
+	public void deletarProdSelecionado() {
+		cadastroProdutoService.deletar(produtosSelecionados);
+	}
+	
+	public boolean habilitarDatatable() {
+		if (produtosSelecionados != null) {
+			return true;
+		}
+		return false;
 	}
 
 	public List<SelectItem> getSelectItem() {
@@ -107,13 +121,8 @@ public class CadastroProdutoController implements Serializable {
 
 	}
 	
-	public Produto selecionar() {
-		
-		Produto produto = new Produto();		
-		produto.setEstoque(produtoSelecionado.getEstoque());
-		produto.setNome(produtoSelecionado.getNome());
-		return produto;
-		
+	public List<Produto> selecionar() {				
+		return this.produtosSelecionados;	
 	}
 
 	public void novo() {
