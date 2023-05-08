@@ -70,9 +70,9 @@ public class CadastroProdutoController implements Serializable {
 	}
 	
 	public void deletar() {
-		try {
-			System.out.println("teste"+deleteProduto);
-			cadastroProdutoService.deletar(this.deleteProduto);
+		try {			
+			cadastroProdutoService.deletar(this.produtoSelecionado);
+			this.produtoSelecionado = new Produto();
 		} catch (Exception e) {
 			FacesUtil.addErrorMessage(e.getMessage());
 		}

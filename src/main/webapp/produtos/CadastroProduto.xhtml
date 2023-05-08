@@ -85,7 +85,7 @@
 
 				<p:panel header="Produto Selecionado">
 
-					<p:dataTable
+					<p:dataTable id="prodSelecionado" emptyMessage="Nenhum produto selecionado" 
 						value="#{cadastroProdutoController.produtoSelecionado}" var="prod">
 						<p:column headerText="sku">
 							<h:outputText value="#{prod.sku}" />
@@ -109,9 +109,9 @@
 
 							<p:commandButton title="Excluir" icon="pi pi-trash"
 								onclick="PF('dialogExcluirProduto').show()"
-								style="margin-left:10px" process="@this" update="form"> 
+								style="margin-left:10px">
 								<f:setPropertyActionListener value="#{prod}"
-									target="#{cadastroProdutoController.deleteProduto}" />
+									target="#{cadastroProdutoController.produtoSelecionado}" />
 							</p:commandButton>
 
 						</p:column>
@@ -119,24 +119,28 @@
 					</p:dataTable>
 				</p:panel>
 
+				<p:confirmDialog id="dialogExcluirProduto"
+					widgetVar="dialogExcluirProduto" severity="alert"
+					header="Excluir Produto" styleClass="ui-dialog-delete"
+					message="Você tem certeza que deseja excluir o produto?"
+					closable="true">
+					<p:commandButton value="Sim"
+						actionListener="#{cadastroProdutoController.deletar()}"
+						update=":form:prodSelecionado"
+						onclick="PF('dialogExcluirProduto').hide()"
+						style="margin-left:10px"/>
+						
+					<p:button value="Não" style="margin-left:10px"
+						onclick="PF('dialogExcluirProduto').hide(); return false" />
 
+				</p:confirmDialog>
 
 
 			</h:form>
 		</p:panel>
 
-		<p:confirmDialog id="dialogExcluirProduto"
-			widgetVar="dialogExcluirProduto" severity="alert"
-			header="Excluir Produto" styleClass="ui-dialog-delete"
-			message="Você tem certeza que deseja excluir o produto?"
-			closable="true">
-			<p:commandButton value="Sim"
-				action="#{cadastroProdutoController.deletar()}"
-				onclick="PF('dialogExcluirProduto').hide()" style="margin-left:10px" />
-			<p:button value="Não" style="margin-left:10px"
-				onclick="PF('dialogExcluirProduto').hide(); return false" />
 
-		</p:confirmDialog>
+
 
 
 		<p:dialog id="dialogPesquisaProdutos" header="Pesquisa de Produtos"
@@ -151,7 +155,7 @@
 							actionListener="#{cadastroProdutoController.buscarProdutos()}"
 							update="@form" style="margin-left:5px" />
 					</span>
-					<p:dataTable style="margin-top:20px"
+					<p:dataTable id="datatablePesquisa" style="margin-top:20px"
 						value="#{cadastroProdutoController.produtosNome}" var="produto"
 						selection="#{cadastroProdutoController.produtoSelecionado}"
 						rowKey="#{produto.id}">
@@ -179,8 +183,10 @@
 						</p:column>
 
 						<p:column headerText="Ação">
-							<p:button icon="ui-icon-pencil" />
-							<p:button value="Editar" style="margin-left:10px;">
+							<p:commandButton icon="pi pi-trash" onclick="PF('dialogExcluirProduto').show()" update="frmPesquisa:datatablePesquisa">
+							<f:setPropertyActionListener value="#{produto}" target="#{cadastroProdutoController.produtoSelecionado}"/>
+							</p:commandButton>
+							<p:button icon="pi pi-pencil" style="margin-left:10px;">
 								<f:param name="produto" value="#{produto.id}" />
 							</p:button>
 						</p:column>
