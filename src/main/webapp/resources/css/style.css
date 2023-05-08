@@ -24,9 +24,34 @@ header>div {
 	padding: 0px 8px;
 }
 
+.container{
+	
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;	
+	
+	
+}
+
+
 .ui-dialog{
 	width: 80% !important;
 	height: 70% !important;	
+	background-color: white;
+	
+}
+
+.ui-dialog-delete{
+	width: 50% !important;
+	height: 30% !important;	
+	background-color: white;
+	border-radius: 50px;
+}
+
+.delete{
+	width: 50% !important;
+	height: 20% !important;	
+	border-radius: 20px !important;
 }
 
 

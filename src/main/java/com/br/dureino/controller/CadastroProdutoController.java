@@ -39,6 +39,8 @@ public class CadastroProdutoController implements Serializable {
 	private List<Produto> produtosNome;
 	
 	private Produto produtoSelecionado;
+	
+	private Produto deleteProduto;
 
 	private String nomeDigitado;
 
@@ -64,6 +66,15 @@ public class CadastroProdutoController implements Serializable {
 		} catch (Exception e) {
 			FacesUtil.addErrorMessage(e.getMessage());
 
+		}
+	}
+	
+	public void deletar() {
+		try {
+			System.out.println("teste"+deleteProduto);
+			cadastroProdutoService.deletar(this.deleteProduto);
+		} catch (Exception e) {
+			FacesUtil.addErrorMessage(e.getMessage());
 		}
 	}
 

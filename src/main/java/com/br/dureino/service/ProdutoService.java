@@ -19,8 +19,12 @@ public class ProdutoService implements Serializable {
 	
 	@Transactional
 	public Produto salvarProduto(Produto produto) {
+		if (!produto.getNome().isEmpty()) {
+			
+			return produtoDao.salvar(produto);
+		}
 		
-		return produtoDao.salvar(produto);
+		return null;
 	}
 
 	public List<Produto> listar() {
@@ -31,6 +35,12 @@ public class ProdutoService implements Serializable {
 	public List<Produto> buscarNome(String nome) {
 		
 		return produtoDao.buscarNome(nome);
+	}
+
+	@Transactional
+	public void deletar(Produto produtoSelecionado) {
+		produtoDao.deletar(produtoSelecionado);
+		
 	}
 	
 
