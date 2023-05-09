@@ -39,6 +39,8 @@ public class CadastroProdutoController implements Serializable {
 	private List<Produto> produtosNome;
 
 	private List<Produto> produtosSelecionados;
+	
+	private List<Produto> produtoGuardado = new ArrayList<Produto>();
 
 	private Produto produtoSelecionado;
 
@@ -71,17 +73,19 @@ public class CadastroProdutoController implements Serializable {
 		}
 	}
 
-	public void deletar() {
+	public void deletar() throws NegocioException {
 		try {
 			if (produtoSelecionado != null) {
-				cadastroProdutoService.deletar(this.produtoSelecionado);
-				this.produtoSelecionado = new Produto();
+				cadastroProdutoService.deletar(this.produtoSelecionado);	
 				FacesUtil.addSucessoMessage("Produto excluido com sucesso!");
+				this.produtoGuardado.remove(this.produtoSelecionado);
+				this.produtoSelecionado = new Produto();				
 				buscarProdutos();
-				listarProduto();
+				listarProduto();				
 			}else {
 				cadastroProdutoService.deletar(this.deleteProdSelecionado);
-				this.produtosSelecionados.remove(deleteProdSelecionado);
+				this.produtoGuardado.remove(deleteProdSelecionado);
+				buscarProdutos();
 				FacesUtil.addSucessoMessage("Produto excluido com sucesso!");
 								
 			}
@@ -131,9 +135,30 @@ public class CadastroProdutoController implements Serializable {
 
 	}
 
-	public List<Produto> selecionar() {
-		return this.produtosSelecionados;
+	public List<Produto> selecionar() {		
+		
+		for(Produto prod : produtosSelecionados) {								
+			
+			this.produtoGuardado.add(new Produto(prod.getId(),
+					prod.getSku(),
+					prod.getNome(), 
+					prod.getCategoria(), 
+					prod.getSubCategoria(),
+					prod.getValorUnitario(),
+					prod.getEstoque()));
+		}
+		
+		return this.produtoGuardado;
 	}
+	
+	
+	public void removerDaLista() {
+		if (produtoGuardado != null) {
+			this.produtoGuardado.remove(this.produtoSelecionado);
+		}
+	
+	}
+	
 
 	public void novo() {
 		this.produto = new Produto();
