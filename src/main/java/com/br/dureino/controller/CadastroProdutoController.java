@@ -37,10 +37,12 @@ public class CadastroProdutoController implements Serializable {
 	private List<Produto> produtos;
 
 	private List<Produto> produtosNome;
-	
+
 	private List<Produto> produtosSelecionados;
-	
-	private Produto deleteProduto;
+
+	private Produto produtoSelecionado;
+
+	private Produto deleteProdSelecionado;
 
 	private String nomeDigitado;
 
@@ -53,7 +55,7 @@ public class CadastroProdutoController implements Serializable {
 		this.produto = new Produto();
 
 	}
-	
+
 	public void inicializar() {
 		this.produto = new Produto();
 	}
@@ -68,23 +70,31 @@ public class CadastroProdutoController implements Serializable {
 
 		}
 	}
-	
+
 	public void deletar() {
-		try {			
-			cadastroProdutoService.deletar(this.produtosSelecionados);
-			this.produtosSelecionados = new ArrayList<Produto>();
-			FacesUtil.addSucessoMessage("Produto excluido com sucesso!");
-			buscarProdutos();
-			listarProduto();
+		try {
+			if (produtoSelecionado != null) {
+				cadastroProdutoService.deletar(this.produtoSelecionado);
+				this.produtoSelecionado = new Produto();
+				FacesUtil.addSucessoMessage("Produto excluido com sucesso!");
+				buscarProdutos();
+				listarProduto();
+			}else {
+				cadastroProdutoService.deletar(this.deleteProdSelecionado);
+				this.produtosSelecionados.remove(deleteProdSelecionado);
+				FacesUtil.addSucessoMessage("Produto excluido com sucesso!");
+								
+			}
+
 		} catch (Exception e) {
 			FacesUtil.addErrorMessage(e.getMessage());
 		}
 	}
-	
+
 	public void deletarProdSelecionado() {
 		cadastroProdutoService.deletar(produtosSelecionados);
 	}
-	
+
 	public boolean habilitarDatatable() {
 		if (produtosSelecionados != null) {
 			return true;
@@ -120,9 +130,9 @@ public class CadastroProdutoController implements Serializable {
 		}
 
 	}
-	
-	public List<Produto> selecionar() {				
-		return this.produtosSelecionados;	
+
+	public List<Produto> selecionar() {
+		return this.produtosSelecionados;
 	}
 
 	public void novo() {
