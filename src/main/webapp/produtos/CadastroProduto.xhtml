@@ -100,12 +100,16 @@
 						<p:column headerText="Valor Unitário">
 							<h:outputText value="#{prod.valorUnitario}" />
 						</p:column>
-
+						
+						<p:column headerText="Qtd">
+							<p:inputNumber value="#{prod.qtd}" />
+						</p:column>
+												
 						<p:column headerText="Ação">
 							<p:commandButton title="Remover da Lista" icon="pi pi-minus" update="prodSelecionado"
 							action="#{cadastroProdutoController.removerDaLista()}">
 							
-							<f:setPropertyActionListener value="#{prod}" target="#{cadastroProdutoController.produtoSelecionado}"></f:setPropertyActionListener>
+							<f:setPropertyActionListener value="#{prod}" target="#{cadastroProdutoController.produtoSelecionado}"/>
 							</p:commandButton>
 							
 							<p:commandButton title="Calcular" icon="pi pi-calculator" style="margin-left:10px" />

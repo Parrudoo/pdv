@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.br.dureino.model.Produto;
+import com.br.dureino.model.Venda;
 import com.br.dureino.service.NegocioException;
 import com.br.dureino.service.ProdutoService;
 import com.br.dureino.util.jsf.FacesUtil;
@@ -139,24 +140,30 @@ public class CadastroProdutoController implements Serializable {
 		
 		for(Produto prod : produtosSelecionados) {								
 			
+			
+				
 			this.produtoGuardado.add(new Produto(prod.getId(),
 					prod.getSku(),
 					prod.getNome(), 
 					prod.getCategoria(), 
 					prod.getSubCategoria(),
 					prod.getValorUnitario(),
+					prod.getQtd(),
+					prod.getVenda(),
 					prod.getEstoque()));
 		}
 		
 		return this.produtoGuardado;
 	}
 	
-	
-	public void removerDaLista() {
-		if (produtoGuardado != null) {
-			this.produtoGuardado.remove(this.produtoSelecionado);
-		}
-	
+		
+	public void removerDaLista() {		
+		
+		  Venda venda = new Venda();		
+		  produtoSelecionado.setVenda(null);
+		this.produtoGuardado.remove(this.produtoSelecionado);				
+					
+		
 	}
 	
 

@@ -65,6 +65,7 @@ public class ProdutoDao implements Serializable {
 	public void deletar(Produto produtoSelecionado) {
 		produtoSelecionado = entityManager.find(Produto.class, produtoSelecionado.getId());
 		entityManager.remove(produtoSelecionado);
+		entityManager.flush();
 		
 	}
 
