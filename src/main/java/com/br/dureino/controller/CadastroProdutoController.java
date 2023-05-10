@@ -2,7 +2,6 @@ package com.br.dureino.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,7 +11,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.br.dureino.model.Produto;
-import com.br.dureino.model.Venda;
 import com.br.dureino.service.NegocioException;
 import com.br.dureino.service.ProdutoService;
 import com.br.dureino.util.jsf.FacesUtil;
@@ -148,8 +146,7 @@ public class CadastroProdutoController implements Serializable {
 					prod.getCategoria(), 
 					prod.getSubCategoria(),
 					prod.getValorUnitario(),
-					prod.getQtd(),
-					prod.getVenda(),
+					prod.getQtd(),				
 					prod.getEstoque()));
 		}
 		
@@ -158,9 +155,8 @@ public class CadastroProdutoController implements Serializable {
 	
 		
 	public void removerDaLista() {		
-		
-		  Venda venda = new Venda();		
-		  produtoSelecionado.setVenda(null);
+				
+		 
 		this.produtoGuardado.remove(this.produtoSelecionado);				
 					
 		

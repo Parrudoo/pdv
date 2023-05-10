@@ -44,10 +44,7 @@ public class Produto {
 
 	private BigDecimal valorUnitario;
 	
-	private Integer qtd;
-	
-	@ManyToOne(cascade = CascadeType.ALL)	
-	private Venda venda;
+	private Integer qtd;	
 
 	private Integer estoque;
 
