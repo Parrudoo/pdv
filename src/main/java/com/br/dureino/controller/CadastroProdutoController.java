@@ -143,11 +143,12 @@ public class CadastroProdutoController implements Serializable {
 			this.produtoGuardado.add(new Produto(prod.getId(),
 					prod.getSku(),
 					prod.getNome(), 
-					prod.getCategoria(), 
 					prod.getSubCategoria(),
 					prod.getValorUnitario(),
 					prod.getQtd(),				
-					prod.getEstoque()));
+					prod.getEstoque(),
+					prod.getItemPedidos(),
+					prod.getCategoria()));
 		}
 		
 		return this.produtoGuardado;
