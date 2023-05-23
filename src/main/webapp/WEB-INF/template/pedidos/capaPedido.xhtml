@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:o="http://omnifaces.org/ui">
+	<p:panelGrid columns="4" id="painel" layout="grid"
+		style="margin-top:20px">
+
+		<p:outputLabel value="Numero" for="numero" />
+		<p:inputText id="numero" />
+
+		<p:outputLabel value="Data Criação" for="dtCriacao" />
+		<p:inputText id="dtCriacao" />
+
+		<p:outputLabel value="Status" for="status" />
+		<p:inputText id="status" />
+
+		<p:outputLabel value="Cliente" for="cliente" />
+		<p:selectOneMenu id="cliente">
+			<f:selectItem itemLabel="Selecione" />
+			<f:selectItems itemLabel="Diego Oliveira Dias" />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Vendedor" for="vendedor" />
+		<p:selectOneMenu id="vendedor">
+			<f:selectItem itemLabel="Selecione" />
+			<f:selectItems itemValue="Diego Oliveira Dias" />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Forma de Pagamento" for="fpg" />
+		<p:selectOneMenu id="fpg">
+			<f:selectItem itemLabel="Selecione" />
+			<f:selectItem itemLabel="Diego Oliveira Dias" />
+		</p:selectOneMenu>
+
+		<p:outputLabel value="Valor Frete" for="vlFrete" />
+		<p:inputText id="vlFrete" />
+
+		<p:outputLabel value="Subtotal" for="subtotal" />
+		<p:inputText id="subtotal" />
+
+		<p:outputLabel value="Valor de desconto" for="vlDesconto" />
+		<p:inputText id="vlDesconto" />
+
+		<p:outputLabel value="Total do pedido" for="total"
+			style="font-weight: bold; font-size:1.1em" />
+		<p:inputNumber id="total" style="font-weight: bold; font-size:1.1em" />
+
+	</p:panelGrid>
+</ui:composition>

@@ -136,8 +136,7 @@ public class CadastroProdutoController implements Serializable {
 
 	public List<Produto> selecionar() {		
 		
-		for(Produto prod : produtosSelecionados) {								
-			
+		for(Produto prod : produtosSelecionados) {		
 			
 				
 			this.produtoGuardado.add(new Produto(prod.getId(),
