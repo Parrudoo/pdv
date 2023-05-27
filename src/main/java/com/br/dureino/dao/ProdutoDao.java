@@ -10,7 +10,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContexts;
 
 import com.br.dureino.model.Produto;
+import com.br.dureino.model.QProduto;
 import com.br.dureino.util.jpa.Transactional;
+import com.querydsl.core.Tuple;
+import com.querydsl.jpa.impl.JPAQuery;
 
 public class ProdutoDao implements Serializable {
 
@@ -19,15 +22,25 @@ public class ProdutoDao implements Serializable {
 	 */
 	private static final long serialVersionUID = 1716975848882203808L;
 	
+	private static final QProduto qProduto = QProduto.produto;
+	
 	@Inject
 	private EntityManager entityManager;
 	
 	
-	public List<Produto> listar() {
+	public List<Produto> listar() {		
 		
-		return entityManager.createQuery("select p from Produto p").getResultList();
+		/*
+		 * return entityManager.createQuery("select p from Produto p").getResultList();
+		 */		
+		
+		  JPAQuery<Produto> produto = new JPAQuery<>(entityManager);
+		  List<Produto> produtos = produto.select(qProduto)
+				  .from(qProduto).fetch();
+		  
+		  return produtos; 
+		
 	}
-
 
 	
 	public Produto salvar(Produto produto) {				
