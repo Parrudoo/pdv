@@ -30,15 +30,13 @@ public class ProdutoDao implements Serializable {
 	
 	public List<Produto> listar() {		
 		
-		/*
-		 * return entityManager.createQuery("select p from Produto p").getResultList();
-		 */		
-		
+//		return entityManager.createQuery("select p from Produto p").getResultList();
+
 		  JPAQuery<Produto> produto = new JPAQuery<>(entityManager);
 		  List<Produto> produtos = produto.select(qProduto)
 				  .from(qProduto).fetch();
 		  
-		  return produtos; 
+		  return produtos;
 		
 	}
 
