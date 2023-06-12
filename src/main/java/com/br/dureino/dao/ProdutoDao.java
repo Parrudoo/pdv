@@ -28,7 +28,7 @@ public class ProdutoDao implements Serializable {
 	private EntityManager entityManager;
 	
 	
-	public List<Produto> listar() {		
+	public List<Produto> listar() {
 		
 //		return entityManager.createQuery("select p from Produto p").getResultList();
 
@@ -58,12 +58,20 @@ public class ProdutoDao implements Serializable {
 
 
 	public List<Produto> buscarNome(String nome) {
-		
-		return entityManager.createQuery("select p from Produto p where p.nome like CONCAT(:nome ,'%')",Produto.class).
-				setParameter("nome", nome)
-				.getResultList();
-	}
 
+		//		return entityManager.createQuery("select p from Produto p where p.nome like CONCAT(:nome ,'%')",Produto.class).
+//				setParameter("nome", nome)
+//				.getResultList();
+
+		JPAQuery<Produto> query = new JPAQuery<>(entityManager);
+
+		List<Produto> produtos = query.select(qProduto)
+				.from(qProduto)
+				.where(qProduto.nome.like(nome+"%")).fetch();
+		return produtos;
+
+
+	}
 
 
 	public Produto buscarPeloCodigo(Long codigo) {		

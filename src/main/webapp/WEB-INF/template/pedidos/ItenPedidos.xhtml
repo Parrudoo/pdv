@@ -5,18 +5,21 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:o="http://omnifaces.org/ui">
 
-    <p:dataTable value="" var="pedido" id="itemPedidos">
+
+    <p:dataTable value="" var="pedido" id="itemPedidos" >
 
         <p:column headerText="SKU" style="text-align: left; width:10%">
-            <p:inputText value="" style="text-align: left; width:100%"/>
+            <p:inputText value="#{cadastroPedidoController.produto.sku}" style="text-align: left; width:100%"/>
         </p:column>
 
-        <p:column headerText="Produto" style="text-align: left; width:30%">
-          <p:autoComplete/>
+        <p:column headerText="Produto">
+            <p:autoComplete value="#{cadastroPedidoController.produto}"
+                  completeMethod="#{cadastroPedidoController.pesquisarItenPedido}"
+                  required="true" forceSelection="true" style="width: 100%" inputStyle="width: 100%"/>
         </p:column>
 
         <p:column headerText="Valor Unitário" style="text-align: left; width:10%">
-            <p:inputNumber value="R$ 0,00"  style="text-align: left; width:100%"/>
+            <p:inputText value="#{cadastroPedidoController.produto.valorUnitario}"  style="text-align: left; width:100%"/>
         </p:column>
 
         <p:column headerText="Quantidade"  style="text-align: left; width:10%">
@@ -30,6 +33,13 @@
         <p:column headerText="Valor Total"  style="text-align: left; width:10%">
             <p:inputText value=""  style="text-align: left; width:100%"/>
         </p:column>
+
+        <p:columnGroup type="footer">
+            <p:row>
+                <p:column colspan="5"  footerText="Subtotal" style="text-align: right;"/>
+                <p:column footerText="R$:0,00" style="text-align: right"/>
+            </p:row>
+        </p:columnGroup>
 
     </p:dataTable>
 

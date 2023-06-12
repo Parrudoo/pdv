@@ -8,13 +8,16 @@
 		style="margin-top:20px">
 
 		<p:outputLabel value="Numero" for="numero" />
-		<p:inputText id="numero" />
+		<p:inputText id="numero" value="#{cadastroPedidoController.pedido.id}" />
 
 		<p:outputLabel value="Data Criação" for="dtCriacao" />
-		<p:inputText id="dtCriacao" />
+		<p:inputText id="dtCriacao" value="#{cadastroPedidoController.pedido.dataCriação}" />
 
 		<p:outputLabel value="Status" for="status" />
-		<p:inputText id="status" />
+		<p:selectOneMenu id="status" value="#{cadastroPedidoController.pedido.status}">
+			<f:selectItems value="#{cadastroPedidoController.status}" />
+		</p:selectOneMenu>
+
 
 		<p:outputLabel value="Cliente" for="cliente" />
 		<p:selectOneMenu id="cliente">
@@ -30,22 +33,22 @@
 
 		<p:outputLabel value="Forma de Pagamento" for="fpg" />
 		<p:selectOneMenu id="fpg">
-			<f:selectItem itemLabel="Selecione" />
-			<f:selectItem itemLabel="Diego Oliveira Dias" />
+			<f:selectItems value="#{cadastroPedidoController.formaPagamento}"/>
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Valor Frete" for="vlFrete" />
-		<p:inputText id="vlFrete" />
+		<p:inputText id="vlFrete" value="#{cadastroPedidoController.pedido.valorFrete}" />
 
-		<p:outputLabel value="Subtotal" for="subtotal" />
-		<p:inputText id="subtotal" />
+		<p:outputLabel value="Subtotal" for="subtotal"
+		style="font-weight: bold; font-size:1.1em"/>
+		<p:inputText id="subtotal" value="#{cadastroPedidoController.pedido.subTotal}" disabled="true" />
 
 		<p:outputLabel value="Valor de desconto" for="vlDesconto" />
-		<p:inputText id="vlDesconto" />
+		<p:inputText id="vlDesconto" value="#{cadastroPedidoController.pedido.valorDesconto}" />
 
 		<p:outputLabel value="Total do pedido" for="total"
 			style="font-weight: bold; font-size:1.1em" />
-		<p:inputNumber id="total" style="font-weight: bold; font-size:1.1em" />
+		<p:inputNumber id="total" style="font-weight: bold; font-size:1.1em" value="#{cadastroPedidoController.pedido.total}" disabled="true"/>
 
 	</p:panelGrid>
 </ui:composition>

@@ -1,5 +1,9 @@
 package com.br.dureino.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -30,9 +34,21 @@ public class Pedido {
 	
 	private FormaPagamento pagamento;
 
+	private LocalDateTime dataCriação;
+
+	private BigDecimal valorFrete;
+
+	private BigDecimal subTotal;
+
+	private BigDecimal total;
+
+	private BigDecimal valorDesconto;
+
 	@ManyToOne
 	private Vendedor vendendor;
 	
 	@OneToMany
 	private List<ItemPedido> itemPedidos;
+
+
 }

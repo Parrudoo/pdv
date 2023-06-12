@@ -8,8 +8,8 @@ xmlns="http://www.w3.org/1999/xhtml"
 	<p:toolbar style="margin-top:20px">
 		<p:toolbarGroup style="float: left">
 			<p:commandButton value="Novo" icon="pi pi-file" />
-			<p:commandButton value="Salvar" icon="pi pi-save"
-				styleClass="ui-button-help mr-2" style="margin-left:10px" />
+			<p:commandButton value="Salvar"  icon="pi pi-save" action="#{cadastroPedidoController.salvar}"
+				styleClass="ui-button-help mr-2" update="formGeral" style="margin-left:10px" />
 		</p:toolbarGroup>
 
 		<p:toolbarGroup style="float: right">
