@@ -1,5 +1,6 @@
 package com.br.dureino.dao;
 
+import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Pedido;
 import com.br.dureino.model.QPedido;
 
@@ -18,8 +19,14 @@ public class PedidoDao {
     }
 
 
-    public Pedido salvar(Pedido pedido) {
+    public ItemPedido salvar(ItemPedido itemPedido){
 
+        return entityManager.merge(itemPedido);
+    }
+
+
+
+    public Pedido salvar(Pedido pedido) {
         return entityManager.merge(pedido);
     }
 }

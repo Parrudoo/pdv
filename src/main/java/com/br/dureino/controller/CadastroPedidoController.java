@@ -1,5 +1,6 @@
 package com.br.dureino.controller;
 
+import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Pedido;
 import com.br.dureino.model.Produto;
 import com.br.dureino.model.enums.FormaPagamento;
@@ -16,9 +17,11 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Getter
@@ -30,6 +33,8 @@ public class CadastroPedidoController implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Pedido pedido = new Pedido();
+
+    private ItemPedido itemPedido = new ItemPedido();
 
     private Produto produto = new Produto();
 
@@ -62,8 +67,8 @@ public class CadastroPedidoController implements Serializable {
 
     public void salvar(){
         try {
-          pedidoService.salvar(pedido);
-            System.out.println("o pedido é"+pedido);
+            calcular();
+            pedidoService.salvar(pedido);
             this.pedido = new Pedido();
             FacesUtil.addSucessoMessage("Pedido salvo com sucesso!");
         }catch(Exception e){
@@ -73,20 +78,29 @@ public class CadastroPedidoController implements Serializable {
 
 
 
-    public List<String> pesquisarItenPedido(String nome){
+    public List<Produto> pesquisarItenPedido(String nome){
         List<Produto> produtos = produtoService.listar();
-
-        List<String> produtosSugeridos = new ArrayList<>();
-
-
+        List<Produto> produtosSugeridos  = new ArrayList<>();
 
         for(Produto produto : produtos){
-            produtosSugeridos.add(produto.getNome());
+            if (produto.getNome().toUpperCase().startsWith(nome.toUpperCase())){
+                produtosSugeridos.add(produto);
+            }
         }
-
-        return produtosSugeridos.stream().filter(p-> p.toUpperCase().contains(nome.toUpperCase())).collect(Collectors.toList());
+        return produtosSugeridos;
     }
 
+    public String calcular(){
+        BigDecimal result = BigDecimal.ZERO;
+
+            result = this.pedido.getValorFrete().subtract(pedido.getValorDesconto());
+
+
+        pedido.setTotal(result);
+        System.out.println("o resultado é:"+result);
+
+        return pedido.getTotal();
+    }
 
 
 }

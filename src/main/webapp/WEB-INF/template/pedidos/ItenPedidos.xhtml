@@ -13,25 +13,26 @@
         </p:column>
 
         <p:column headerText="Produto">
-            <p:autoComplete value="#{cadastroPedidoController.produto}"
+            <p:autoComplete value="#{cadastroPedidoController.produto.nome}"
                   completeMethod="#{cadastroPedidoController.pesquisarItenPedido}"
-                  required="true" forceSelection="true" style="width: 100%" inputStyle="width: 100%"/>
+                            var="produto" itemValue="#{produto}" itemLabel="#{produto.nome}"
+                  forceSelection="true" style="width: 100%" inputStyle="width: 100%"/>
         </p:column>
 
         <p:column headerText="Valor Unitário" style="text-align: left; width:10%">
-            <p:inputText value="#{cadastroPedidoController.produto.valorUnitario}"  style="text-align: left; width:100%"/>
+            <p:inputText value="#{cadastroPedidoController.itemPedido.produto.valorUnitario}"  style="text-align: left; width:100%"/>
         </p:column>
 
         <p:column headerText="Quantidade"  style="text-align: left; width:10%">
-            <p:inputText value="" style="text-align: left; width:100%"/>
+            <p:inputText value="#{cadastroPedidoController.itemPedido.qtd}" style="text-align: left; width:100%"/>
         </p:column>
 
         <p:column headerText="Estoque"  style="text-align: left; width:10%">
-            <p:inputText value=""  style="text-align: left; width:100%"/>
+            <p:inputText value="#{cadastroPedidoController.itemPedido.produto.estoque}"  style="text-align: left; width:100%"/>
         </p:column>
 
         <p:column headerText="Valor Total"  style="text-align: left; width:10%">
-            <p:inputText value=""  style="text-align: left; width:100%"/>
+            <p:inputText value="#{cadastroPedidoController.itemPedido.valorTotal}"  style="text-align: left; width:100%"/>
         </p:column>
 
         <p:columnGroup type="footer">

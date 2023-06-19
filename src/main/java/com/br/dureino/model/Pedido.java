@@ -1,8 +1,10 @@
 package com.br.dureino.model;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +17,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import static com.querydsl.core.util.MathUtils.result;
 
 @Getter
 @Setter
@@ -34,21 +38,41 @@ public class Pedido {
 	
 	private FormaPagamento pagamento;
 
-	private LocalDateTime dataCriação;
+	private Date dataCriacao = new Date();
 
-	private BigDecimal valorFrete;
+	private BigDecimal valorFrete = BigDecimal.ZERO;
 
 	private BigDecimal subTotal;
 
-	private BigDecimal total;
+	private BigDecimal total = BigDecimal.ZERO;
 
-	private BigDecimal valorDesconto;
+	private BigDecimal valorDesconto = BigDecimal.ZERO;
 
 	@ManyToOne
 	private Vendedor vendendor;
 	
 	@OneToMany
 	private List<ItemPedido> itemPedidos;
+
+
+	public String getDataCriacao(){
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		String date = format.format(new Date());
+
+		return  date;
+	}
+
+
+	public String getTotal(){
+		BigDecimal bigDecimal = BigDecimal.ZERO;
+		StringBuilder stringBuilder = new StringBuilder();
+		String valorFormatado = null;
+
+		valorFormatado = stringBuilder.append("R$:").append(total.intValue()).toString();
+
+		return valorFormatado;
+	}
+
 
 
 }
