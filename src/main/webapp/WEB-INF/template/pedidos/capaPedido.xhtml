@@ -33,24 +33,27 @@
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Forma de Pagamento" for="fpg" />
-		<p:selectOneMenu id="fpg">
+		<p:selectOneMenu value="#{cadastroPedidoController.pedido.pagamento}" id="fpg">
 			<f:selectItems value="#{cadastroPedidoController.formaPagamento}"/>
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Valor Frete" for="vlFrete" />
-		<p:inputText id="vlFrete" value="#{cadastroPedidoController.pedido.valorFrete}" />
+		<p:inputNumber id="vlFrete" value="#{cadastroPedidoController.pedido.valorFrete}"
+		emptyValue="zero"/>
 
 		<p:outputLabel value="Subtotal" for="subtotal"
 		style="font-weight: bold; font-size:1.1em"/>
-		<p:inputText id="subtotal" value="#{cadastroPedidoController.pedido.subTotal}" disabled="true" />
+		<p:inputNumber id="subtotal" value="#{cadastroPedidoController.pedido.subTotal}"
+					  emptyValue="zero" disabled="true" />
 
 		<p:outputLabel value="Valor de desconto" for="vlDesconto" />
-		<p:inputText id="vlDesconto" value="#{cadastroPedidoController.pedido.valorDesconto}" />
+		<p:inputNumber id="vlDesconto" value="#{cadastroPedidoController.pedido.valorDesconto}"
+		emptyValue="zero"/>
 
 		<p:outputLabel value="Total do pedido" for="total"
 			style="font-weight: bold; font-size:1.1em" />
 		<p:inputText id="total" style="font-weight: bold; font-size:1.1em"
-					   value="#{cadastroPedidoController.pedido.total}" disabled="true"/>
+					value="#{cadastroPedidoController.pedido.total}" disabled="true"/>
 
 	</p:panelGrid>
 </ui:composition>

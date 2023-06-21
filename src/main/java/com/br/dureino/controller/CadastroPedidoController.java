@@ -43,7 +43,7 @@ public class CadastroPedidoController implements Serializable {
 
     @Inject
     private PedidoService pedidoService;
-
+   private ItemPedido carregarProduto;
 
     public List<SelectItem> getStatus(){
           List<SelectItem> selectItems = new ArrayList<>();
@@ -80,27 +80,25 @@ public class CadastroPedidoController implements Serializable {
 
     public List<Produto> pesquisarItenPedido(String nome){
         List<Produto> produtos = produtoService.listar();
-        List<Produto> produtosSugeridos  = new ArrayList<>();
 
-        for(Produto produto : produtos){
-            if (produto.getNome().toUpperCase().startsWith(nome.toUpperCase())){
-                produtosSugeridos.add(produto);
-            }
-        }
-        return produtosSugeridos;
+        return produtos.stream().filter(p-> p.getNome().toUpperCase().contains(nome.toUpperCase())).collect(Collectors.toList());
     }
 
     public String calcular(){
         BigDecimal result = BigDecimal.ZERO;
 
-            result = this.pedido.getValorFrete().subtract(pedido.getValorDesconto());
-
+        result = this.pedido.getValorFrete().subtract(pedido.getValorDesconto());
 
         pedido.setTotal(result);
-        System.out.println("o resultado é:"+result);
-
         return pedido.getTotal();
     }
 
 
+    public void getCarregarProduto() {
+        ItemPedido itemPedido = new ItemPedido();
+        if (this.produto != null){
+            itemPedido.setProduto(this.produto);
+            itemPedido.setValorUnitario(this.produto.getValorUnitario());
+        }
+    }
 }

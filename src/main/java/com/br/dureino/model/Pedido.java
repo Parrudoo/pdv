@@ -35,7 +35,8 @@ public class Pedido {
 
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
-	
+
+	@Enumerated(EnumType.STRING)
 	private FormaPagamento pagamento;
 
 	private Date dataCriacao = new Date();
@@ -65,10 +66,10 @@ public class Pedido {
 
 	public String getTotal(){
 		BigDecimal bigDecimal = BigDecimal.ZERO;
-		StringBuilder stringBuilder = new StringBuilder();
 		String valorFormatado = null;
+		StringBuilder builder = new StringBuilder();
 
-		valorFormatado = stringBuilder.append("R$:").append(total.intValue()).toString();
+		valorFormatado = builder.append("R$:").append(total.intValue()).toString();
 
 		return valorFormatado;
 	}
