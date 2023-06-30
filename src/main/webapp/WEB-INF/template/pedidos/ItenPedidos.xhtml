@@ -6,14 +6,14 @@
         xmlns:o="http://omnifaces.org/ui">
 
 
-    <p:dataTable value="" var="pedido" id="itemPedidos" >
+    <p:dataTable value="#{cadastroPedidoController.itemPedidos}" var="pedido" id="itemPedidos" >
 
         <p:column headerText="SKU" style="text-align: left; width:10%">
-            <p:inputText value="#{cadastroPedidoController.produto.sku}" style="text-align: left; width:100%"/>
+            <p:inputText value="#{cadastroPedidoController.itemPedido.produto.sku}" style="text-align: left; width:100%"/>
         </p:column>
 
         <p:column headerText="Produto">
-            <p:autoComplete value="#{cadastroPedidoController.produto}"
+            <p:autoComplete value="#{cadastroPedidoController.itemPedido.produto}"
                   completeMethod="#{cadastroPedidoController.pesquisarItenPedido}"
                             var="produto" itemValue="#{produto}" itemLabel="#{produto.nome}"
                   forceSelection="true" style="width: 100%" inputStyle="width: 100%">
@@ -23,7 +23,7 @@
         </p:column>
 
         <p:column headerText="Valor Unitário" style="text-align: left; width:10%">
-            <p:inputText value="#{cadastroPedidoController.produto.valorUnitario}"  style="text-align: left; width:100%"/>
+            <p:inputText value="#{cadastroPedidoController.itemPedido.produto.valorUnitario}"  style="text-align: left; width:100%"/>
         </p:column>
 
         <p:column headerText="Quantidade"  style="text-align: left; width:10%">
@@ -31,7 +31,7 @@
         </p:column>
 
         <p:column headerText="Estoque"  style="text-align: left; width:10%">
-            <p:inputText value="#{cadastroPedidoController.produto.estoque}"  style="text-align: left; width:100%"/>
+            <p:inputText value="#{cadastroPedidoController.itemPedido.produto.estoque}"  style="text-align: left; width:100%"/>
         </p:column>
 
         <p:column headerText="Valor Total"  style="text-align: left; width:10%">

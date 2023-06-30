@@ -52,7 +52,7 @@ public class Pedido {
 	@ManyToOne
 	private Vendedor vendendor;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.PERSIST)
 	private List<ItemPedido> itemPedidos;
 
 

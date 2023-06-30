@@ -36,6 +36,8 @@ public class CadastroPedidoController implements Serializable {
 
     private ItemPedido itemPedido = new ItemPedido();
 
+    private List<ItemPedido> itemPedidos = new ArrayList<>();
+
     private Produto produto = new Produto();
 
     @Inject
@@ -68,8 +70,9 @@ public class CadastroPedidoController implements Serializable {
     public void salvar(){
         try {
             calcular();
-            pedidoService.salvar(pedido);
+            salvarPedido();
             this.pedido = new Pedido();
+            this.itemPedidos = new ArrayList<>();
             FacesUtil.addSucessoMessage("Pedido salvo com sucesso!");
         }catch(Exception e){
             FacesUtil.addErrorMessage(e.getMessage());
@@ -95,10 +98,30 @@ public class CadastroPedidoController implements Serializable {
 
 
     public void getCarregarProduto() {
-        ItemPedido itemPedido = new ItemPedido();
+    ItemPedido itemPedido = itemPedidos.get(0);
         if (this.produto != null){
             itemPedido.setProduto(this.produto);
-            itemPedido.setValorUnitario(this.produto.getValorUnitario());
         }
+//        itemPedidos.add(1,new ItemPedido());
+
+    }
+
+    public void salvarPedido(){
+        pedido = pedidoService.salvar(pedido);
+        itemPedido.setPedido(pedido);
+        pedidoService.salvar(itemPedido);
+
+    }
+
+    public void incrementarLista(){
+        ItemPedido itemPedido = this.pedido.getItemPedidos().get(0);
+        itemPedidos.add(0,itemPedido);
+    }
+
+
+    public void inicializarLista(){
+
+        this.itemPedidos.add(0,new ItemPedido());
+
     }
 }

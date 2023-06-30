@@ -21,8 +21,6 @@ public class ItemPedido {
 	private Long id;
 	
 	private Integer qtd;
-	
-	private BigDecimal valorUnitario;
 
 	private BigDecimal valorTotal;
 
