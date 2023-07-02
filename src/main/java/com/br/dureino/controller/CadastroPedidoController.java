@@ -12,6 +12,8 @@ import com.br.dureino.util.jsf.FacesUtil;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -39,6 +41,15 @@ public class CadastroPedidoController implements Serializable {
     private List<ItemPedido> itemPedidos = new ArrayList<>();
 
     private Produto produto = new Produto();
+
+    private List<ItemPedido> listaDeItenAseremVendidos = new ArrayList<>();
+
+
+    private static List<ItemPedido> teste = new ArrayList<>();
+
+    private  List<ItemPedido> produtosGuardados = new ArrayList<>();
+
+    private List<ItemPedido> produtosGuardadosSelecionados;
 
     @Inject
     private ProdutoService produtoService;
@@ -97,14 +108,39 @@ public class CadastroPedidoController implements Serializable {
     }
 
 
-    public void getCarregarProduto() {
-    ItemPedido itemPedido = itemPedidos.get(0);
-        if (this.produto != null){
-            itemPedido.setProduto(this.produto);
+    public void getCarregarProduto(){
+    ItemPedido itemPedido = new ItemPedido();
+        if (this.itemPedido.getProduto() != null){
+            itemPedido.setProduto(this.itemPedido.getProduto());
+                this.produtosGuardados.add(itemPedido);
+
+
         }
-//        itemPedidos.add(1,new ItemPedido());
 
     }
+
+
+
+
+
+    public List<ItemPedido> adicionarAlista(){
+        ItemPedido pedido = new ItemPedido();
+        for (ItemPedido itemPedido : produtosGuardadosSelecionados){
+        pedido.setProduto(itemPedido.getProduto());
+//            ItemPedido pedido = new ItemPedido(itemPedido.getId(),
+//                    itemPedido.getQtd(),
+//                    itemPedido.getValorTotal(),
+//                    itemPedido.getProduto(),
+//                    itemPedido.getPedido());
+
+            this.listaDeItenAseremVendidos.add(pedido);
+        }
+
+        return listaDeItenAseremVendidos;
+    }
+
+
+
 
     public void salvarPedido(){
         pedido = pedidoService.salvar(pedido);
@@ -113,15 +149,5 @@ public class CadastroPedidoController implements Serializable {
 
     }
 
-    public void incrementarLista(){
-        ItemPedido itemPedido = this.pedido.getItemPedidos().get(0);
-        itemPedidos.add(0,itemPedido);
-    }
 
-
-    public void inicializarLista(){
-
-        this.itemPedidos.add(0,new ItemPedido());
-
-    }
 }
