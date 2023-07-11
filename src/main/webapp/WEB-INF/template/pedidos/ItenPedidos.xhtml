@@ -5,11 +5,21 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:o="http://omnifaces.org/ui">
 
-    <p:commandButton value="Adiconar" icon="pi pi-plus"
-                     onclick="PF('dialogPesquisaProd').show()"
-                     style="margin-bottom: 10px"/>
 
-    <p:dataTable value="#{cadastroPedidoController.listaDeItenAseremVendidos}" var="pedido" id="itemPedidos">
+            <p:autoComplete id="complete" styleClass="backspace-icon" dropdown="true"
+                    value="#{cadastroPedidoController.itemPedido.produto}"
+                    var="produto" itemLabel="#{produto.nome}" itemValue="#{produto}"
+                    completeMethod="#{cadastroPedidoController.pesquisarItenPedido}"
+
+                    forceSelection="true" inputStyle="width: 100%" style="width: 100%"
+                    placeholder="Pesquisar Produto">
+                <p:ajax event="itemSelect" update="itemPedidos complete" listener="#{cadastroPedidoController.getCarregarProduto()}"/>
+
+        </p:autoComplete>
+
+    <p:spacer style="margin-bottom: 10px"/>
+
+    <p:dataTable value="#{cadastroPedidoController.produtosGuardados}" var="pedido" id="itemPedidos">
 
         <p:column headerText="SKU" style="text-align: left; width:10%">
             <p:inputText value="#{pedido.produto.sku}"
@@ -17,13 +27,8 @@
         </p:column>
 
         <p:column headerText="Produto">
-            <p:autoComplete value="#{cadastroPedidoController.itemPedido.produto}"
-                            completeMethod="#{cadastroPedidoController.pesquisarItenPedido}"
-                            var="produto" itemValue="#{produto}" itemLabel="#{produto.nome}"
-                            forceSelection="true" style="width: 100%" inputStyle="width: 100%">
-                <p:ajax event="itemSelect" update="itemPedidos :formGeral:total :formGeral:subtotal"
-                        listener="#{cadastroPedidoController.getCarregarProduto()}"/>
-            </p:autoComplete>
+            <p:inputText value="#{pedido.produto.nome}"
+                         style="text-align: left; width:100%"/>
         </p:column>
 
         <p:column headerText="Valor Unitário" style="text-align: left; width:10%">
@@ -53,66 +58,6 @@
         </p:columnGroup>
 
     </p:dataTable>
-
-
-    <p:dialog closable="true" id="dialogPesquisaProd" widgetVar="dialogPesquisaProd"
-              styleClass="ui-dialog" modal="true" style="overflow:auto;">
-
-        <p:panel header="Consultar">
-
-             <span class="ui-input-icon-left" style="margin-bottom: 10px;"> <i class="pi pi-search"/>
-                <p:autoComplete
-                        value="#{cadastroPedidoController.itemPedido.produto}"
-                        var="produto" itemLabel="#{produto.nome}" itemValue="#{produto}"
-                        completeMethod="#{cadastroPedidoController.pesquisarItenPedido}"
-
-                        forceSelection="true" inputStyle="width: 100%" style="width: 100%"
-                        placeholder="Search">
-                    <p:ajax event="itemSelect" update="produtosData" listener="#{cadastroPedidoController.getCarregarProduto()}"/>
-                </p:autoComplete>
-            </span>
-
-            <p:dataTable id="produtosData" value="#{cadastroPedidoController.produtosGuardados}"
-                         var="prod"
-            selection="#{cadastroPedidoController.produtosGuardadosSelecionados}" rowKey="#{prod.produto.id}">
-
-
-                <p:column selectionMode="multiple" width="60" />
-
-            <p:column headerText="Sku">
-            <p:inputText value="#{prod.produto.sku}" style="text-align: left; width: 100%"/>
-            </p:column>
-
-            <p:column headerText="Nome">
-                <p:inputText value="#{prod.produto.nome}" style="text-align: left; width: 100%"/>
-            </p:column>
-
-                <p:column headerText="Valor Unitário" style="text-align: left; width:10%">
-                    <p:inputText value="#{prod.produto.valorUnitario}"
-                                 style="text-align: left; width:100%"/>
-                </p:column>
-
-                <p:column headerText="Quantidade" style="text-align: left; width:10%">
-                    <p:inputText value="#{prod.qtd}" style="text-align: left; width:100%"/>
-                </p:column>
-
-                <p:column headerText="Estoque" style="text-align: left; width:10%">
-                    <p:inputText value="#{prod.produto.estoque}"
-                                 style="text-align: left; width:100%"/>
-                </p:column>
-
-                <p:column headerText="Valor Total" style="text-align: left; width:10%">
-                    <p:inputText value="#{prod.valorTotal}"
-                                 style="text-align: left; width:100%"/>
-                </p:column>
-
-            </p:dataTable>
-
-        </p:panel>
-        <p:commandButton value="Adicionar" icon="pi pi-plus" style="margin-top: 10px;"
-                         action="#{cadastroPedidoController.adicionarAlista()}" update="itemPedidos"
-                         onclick="PF('dialogPesquisaProd').hide()"/>
-    </p:dialog>
 
 
 </ui:composition>

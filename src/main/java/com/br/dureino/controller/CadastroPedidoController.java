@@ -113,10 +113,8 @@ public class CadastroPedidoController implements Serializable {
         if (this.itemPedido.getProduto() != null){
             itemPedido.setProduto(this.itemPedido.getProduto());
                 this.produtosGuardados.add(itemPedido);
-
-
         }
-
+            this.itemPedido.setProduto(null);
     }
 
 
@@ -144,8 +142,12 @@ public class CadastroPedidoController implements Serializable {
 
     public void salvarPedido(){
         pedido = pedidoService.salvar(pedido);
-        itemPedido.setPedido(pedido);
-        pedidoService.salvar(itemPedido);
+//        itemPedido.setPedido(pedido);
+//        pedidoService.salvar(itemPedido);
+        for (ItemPedido itemPedido : produtosGuardados){
+            itemPedido.setPedido(pedido);
+            pedidoService.salvar(itemPedido);
+        }
 
     }
 
