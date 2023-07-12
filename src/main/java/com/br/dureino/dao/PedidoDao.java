@@ -1,5 +1,6 @@
 package com.br.dureino.dao;
 
+import br.gov.pi.sefaz.framework.model.BaseRepository;
 import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Pedido;
 import com.br.dureino.model.QPedido;

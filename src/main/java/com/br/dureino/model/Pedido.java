@@ -1,5 +1,6 @@
 package com.br.dureino.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -7,9 +8,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.*;
 
+import br.gov.pi.sefaz.base.ICore;
+import br.gov.pi.sefaz.base.paginate.Ordering;
+import br.gov.pi.sefaz.base.paginate.PageInfo;
+import br.gov.pi.sefaz.base.paginate.PaginatedList;
+import br.gov.pi.sefaz.framework.model.BaseRepository;
+import br.gov.pi.sefaz.framework.model.CoreEntity;
+import br.gov.pi.sefaz.framework.web.controller.BaseFindController;
+import br.gov.pi.sefaz.framework.web.controller.context.TabScoped;
+import br.gov.pi.sefaz.sisatweb.model.classes.BoletoDar;
 import com.br.dureino.model.enums.FormaPagamento;
 import com.br.dureino.model.enums.StatusPedido;
 
@@ -62,9 +73,6 @@ public class Pedido {
 
 		return  date;
 	}
-
-
-
 
 
 }

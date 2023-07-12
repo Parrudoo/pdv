@@ -10,6 +10,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<querydsl.version>4.1.3</querydsl.version>
 	</properties>
+	<!-- FRAMEWORK DA SEFAZ -->
+	<parent>
+		<groupId>br.gov.pi.sefaz</groupId>
+		<artifactId>framework-web-base</artifactId>
+		<version>0.2.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
 	<build>
 		<finalName>Dureino</finalName>
 		<plugins>
@@ -61,6 +69,13 @@
 				querydsl-apt</artifactId>
 			<version>${querydsl.version}</version>
 			<scope>provided</scope>
+		</dependency>
+
+		<!-- FRAMEWORK DA SEFAZ -->
+		<dependency>
+			<groupId>br.gov.pi.sefaz.sisatweb</groupId>
+			<artifactId>sisatweb-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>

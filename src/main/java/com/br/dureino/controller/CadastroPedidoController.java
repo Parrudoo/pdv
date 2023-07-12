@@ -41,6 +41,8 @@ public class CadastroPedidoController implements Serializable {
 
     private List<ItemPedido> itemPedidos = new ArrayList<>();
 
+    private ItemPedido prodCarrinhoSelecionado;
+
     private Produto produto = new Produto();
 
     private List<ItemPedido> listaDeItenAseremVendidos = new ArrayList<>();
@@ -87,6 +89,7 @@ public class CadastroPedidoController implements Serializable {
             salvarPedido();
             this.pedido = new Pedido();
             this.itemPedidos = new ArrayList<>();
+            this.produtosGuardados = new ArrayList<>();
             FacesUtil.addSucessoMessage("Pedido salvo com sucesso!");
         }catch(Exception e){
             FacesUtil.addErrorMessage(e.getMessage());
@@ -128,6 +131,11 @@ public class CadastroPedidoController implements Serializable {
         recalcular();
     }
 
+    public void remover(){
+        this.produtosGuardados.remove(prodCarrinhoSelecionado);
+    }
+
+
     public BigDecimal recalcular(){
         BigDecimal result = BigDecimal.ZERO;
         result = result.add(this.pedido.getValorFrete().subtract(pedido.getValorDesconto()));
@@ -139,38 +147,21 @@ public class CadastroPedidoController implements Serializable {
 
 
 
-
-
-
-    public List<ItemPedido> adicionarAlista(){
-        ItemPedido pedido = new ItemPedido();
-        for (ItemPedido itemPedido : produtosGuardadosSelecionados){
-        pedido.setProduto(itemPedido.getProduto());
-//            ItemPedido pedido = new ItemPedido(itemPedido.getId(),
-//                    itemPedido.getQtd(),
-//                    itemPedido.getValorTotal(),
-//                    itemPedido.getProduto(),
-//                    itemPedido.getPedido());
-
-            this.listaDeItenAseremVendidos.add(pedido);
-        }
-
-        return listaDeItenAseremVendidos;
-    }
-
-
-
-
     public void salvarPedido(){
         pedido = pedidoService.salvar(pedido);
+        ItemPedido itemPedido = null;
 
-        for (ItemPedido itemPedido : produtosGuardados){
-            itemPedido.setPedido(pedido);
+        for (ItemPedido pedidao : produtosGuardados){
+            itemPedido =  new ItemPedido(null,
+                    pedidao.getQtd(),
+                    pedidao.getValorTotal(),
+                    pedidao.getProduto(),
+                    pedido,pedidao.getSubTotal());
+
             pedidoService.salvar(itemPedido);
         }
 
     }
-
 
 
 }

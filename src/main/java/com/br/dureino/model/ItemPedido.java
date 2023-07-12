@@ -3,8 +3,10 @@ package com.br.dureino.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import javax.ejb.Schedule;
 import javax.persistence.*;
 
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,7 @@ public class ItemPedido {
 	
 	private Integer qtd;
 
+
 	private BigDecimal valorTotal;
 
 	
@@ -33,6 +36,7 @@ public class ItemPedido {
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
 
+	private BigDecimal subTotal;
 
 	@Transient
 	public boolean isProdutoAssociado(Long id){
@@ -45,6 +49,14 @@ public class ItemPedido {
 				? new BigDecimal(this.qtd).multiply(produto.getValorUnitario()) : BigDecimal.ZERO;
 	}
 
+		public BigDecimal getSubTotal(){
+		BigDecimal total = BigDecimal.ZERO;
+
+		total = total.add(this.getValorTotal());
+
+		return total;
+
+		}
 
 
 }
