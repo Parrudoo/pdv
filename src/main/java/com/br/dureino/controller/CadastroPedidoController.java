@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @Getter
@@ -44,6 +45,8 @@ public class CadastroPedidoController implements Serializable {
 
     private List<ItemPedido> listaDeItenAseremVendidos = new ArrayList<>();
 
+    private BigDecimal valorProdutos = BigDecimal.ZERO;
+
 
     private static List<ItemPedido> teste = new ArrayList<>();
 
@@ -56,7 +59,8 @@ public class CadastroPedidoController implements Serializable {
 
     @Inject
     private PedidoService pedidoService;
-   private ItemPedido carregarProduto;
+
+    private ItemPedido carregarProduto;
 
     public List<SelectItem> getStatus(){
           List<SelectItem> selectItems = new ArrayList<>();
@@ -80,7 +84,6 @@ public class CadastroPedidoController implements Serializable {
 
     public void salvar(){
         try {
-            calcular();
             salvarPedido();
             this.pedido = new Pedido();
             this.itemPedidos = new ArrayList<>();
@@ -98,24 +101,42 @@ public class CadastroPedidoController implements Serializable {
         return produtos.stream().filter(p-> p.getNome().toUpperCase().contains(nome.toUpperCase())).collect(Collectors.toList());
     }
 
-    public String calcular(){
-        BigDecimal result = BigDecimal.ZERO;
-
-        result = this.pedido.getValorFrete().subtract(pedido.getValorDesconto());
-
-        pedido.setTotal(result);
-        return pedido.getTotal();
-    }
-
 
     public void getCarregarProduto(){
+    BigDecimal total = BigDecimal.ZERO;
+
     ItemPedido itemPedido = new ItemPedido();
-        if (this.itemPedido.getProduto() != null){
-            itemPedido.setProduto(this.itemPedido.getProduto());
-                this.produtosGuardados.add(itemPedido);
+    itemPedido.setQtd(1);
+
+    boolean adiciona = false;
+    if (!produtosGuardados.isEmpty()){
+        for (ItemPedido pedido : produtosGuardados){
+                if (this.itemPedido.getProduto().getId().equals(pedido.getProduto().getId()))
+                    adiciona = true;
         }
-            this.itemPedido.setProduto(null);
     }
+         if (adiciona){
+             FacesUtil.addErrorMessage("produto já existente na lista!");
+         }else{
+             itemPedido.setProduto(this.itemPedido.getProduto());
+
+             this.produtosGuardados.add(itemPedido);
+         }
+
+
+        this.itemPedido.setProduto(null);
+        recalcular();
+    }
+
+    public BigDecimal recalcular(){
+        BigDecimal result = BigDecimal.ZERO;
+        result = result.add(this.pedido.getValorFrete().subtract(pedido.getValorDesconto()));
+
+        this.pedido.setTotal(result);
+
+        return this.pedido.getTotal();
+    }
+
 
 
 
@@ -142,14 +163,14 @@ public class CadastroPedidoController implements Serializable {
 
     public void salvarPedido(){
         pedido = pedidoService.salvar(pedido);
-//        itemPedido.setPedido(pedido);
-//        pedidoService.salvar(itemPedido);
+
         for (ItemPedido itemPedido : produtosGuardados){
             itemPedido.setPedido(pedido);
             pedidoService.salvar(itemPedido);
         }
 
     }
+
 
 
 }

@@ -64,15 +64,6 @@ public class Pedido {
 	}
 
 
-	public String getTotal(){
-		BigDecimal bigDecimal = BigDecimal.ZERO;
-		String valorFormatado = null;
-		StringBuilder builder = new StringBuilder();
-
-		valorFormatado = builder.append("R$:").append(total.intValue()).toString();
-
-		return valorFormatado;
-	}
 
 
 

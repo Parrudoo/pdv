@@ -33,4 +33,18 @@ public class ItemPedido {
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
 
+
+	@Transient
+	public boolean isProdutoAssociado(Long id){
+		return this.produto.getId().equals(id);
+	}
+
+	@Transient
+	public BigDecimal getValorTotal(){
+		return  this.getQtd() != null && this.produto.getValorUnitario() != null
+				? new BigDecimal(this.qtd).multiply(produto.getValorUnitario()) : BigDecimal.ZERO;
+	}
+
+
+
 }

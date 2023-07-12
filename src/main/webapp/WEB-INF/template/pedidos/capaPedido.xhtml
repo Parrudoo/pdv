@@ -39,16 +39,23 @@
 
 		<p:outputLabel value="Valor Frete" for="vlFrete" />
 		<p:inputNumber id="vlFrete" value="#{cadastroPedidoController.pedido.valorFrete}"
-		emptyValue="zero"/>
+		emptyValue="zero">
+			<p:ajax event="change" process="@this"  update="total"
+			listener="#{cadastroPedidoController.recalcular()}"/>
+		</p:inputNumber>
 
 		<p:outputLabel value="Subtotal" for="subtotal"
 		style="font-weight: bold; font-size:1.1em"/>
 		<p:inputNumber id="subtotal" value="#{cadastroPedidoController.pedido.subTotal}"
-					  emptyValue="zero" disabled="true" />
+					  emptyValue="zero" disabled="true"/>
+
 
 		<p:outputLabel value="Valor de desconto" for="vlDesconto" />
 		<p:inputNumber id="vlDesconto" value="#{cadastroPedidoController.pedido.valorDesconto}"
-		emptyValue="zero"/>
+		emptyValue="zero">
+			<p:ajax event="change" process="@this"  update="total"
+					listener="#{cadastroPedidoController.recalcular()}"/>
+		</p:inputNumber>
 
 		<p:outputLabel value="Total do pedido" for="total"
 			style="font-weight: bold; font-size:1.1em" />
