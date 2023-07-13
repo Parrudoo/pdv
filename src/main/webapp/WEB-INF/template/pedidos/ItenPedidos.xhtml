@@ -14,7 +14,7 @@
                     forceSelection="true" inputStyle="width: 90%" style="width: 90%"
                     placeholder="Pesquisar Produto">
 
-                <p:ajax event="itemSelect" update="formGeral itemPedidos complete itemPedidos:qtd" listener="#{cadastroPedidoController.getCarregarProduto()}"/>
+                <p:ajax event="itemSelect" update="formGeral itemPedidos complete itemPedidos:qtd formGeral:total itemPedidos:totalFooter" listener="#{cadastroPedidoController.getCarregarProduto()}"/>
 
 
         </p:autoComplete>
@@ -60,10 +60,16 @@
                          style="text-align: left; width:100%"/>
         </p:column>
 
-        <p:columnGroup id="footer" type="footer">
+        <p:columnGroup type="footer">
             <p:row>
                 <p:column colspan="6" footerText="Subtotal" style="text-align: right;"/>
-                <p:column footerText="R$:0,00" style="text-align: right"/>
+                <p:column  style="text-align: right">
+                    <f:facet name="footer">
+                        <h:outputText id="totalFooter" value="#{cadastroPedidoController.pedido.total}">
+                           <f:convertNumber type="currency"/>
+                        </h:outputText>
+                    </f:facet>
+                </p:column>
 
             </p:row>
         </p:columnGroup>

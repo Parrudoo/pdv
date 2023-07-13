@@ -3,6 +3,7 @@ com\br\dureino\model\Pedido.class
 com\br\dureino\dao\PedidoDao.class
 com\br\dureino\converter\PedidoConverter.class
 com\br\dureino\model\Produto.class
+com\br\dureino\service\JobsService.class
 com\br\dureino\controller\CadastroPedidoController.class
 com\br\dureino\converter\ProdutoConverter.class
 com\br\dureino\model\QPedido.class

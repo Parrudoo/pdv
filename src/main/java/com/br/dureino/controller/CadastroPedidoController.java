@@ -13,6 +13,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Schedule;
+import javax.ejb.Schedules;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
@@ -130,7 +132,10 @@ public class CadastroPedidoController implements Serializable {
          }else{
              itemPedido.setProduto(this.itemPedido.getProduto());
 
+
              this.produtosGuardados.add(itemPedido);
+             this.pedido.setItemPedidos(produtosGuardados);
+             this.pedido.setTotal(pedido.getTotal());
          }
 
 
@@ -144,14 +149,13 @@ public class CadastroPedidoController implements Serializable {
     }
 
 
-
     public BigDecimal recalcular(){
         BigDecimal result = BigDecimal.ZERO;
         result = result.add(this.pedido.getValorFrete().subtract(pedido.getValorDesconto()));
 
         this.pedido.setTotal(result);
 
-        return this.pedido.getTotal();
+        return pedido.getTotal();
     }
 
 
@@ -174,8 +178,6 @@ public class CadastroPedidoController implements Serializable {
         }
 
     }
-
-
 
     public void removerProduto() {
         this.produtosGuardados.remove(produtoSelecionado);

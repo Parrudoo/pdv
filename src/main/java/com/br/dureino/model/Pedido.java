@@ -3,10 +3,13 @@ package com.br.dureino.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
+import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.persistence.*;
 
 import com.br.dureino.model.enums.FormaPagamento;
@@ -52,7 +55,7 @@ public class Pedido {
 	private Vendedor vendendor;
 	
 	@OneToMany(cascade = CascadeType.PERSIST)
-	private List<ItemPedido> itemPedidos;
+	private List<ItemPedido> itemPedidos = new ArrayList<>();
 
 
 	public String getDataCriacao(){
@@ -62,5 +65,19 @@ public class Pedido {
 		return  date;
 	}
 
+	public BigDecimal getTotal() {
+		BigDecimal total = BigDecimal.ZERO;
+		BigDecimal totalProdutos = BigDecimal.ZERO;
 
+		total = total.add(valorFrete.subtract(valorDesconto));
+
+		if (!itemPedidos.isEmpty()){
+
+		for (ItemPedido itemPedido : itemPedidos){
+			totalProdutos = totalProdutos.add(itemPedido.getValorTotal());
+		}
+		totalProdutos = totalProdutos.add(total);
+		}
+		return totalProdutos;
+	}
 }
