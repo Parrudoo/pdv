@@ -19,7 +19,7 @@ public class ItemPedido {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private Integer qtd;
 
 	private BigDecimal valorTotal;
@@ -45,6 +45,15 @@ public class ItemPedido {
 				? new BigDecimal(this.qtd).multiply(produto.getValorUnitario()) : BigDecimal.ZERO;
 	}
 
+	public Integer getQtd(){
+		if (this.qtd == null){
+			this.setQtd(1);
+		}else {
+			return this.qtd;
+		}
+
+		return this.qtd != null ? this.getQtd() : null;
+	}
 
 
 }

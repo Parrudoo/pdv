@@ -37,6 +37,8 @@ public class CadastroPedidoController implements Serializable {
 
     private Pedido pedido = new Pedido();
 
+    private ItemPedido produtoSelecionado;
+
     private ItemPedido itemPedido = new ItemPedido();
 
     private List<ItemPedido> itemPedidos = new ArrayList<>();
@@ -106,17 +108,22 @@ public class CadastroPedidoController implements Serializable {
     BigDecimal total = BigDecimal.ZERO;
 
     ItemPedido itemPedido = new ItemPedido();
-    itemPedido.setQtd(1);
 
     boolean adiciona = false;
+
+
     if (!produtosGuardados.isEmpty()){
+
         for (ItemPedido pedido : produtosGuardados){
-                if (this.itemPedido.getProduto().getId().equals(pedido.getProduto().getId()))
+                if (this.itemPedido.getProduto().getId().equals(pedido.getProduto().getId())){
+                    pedido.setQtd(pedido.getQtd()+1);
                     adiciona = true;
+                }
+
         }
     }
          if (adiciona){
-             FacesUtil.addErrorMessage("produto já existente na lista!");
+//             FacesUtil.addErrorMessage("produto já existente na lista!");
          }else{
              itemPedido.setProduto(this.itemPedido.getProduto());
 
@@ -127,6 +134,7 @@ public class CadastroPedidoController implements Serializable {
         this.itemPedido.setProduto(null);
         recalcular();
     }
+
 
     public BigDecimal recalcular(){
         BigDecimal result = BigDecimal.ZERO;
@@ -142,22 +150,6 @@ public class CadastroPedidoController implements Serializable {
 
 
 
-    public List<ItemPedido> adicionarAlista(){
-        ItemPedido pedido = new ItemPedido();
-        for (ItemPedido itemPedido : produtosGuardadosSelecionados){
-        pedido.setProduto(itemPedido.getProduto());
-//            ItemPedido pedido = new ItemPedido(itemPedido.getId(),
-//                    itemPedido.getQtd(),
-//                    itemPedido.getValorTotal(),
-//                    itemPedido.getProduto(),
-//                    itemPedido.getPedido());
-
-            this.listaDeItenAseremVendidos.add(pedido);
-        }
-
-        return listaDeItenAseremVendidos;
-    }
-
 
 
 
@@ -165,12 +157,19 @@ public class CadastroPedidoController implements Serializable {
         pedido = pedidoService.salvar(pedido);
 
         for (ItemPedido itemPedido : produtosGuardados){
-            itemPedido.setPedido(pedido);
-            pedidoService.salvar(itemPedido);
+            ItemPedido pedidao = new ItemPedido(null,
+                    itemPedido.getQtd(),
+                    itemPedido.getValorTotal(),
+                    itemPedido.getProduto(),
+                    pedido);
+
+            pedidoService.salvar(pedidao);
         }
 
     }
 
 
-
+    public void removerProduto() {
+        this.produtosGuardados.remove(produtoSelecionado);
+    }
 }
