@@ -1,12 +1,11 @@
 package com.br.dureino.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
+
 
 import javax.persistence.*;
 
@@ -18,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static com.querydsl.core.util.MathUtils.result;
+
 
 @Getter
 @Setter
@@ -62,9 +61,6 @@ public class Pedido {
 
 		return  date;
 	}
-
-
-
 
 
 }

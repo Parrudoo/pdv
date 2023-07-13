@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class ItemPedido {
 
 	private Integer qtd;
 
+
 	private BigDecimal valorTotal;
 
 	
@@ -32,6 +34,7 @@ public class ItemPedido {
 	@ManyToOne
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
+
 
 
 	@Transient
@@ -45,6 +48,7 @@ public class ItemPedido {
 				? new BigDecimal(this.qtd).multiply(produto.getValorUnitario()) : BigDecimal.ZERO;
 	}
 
+
 	public Integer getQtd(){
 		if (this.qtd == null){
 			this.setQtd(1);
@@ -54,6 +58,7 @@ public class ItemPedido {
 
 		return this.qtd != null ? this.getQtd() : null;
 	}
+
 
 
 }

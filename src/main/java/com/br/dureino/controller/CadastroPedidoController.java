@@ -43,6 +43,8 @@ public class CadastroPedidoController implements Serializable {
 
     private List<ItemPedido> itemPedidos = new ArrayList<>();
 
+    private ItemPedido prodCarrinhoSelecionado;
+
     private Produto produto = new Produto();
 
     private List<ItemPedido> listaDeItenAseremVendidos = new ArrayList<>();
@@ -89,6 +91,7 @@ public class CadastroPedidoController implements Serializable {
             salvarPedido();
             this.pedido = new Pedido();
             this.itemPedidos = new ArrayList<>();
+            this.produtosGuardados = new ArrayList<>();
             FacesUtil.addSucessoMessage("Pedido salvo com sucesso!");
         }catch(Exception e){
             FacesUtil.addErrorMessage(e.getMessage());
@@ -136,6 +139,12 @@ public class CadastroPedidoController implements Serializable {
     }
 
 
+    public void remover(){
+        this.produtosGuardados.remove(prodCarrinhoSelecionado);
+    }
+
+
+
     public BigDecimal recalcular(){
         BigDecimal result = BigDecimal.ZERO;
         result = result.add(this.pedido.getValorFrete().subtract(pedido.getValorDesconto()));
@@ -148,13 +157,10 @@ public class CadastroPedidoController implements Serializable {
 
 
 
-
-
-
-
-
     public void salvarPedido(){
         pedido = pedidoService.salvar(pedido);
+
+
 
         for (ItemPedido itemPedido : produtosGuardados){
             ItemPedido pedidao = new ItemPedido(null,
@@ -164,12 +170,15 @@ public class CadastroPedidoController implements Serializable {
                     pedido);
 
             pedidoService.salvar(pedidao);
+
         }
 
     }
 
 
+
     public void removerProduto() {
         this.produtosGuardados.remove(produtoSelecionado);
     }
+
 }
