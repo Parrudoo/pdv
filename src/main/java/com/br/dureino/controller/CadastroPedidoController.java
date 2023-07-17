@@ -1,5 +1,6 @@
 package com.br.dureino.controller;
 
+import com.br.dureino.model.EnderecoEntrega;
 import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Pedido;
 import com.br.dureino.model.Produto;
@@ -39,7 +40,9 @@ public class CadastroPedidoController implements Serializable {
 
     private Pedido pedido = new Pedido();
 
-    private ItemPedido produtoSelecionado;
+    private EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
+
+    private ItemPedido produtoSelecionado = new ItemPedido();
 
     private ItemPedido itemPedido = new ItemPedido();
 
@@ -140,7 +143,7 @@ public class CadastroPedidoController implements Serializable {
 
 
         this.itemPedido.setProduto(null);
-        recalcular();
+//        recalcular();
     }
 
 
@@ -150,10 +153,10 @@ public class CadastroPedidoController implements Serializable {
 
 
     public BigDecimal recalcular(){
-        BigDecimal result = BigDecimal.ZERO;
-        result = result.add(this.pedido.getValorFrete().subtract(pedido.getValorDesconto()));
-
-        this.pedido.setTotal(result);
+//        BigDecimal result = BigDecimal.ZERO;
+//        result = result.add(this.pedido.getValorFrete().subtract(pedido.getValorDesconto()));
+//
+//        this.pedido.setTotal(result);
 
         return pedido.getTotal();
     }
@@ -162,20 +165,33 @@ public class CadastroPedidoController implements Serializable {
 
 
     public void salvarPedido(){
-        pedido = pedidoService.salvar(pedido);
 
+        List<ItemPedido> itemPedidos = new ArrayList<>();
+        if (!pedido.getItemPedidos().isEmpty()){
+            for (ItemPedido itemPedido : pedido.getItemPedidos()){
+                ItemPedido pedidao = new ItemPedido(null,
+                        itemPedido.getQtd(),
+                        itemPedido.getValorTotal(),
+                        itemPedido.getProduto(),
+                        pedido);
+                itemPedidos.add(pedidao);
+                this.pedido.setTotal(pedido.getTotal());
+                this.pedido.setItemPedidos(itemPedidos);
 
+            }
 
-        for (ItemPedido itemPedido : produtosGuardados){
-            ItemPedido pedidao = new ItemPedido(null,
-                    itemPedido.getQtd(),
-                    itemPedido.getValorTotal(),
-                    itemPedido.getProduto(),
+            EnderecoEntrega enderecoEntrega = new EnderecoEntrega(null,pedido.getEnderecoEntrega().getDataEntrega(),
+                    pedido.getEnderecoEntrega().getLogradouro(),
+                    pedido.getEnderecoEntrega().getComplemento(),
+                    pedido.getEnderecoEntrega().getCidade(),
+                    pedido.getEnderecoEntrega().getNumero(),
+                    pedido.getEnderecoEntrega().getCep(),
                     pedido);
 
-            pedidoService.salvar(pedidao);
-
+            pedido.setEnderecoEntrega(enderecoEntrega);
+            this.pedido = pedidoService.salvar(pedido);
         }
+
 
     }
 

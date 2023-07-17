@@ -1,0 +1,40 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:o="http://omnifaces.org/ui">
+
+<p:panelGrid columns="4" layout="grid">
+
+
+    <p:outputLabel value="Data Entrega" for="dataEntrega"/>
+    <p:datePicker id="dataEntrega" showIcon="true" value="#{cadastroPedidoController.pedido.enderecoEntrega.dataEntrega}"
+                 style="width: 100%" />
+
+    <p:outputLabel value="Logradouro" for="logradouro"/>
+    <p:inputText id="logradouro" value="#{cadastroPedidoController.pedido.enderecoEntrega.logradouro}"
+                 style="width: 100%" />
+
+    <p:outputLabel value="Complemento" for="complemento"/>
+    <p:inputText id="complemento" value="#{cadastroPedidoController.pedido.enderecoEntrega.complemento}"
+                 style="width: 100%" />
+
+    <p:outputLabel value="Cidade" for="cidade"/>
+    <p:inputText id="cidade" value="#{cadastroPedidoController.pedido.enderecoEntrega.cidade}"
+                 style="width: 100%" />
+
+    <p:outputLabel value="Numero" for="numero"/>
+    <p:inputText id="numero" value="#{cadastroPedidoController.pedido.enderecoEntrega.numero}"
+                 style="width: 100%" />
+
+    <p:outputLabel value="Cep" for="cep"/>
+    <p:inputText id="cep" value="#{cadastroPedidoController.pedido.enderecoEntrega.cep}"
+                 style="width: 100%" />
+
+
+</p:panelGrid>
+
+
+
+</ui:composition>

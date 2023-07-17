@@ -51,11 +51,14 @@ public class Pedido {
 
 	private BigDecimal valorDesconto = BigDecimal.ZERO;
 
+	@OneToOne(cascade =  CascadeType.ALL,mappedBy = "pedido")
+	private EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
+
 	@ManyToOne
 	private Vendedor vendendor;
 	
-	@OneToMany(cascade = CascadeType.PERSIST)
-	private List<ItemPedido> itemPedidos = new ArrayList<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<ItemPedido>  itemPedidos = new ArrayList<>();
 
 
 	public String getDataCriacao(){
@@ -69,7 +72,7 @@ public class Pedido {
 		BigDecimal total = BigDecimal.ZERO;
 		BigDecimal totalProdutos = BigDecimal.ZERO;
 
-		total = total.add(valorFrete.subtract(valorDesconto));
+		total =	total.add(valorFrete.subtract(valorDesconto));
 
 		if (!itemPedidos.isEmpty()){
 
@@ -80,4 +83,6 @@ public class Pedido {
 		}
 		return totalProdutos;
 	}
+
+
 }

@@ -55,12 +55,15 @@
 		emptyValue="zero">
 			<p:ajax event="change" process="@this"  update="formGeral"
 					listener="#{cadastroPedidoController.recalcular()}"/>
+
 		</p:inputNumber>
 
 		<p:outputLabel value="Total do pedido" for="total"
 			style="font-weight: bold; font-size:1.1em" />
 		<p:inputText id="total" style="font-weight: bold; font-size:1.1em"
-					value="#{cadastroPedidoController.pedido.total}" disabled="true"/>
+					value="#{cadastroPedidoController.pedido.total}" disabled="true">
+			<f:convertNumber type="currency"/>
+		</p:inputText>
 
 	</p:panelGrid>
 </ui:composition>

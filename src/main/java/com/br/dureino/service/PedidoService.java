@@ -1,6 +1,7 @@
 package com.br.dureino.service;
 
 import com.br.dureino.dao.PedidoDao;
+import com.br.dureino.model.EnderecoEntrega;
 import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Pedido;
 import com.br.dureino.util.jpa.Transactional;
@@ -27,6 +28,12 @@ public class PedidoService implements Serializable {
     public ItemPedido salvar(ItemPedido itemPedido){
         return pedidoDao.salvar(itemPedido);
     }
+
+    @Transactional
+    public EnderecoEntrega salvar(EnderecoEntrega enderecoEntrega){
+        return pedidoDao.salvar(enderecoEntrega);
+    }
+
 
 
 

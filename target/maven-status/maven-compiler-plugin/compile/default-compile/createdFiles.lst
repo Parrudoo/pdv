@@ -8,6 +8,7 @@ com\br\dureino\controller\CadastroPedidoController.class
 com\br\dureino\converter\ProdutoConverter.class
 com\br\dureino\model\QPedido.class
 com\br\dureino\model\QCliente.class
+com\br\dureino\model\QEnderecoEntrega.class
 com\br\dureino\model\QProduto.class
 com\br\dureino\model\enums\FormaPagamento.class
 com\br\dureino\util\cdi\CDIServiceLocator.class
