@@ -35,9 +35,12 @@ header>div {
 }
 
 .campo{
-	
+	width: 100%;
 }
 
+.ui-panelgrid.showcase-text-align-center{
+	text-align: center;
+}
 
 
 .container{

@@ -1,0 +1,52 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo">Pesquisa Pedido</ui:define>
+
+    <ui:define name="corpo">
+
+        <p:panel header="Pesquisa Pedido">
+
+            <h:form id="formPesquisa">
+        <p:messages id="messages" autoUpdate="true" closable="true"/>
+
+                <p:toolbar style="margin-top: 20px">
+                        <p:toolbarGroup style="float: left">
+                            <p:commandButton icon="pi pi-search" value="Pesquisar" />
+                        </p:toolbarGroup>
+
+                        <p:toolbarGroup style="float: right">
+                            <p:button icon="pi pi-file" value="Novo"/>
+                        </p:toolbarGroup>
+                </p:toolbar>
+
+
+                <p:panelGrid columns="2"  columnClasses="rotulo,campo" styleClass="ui-noborder">
+
+
+                    <p:outputLabel value="Numero" for="numero" />
+                    <p:inputText id="numero" />
+
+
+
+                        <p:outputLabel value="Data Criação" for="de" />
+                        <p:calendar id="de"  showOn="button" />
+
+
+
+
+                </p:panelGrid>
+
+            </h:form>
+
+        </p:panel>
+
+
+    </ui:define>
+
+</ui:composition>
