@@ -31,7 +31,7 @@ public class ItemPedido {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
 

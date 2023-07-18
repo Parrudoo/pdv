@@ -41,7 +41,7 @@ public class ProdutoDao implements Serializable {
 	}
 
 	
-	public Produto salvar(Produto produto) {				
+	public void salvar(Produto produto) {
 		/*
 		 * o codigo foi comentado, pois usei uma classe para fazer a transação, e nao
 		 * precisar ficar implementando toda vez
@@ -50,9 +50,13 @@ public class ProdutoDao implements Serializable {
 		/*
 		 * EntityTransaction trx = entityManager.getTransaction(); trx.begin();
 		 */
-		produto = entityManager.merge(produto);
+		if (produto.getId() == null){
+			entityManager.persist(produto);
+		}else{
+			entityManager.merge(produto);
+		}
 		/* trx.commit(); */
-		return produto;
+
 	}
 
 

@@ -143,7 +143,6 @@ public class CadastroProdutoController implements Serializable {
 					prod.getNome(), 
 					prod.getSubCategoria(),
 					prod.getValorUnitario(),
-					prod.getQtd(),				
 					prod.getEstoque(),
 					prod.getItemPedidos(),
 					prod.getCategoria()));

@@ -97,7 +97,7 @@ public class CadastroPedidoController implements Serializable {
             this.pedido = new Pedido();
             this.itemPedidos = new ArrayList<>();
             this.produtosGuardados = new ArrayList<>();
-            FacesUtil.addSucessoMessage("Pedido salvo com sucesso!");
+            FacesUtil.addSucessoMessage("Pedido."+pedido.getNumero()+" "+"salvo com sucesso!");
         }catch(Exception e){
             FacesUtil.addErrorMessage(e.getMessage());
         }
@@ -136,6 +136,7 @@ public class CadastroPedidoController implements Serializable {
              itemPedido.setProduto(this.itemPedido.getProduto());
 
 
+             itemPedido.getProduto().setItemPedidos(produtosGuardados);
              this.produtosGuardados.add(itemPedido);
              this.pedido.setItemPedidos(produtosGuardados);
              this.pedido.setTotal(pedido.getTotal());
@@ -167,6 +168,7 @@ public class CadastroPedidoController implements Serializable {
     public void salvarPedido(){
 
         List<ItemPedido> itemPedidos = new ArrayList<>();
+        Produto produto = null;
         if (!pedido.getItemPedidos().isEmpty()){
             for (ItemPedido itemPedido : pedido.getItemPedidos()){
                 ItemPedido pedidao = new ItemPedido(null,
@@ -178,6 +180,15 @@ public class CadastroPedidoController implements Serializable {
                 this.pedido.setTotal(pedido.getTotal());
                 this.pedido.setItemPedidos(itemPedidos);
 
+//                atualizar produto
+                 produto = new Produto(itemPedido.getProduto().getId(),
+                         itemPedido.getProduto().getSku(),
+                         itemPedido.getProduto().getNome(),
+                         itemPedido.getProduto().getSubCategoria(),
+                         itemPedido.getProduto().getValorUnitario(),
+                         itemPedido.getProduto().getEstoque(),
+                         null,
+                         itemPedido.getProduto().getCategoria());
             }
 
             EnderecoEntrega enderecoEntrega = new EnderecoEntrega(null,pedido.getEnderecoEntrega().getDataEntrega(),
@@ -188,8 +199,12 @@ public class CadastroPedidoController implements Serializable {
                     pedido.getEnderecoEntrega().getCep(),
                     pedido);
 
+
+
+
             pedido.setEnderecoEntrega(enderecoEntrega);
             this.pedido = pedidoService.salvar(pedido);
+            produtoService.salvarProduto(produto);
         }
 
 

@@ -18,13 +18,8 @@ public class ProdutoService implements Serializable {
 	private ProdutoDao produtoDao;
 	
 	@Transactional
-	public Produto salvarProduto(Produto produto) {
-		if (!produto.getNome().isEmpty()) {
-			
-			return produtoDao.salvar(produto);
-		}
-		
-		return null;
+	public void salvarProduto(Produto produto) {
+			produtoDao.salvar(produto);
 	}
 
 	public List<Produto> listar() {

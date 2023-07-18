@@ -6,11 +6,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 
 import com.br.dureino.model.enums.FormaPagamento;
 import com.br.dureino.model.enums.StatusPedido;
@@ -31,6 +33,9 @@ public class Pedido {
 	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(unique = true)
+	private Integer numero;
 	
 	@ManyToOne	
 	private Cliente cliente;
@@ -82,6 +87,14 @@ public class Pedido {
 		totalProdutos = totalProdutos.add(total);
 		}
 		return totalProdutos;
+	}
+
+	public Integer getNumero(){
+		Random random = new Random();
+		Integer aleatorio = random.nextInt(1000);
+		setNumero(aleatorio);
+
+		return numero;
 	}
 
 
