@@ -8,6 +8,7 @@ import com.br.dureino.util.jpa.Transactional;
 
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.List;
 
 public class PedidoService implements Serializable {
 
@@ -35,6 +36,12 @@ public class PedidoService implements Serializable {
     }
 
 
+    public List<Pedido> buscarPedidos(int first, int pageSize) {
+       return pedidoDao.buscarPedido(first, pageSize);
+    }
 
+    public Long buscarPedidos() {
+        return pedidoDao.buscarPedido();
+    }
 
 }

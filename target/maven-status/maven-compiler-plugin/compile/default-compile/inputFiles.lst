@@ -4,6 +4,7 @@ C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\service\PedidoService.j
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\model\enums\StatusPedido.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\service\NegocioException.java
 C:\Users\Diego Dias\dureino\target\generated-sources\java\com\br\dureino\model\QVendedor.java
+C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\controller\PesquisaPedidoController.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\model\enums\FormaPagamento.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\model\Produto.java
 C:\Users\Diego Dias\dureino\target\generated-sources\java\com\br\dureino\model\QEnderecoEntrega.java
@@ -15,6 +16,7 @@ C:\Users\Diego Dias\dureino\target\generated-sources\java\com\br\dureino\model\Q
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\model\Pedido.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\model\Endereco.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\util\jpa\Transactional.java
+C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\dto\PedidoDTO.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\service\ProdutoService.java
 C:\Users\Diego Dias\dureino\target\generated-sources\java\com\br\dureino\model\QItemPedido.java
 C:\Users\Diego Dias\dureino\target\generated-sources\java\com\br\dureino\model\QProduto.java
@@ -28,6 +30,7 @@ C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\controller\CadastroPedi
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\service\JobsService.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\dao\PedidoDao.java
 C:\Users\Diego Dias\dureino\target\generated-sources\java\com\br\dureino\model\QCliente.java
+C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\lazy\LazyPedido.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\util\jpa\TransactionInterceptor.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\model\enums\TipoPessoa.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\model\Categoria.java

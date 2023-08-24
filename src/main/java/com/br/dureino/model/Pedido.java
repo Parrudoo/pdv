@@ -1,6 +1,5 @@
 package com.br.dureino.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,10 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 import com.br.dureino.model.enums.FormaPagamento;
 import com.br.dureino.model.enums.StatusPedido;

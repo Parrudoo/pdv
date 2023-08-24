@@ -14,7 +14,6 @@
 
             <h:form id="formPesquisa">
         <p:messages id="messages" autoUpdate="true" closable="true"/>
-
                 <p:toolbar style="margin-top: 20px">
                         <p:toolbarGroup style="float: left">
                             <p:commandButton icon="pi pi-search" value="Pesquisar" />
@@ -25,34 +24,63 @@
                         </p:toolbarGroup>
                 </p:toolbar>
 
-        
-                <p:panelGrid columns="2" styleClass="ui-noborder">
-
-                    <p:outputPanel>
-                        <p:outputLabel value="Código de barras" for="codBarras"/>
-                        <p:inputText value="" id="codBarras"/>
-                    </p:outputPanel>
 
 
-                </p:panelGrid>
-
-                <p:panelGrid columns="2"  columnClasses="rotulo,campo" styleClass="ui-noborder">
+                <p:panelGrid columns="2"  styleClass="ui-noborder">
 
 
-                    <p:outputLabel value="Numero" for="numero" />
-                    <p:inputText id="numero" />
+                    <p:outputLabel value="Numero" for="nu" />
+                    <p:inputText value="#{pesquisaPedidoController.pedidoFiltroDTO.numero}" id="nu" />
+
+                    <p:outputLabel value="Código de barras" for="codBarras"/>
+                    <p:inputText value="" id="codBarras"/>
+
+                    <p:outputLabel value="Data Criação" for="de" />
+                    <p:calendar id="de"  showOn="button" />
 
 
-
-                        <p:outputLabel value="Data Criação" for="de" />
-                        <p:calendar id="de"  showOn="button" />
-
-
-
-
+                    <p:outputLabel value="Vendedor" for="vd"/>
+                    <p:inputText value="" id="vd" />
                 </p:panelGrid>
 
             </h:form>
+
+            <p:dataTable value="#{pesquisaPedidoController.lazyPedido}" var="pedido"
+            paginator="true"  lazy="true" rows="5">
+
+                <f:facet name="header">
+                    <span>Total de Pedidos:
+                    <h:outputText value="#{pesquisaPedidoController.lazyPedido.rowCount}"
+                                  style="font-weight: bold"/>
+                    </span>
+                </f:facet>
+                <p:column headerText="Ação" style="width: 4%">
+                    <p:commandButton icon="pi pi-pencil" title="Editar"/>
+                </p:column>
+
+                <p:column headerText="Numero">
+                    <p:inputText disabled="true" id="numero" value="#{pedido.numero}"/>
+                </p:column>
+
+<!--                <p:column headerText="Cliente">-->
+<!--                    <p:inputText disabled="true" id="cnome" value="#{pedido.cliente.nome}"/>-->
+<!--                </p:column>-->
+
+<!--                <p:column headerText="Pagamento">-->
+<!--                    <p:inputText disabled="true" id="pg" value="#{pedido.pagamento}"/>-->
+<!--                </p:column>-->
+
+                <p:column headerText="Total">
+                    <p:inputText disabled="true"  value="#{pedido.valorTotal}"/>
+                </p:column>
+
+                <p:column headerText="Data Criação">
+                    <p:inputText disabled="true"  value="#{pedido.data}"/>
+                </p:column>
+
+
+
+            </p:dataTable>
 
         </p:panel>
 
