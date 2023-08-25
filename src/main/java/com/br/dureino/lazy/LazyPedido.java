@@ -56,6 +56,7 @@ public class LazyPedido extends LazyDataModel<PedidoDTO> {
         for (Pedido pedido : pedidos){
             PedidoDTO pedidoFiltroDTO = new PedidoDTO();
 
+            pedidoFiltroDTO.setId(pedido.getId());
             pedidoFiltroDTO.setVendedor(pedido.getVendendor());
             pedidoFiltroDTO.setNumero(pedido.getNumero());
             pedidoFiltroDTO.setData(pedido.getDataCriacao());

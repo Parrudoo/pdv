@@ -27,6 +27,7 @@ C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\model\ItemPedido.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\converter\PedidoConverter.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\controller\CadastroProdutoController.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\controller\CadastroPedidoController.java
+C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\dto\ItemPedidoDetalheDTO.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\service\JobsService.java
 C:\Users\Diego Dias\dureino\src\main\java\com\br\dureino\dao\PedidoDao.java
 C:\Users\Diego Dias\dureino\target\generated-sources\java\com\br\dureino\model\QCliente.java

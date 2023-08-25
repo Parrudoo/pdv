@@ -32,18 +32,18 @@
                     <p:outputLabel value="Numero" for="nu" />
                     <p:inputText value="#{pesquisaPedidoController.pedidoFiltroDTO.numero}" id="nu" />
 
-                    <p:outputLabel value="Código de barras" for="codBarras"/>
-                    <p:inputText value="" id="codBarras"/>
+                   <!-- <p:outputLabel value="Código de barras" for="codBarras"/>
+                    <p:inputText value="" id="codBarras"/>-->
 
-                    <p:outputLabel value="Data Criação" for="de" />
-                    <p:calendar id="de"  showOn="button" />
+                   <!-- <p:outputLabel value="Data Criação" for="de" />
+                    <p:calendar id="de"  showOn="button" />-->
 
 
-                    <p:outputLabel value="Vendedor" for="vd"/>
-                    <p:inputText value="" id="vd" />
+                   <!-- <p:outputLabel value="Vendedor" for="vd"/>
+                    <p:inputText value="" id="vd" />-->
                 </p:panelGrid>
 
-            </h:form>
+
 
             <p:dataTable value="#{pesquisaPedidoController.lazyPedido}" var="pedido"
             paginator="true"  lazy="true" rows="5">
@@ -59,28 +59,74 @@
                 </p:column>
 
                 <p:column headerText="Numero">
-                    <p:inputText disabled="true" id="numero" value="#{pedido.numero}"/>
+                    <h:outputText disabled="true" id="numero" value="#{pedido.numero}"/>
                 </p:column>
 
-<!--                <p:column headerText="Cliente">-->
-<!--                    <p:inputText disabled="true" id="cnome" value="#{pedido.cliente.nome}"/>-->
-<!--                </p:column>-->
+                <p:column headerText="Itens">
+                    <p:commandButton icon="pi pi-eye" action="#{pesquisaPedidoController.detalheItemPedido()}"
+                    oncomplete="PF('detalhePedido').show()"
+                    process="@this" update=":formPesquisa:detPedido">
+
+
+                    <f:setPropertyActionListener target="#{pesquisaPedidoController.pedidoSelecionado}" value="#{pedido}"/>
+                    </p:commandButton>
+                </p:column>
 
 <!--                <p:column headerText="Pagamento">-->
 <!--                    <p:inputText disabled="true" id="pg" value="#{pedido.pagamento}"/>-->
 <!--                </p:column>-->
 
                 <p:column headerText="Total">
-                    <p:inputText disabled="true"  value="#{pedido.valorTotal}"/>
+                    <h:outputText disabled="true"  value="#{pedido.valorTotal}"/>
                 </p:column>
 
                 <p:column headerText="Data Criação">
-                    <p:inputText disabled="true"  value="#{pedido.data}"/>
+                    <h:outputText disabled="true"  value="#{pedido.data}"/>
                 </p:column>
 
 
 
             </p:dataTable>
+
+
+                <p:dialog id="detPedido" header="Resumo" widgetVar="detalhePedido" modal="true"
+                        styleClass="ui-dialog"  closable="true">
+                    <p:dataTable value="#{pesquisaPedidoController.itemPedidoDetalheDTOS}" var="ped">
+
+                        <p:column headerText="Numero">
+                            <h:outputText value="#{ped.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Produto">
+                            <h:outputText value="#{ped.nomeProduto}"/>
+                        </p:column>
+
+                        <p:column headerText="qtd">
+                            <h:outputText value="#{ped.qtd}"/>
+                        </p:column>
+
+                        <p:column headerText="Vl Únitario">
+                            <h:outputText value="#{ped.valorUnitario}"/>
+                        </p:column>
+
+                        <p:column headerText="Vl Total">
+                            <h:outputText value="#{ped.valorTotal}"/>
+                        </p:column>
+
+
+
+                    </p:dataTable>
+                    <!--  <p:dataList value="#{pesquisaPedidoController.itemPedidoDetalheDTOS}" var="ped"
+                      rendered="#{not empty pesquisaPedidoController.itemPedidoDetalheDTOS}">
+                          #{ped.nomeProduto}
+
+                      </p:dataList>-->
+                    <!--                <h:outputText value="Nenhum Item selecionado" rendered="#{empty pesquisaPedidoController.itemPedidoDetalheDTOS}"/>-->
+                </p:dialog>
+
+            </h:form>
+
+
 
         </p:panel>
 

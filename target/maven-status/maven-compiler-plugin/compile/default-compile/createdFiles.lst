@@ -25,6 +25,7 @@ com\br\dureino\util\jpa\Transactional.class
 com\br\dureino\controller\CadastroProdutoController.class
 com\br\dureino\util\jpa\EntityManagerProducer.class
 com\br\dureino\model\ItemPedido.class
+com\br\dureino\dto\ItemPedidoDetalheDTO.class
 com\br\dureino\util\jpa\TransactionInterceptor.class
 com\br\dureino\lazy\LazyPedido.class
 com\br\dureino\model\Vendedor.class

@@ -1,6 +1,5 @@
 package com.br.dureino.dto;
 
-import com.br.dureino.model.Vendedor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,21 +11,21 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PedidoDTO {
+public class ItemPedidoDetalheDTO {
 
     private Long id;
 
     private Integer numero;
 
-    private String data;
-
-    private Vendedor vendedor;
-
-    private BigDecimal valorTotal;
+    private String nomeProduto;
 
     private String pagamento;
 
-    private String nomeProduto;
+    private Integer qtd;
+
+    private BigDecimal valorUnitario;
+
+    private BigDecimal valorTotal;
 
 
 }

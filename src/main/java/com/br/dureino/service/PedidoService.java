@@ -1,6 +1,7 @@
 package com.br.dureino.service;
 
 import com.br.dureino.dao.PedidoDao;
+import com.br.dureino.dto.ItemPedidoDetalheDTO;
 import com.br.dureino.model.EnderecoEntrega;
 import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Pedido;
@@ -44,4 +45,8 @@ public class PedidoService implements Serializable {
         return pedidoDao.buscarPedido();
     }
 
+    public List<ItemPedidoDetalheDTO> buscarPedidoItemPedidoProduto(Long id) {
+
+       return pedidoDao.buscarPedidoItemPedidoProduto(id);
+    }
 }
