@@ -40,110 +40,93 @@
 
 
 				<p:panelGrid columns="6" style="width:100%; margin-top:20px"
-					columnClasses="rotulo,campo" layout="grid">
+					columnClasses="campoMenor,campoMaior,campoMenor,campoMenor" styleClass="ui-noborder">
 
-					<p:outputLabel value="Nome" for="nome" />
-					<p:inputText id="nome"
-						value="#{cadastroProdutoController.produto.nome}"
+					<p:outputLabel value="Código" for="codigo" >
+					<p:inputText id="codigo"
+						value="#{cadastroProdutoController.produto.id}"
 						style="width:100%" />
+					</p:outputLabel>
 
-					<p:outputLabel value="SKU" for="sku" />
-					<p:inputText id="sku"
-						value="#{cadastroProdutoController.produto.sku}" />
+					<p:outputLabel value="Nome" for="nome" >
+						<p:inputText id="nome"
+							value="#{cadastroProdutoController.produto.nome}" style="width:100%"/>
+					</p:outputLabel>
 
+					<p:outputLabel value="NCM" for="ncm" >
+						<p:inputText id="ncm"
+									 value="#{cadastroProdutoController.produto.ncm}" style="width:100%"/>
+					</p:outputLabel>
 
-					<p:outputLabel value="Categoria" for="categoria" />
-					<p:selectOneMenu id="categoria"
-						value="#{cadastroProdutoController.produto.categoria}">
-						<f:selectItem itemLabel="Selecione" />
-						<f:selectItems value="#{cadastroProdutoController.selectItem}" />
+					<p:outputLabel value="UND" for="und" >
+					<p:selectOneMenu id="und" value="#{cadastroProdutoController.produto.und}" style="width: 100%">
+
+						<f:selectItem itemLabel="Selecione"/>
+						<f:selectItems value="#{cadastroProdutoController.und}"/>
 					</p:selectOneMenu>
-
-
-					<p:outputLabel value="Subcategoria" for="subCategoria" />
-					<p:selectOneMenu id="subCategoria"
-						value="#{cadastroProdutoController.produto.subCategoria}">
-						<f:selectItem itemLabel="Selecione" />
-						<f:selectItems value="#{cadastroProdutoController.selectItem}" />
-					</p:selectOneMenu>
-
-					<p:outputLabel value="Valor unitário" for="vUnitario" />
-					<p:inputNumber id="vUnitario"
-						value="#{cadastroProdutoController.produto.valorUnitario}"
-						style="width:30%" />
-
-
-					<p:outputLabel value="Estoque" for="estoque" />
-					<p:inputNumber id="estoque"
-						value="#{cadastroProdutoController.produto.estoque}"
-						style="width:30%" />
+					</p:outputLabel>
 
 				</p:panelGrid>
 
 
-				<p:panel header="Produto Selecionado">
 
-					<p:dataTable id="prodSelecionado"
-						rendered="#{cadastroProdutoController.habilitarDatatable()}"
-						emptyMessage="Nenhum produto selecionado"
-						value="#{cadastroProdutoController.produtoGuardado}" var="prod">
-						<p:column headerText="sku">
-							<h:outputText value="#{prod.sku}" />
-						</p:column>
+				<p:panelGrid columns="6" columnClasses="rotulo,rotulo,rotulo,rotulo,rotulo,rotulo" style="width: 100%" styleClass="ui-noborder">
 
-						<p:column headerText="Nome">
-							<h:outputText value="#{prod.nome}" />
-						</p:column>
 
-						<p:column headerText="Valor Unitário">
-							<h:outputText value="#{prod.valorUnitario}" />
-						</p:column>
-						
-						<p:column headerText="Qtd">
-							<p:inputNumber value="#{prod.qtd}" />
-						</p:column>
-												
-						<p:column headerText="Ação">
-							<p:commandButton title="Remover da Lista" icon="pi pi-minus" update="prodSelecionado"
-							action="#{cadastroProdutoController.removerDaLista()}">
-							
-							<f:setPropertyActionListener value="#{prod}" target="#{cadastroProdutoController.produtoSelecionado}"/>
-							</p:commandButton>
-							
-							<p:commandButton title="Calcular" icon="pi pi-calculator" style="margin-left:10px" />
+						<p:outputLabel value="P/ Custo" for="prCusto" >
+						<p:inputText id="prCusto"
+									 value="#{cadastroProdutoController.produto.precoCusto}" style="width:100%"/>
+						</p:outputLabel>
 
-							<p:button outcome="/produtos/CadastroProduto.xhtml"
-								title="Editar" icon="pi pi-file-edit" style="margin-left:10px">
-								<f:param name="produto" value="#{prod.id}" />
-							</p:button>
+						<p:outputLabel value="P/ Venda" for="prVenda">
+						<p:inputText id="prVenda"
+									 value="#{cadastroProdutoController.produto.valorUnitario}" style="width:100%"/>
+						</p:outputLabel>
 
-							<p:commandButton title="Excluir" icon="pi pi-trash"
-								onclick="PF('dialogExcluirProduto').show()"
-								style="margin-left:10px">
-								<f:setPropertyActionListener value="#{prod}"
-									target="#{cadastroProdutoController.deleteProdSelecionado}" />
-							</p:commandButton>
+						<p:outputLabel value="Lucro(%)" for="lucro">
+						<p:inputText id="lucro"
+									 value="#{cadastroProdutoController.produto.lucro}" style="width:100%"/>
+						</p:outputLabel>
 
-						</p:column>
+					<p:spacer/>
 
-					</p:dataTable>
-				</p:panel>
+						<p:outputLabel value="Valor Mínimo" for="vlMinimo">
+							<p:inputText id="vlMinimo"
+										 value="#{cadastroProdutoController.produto.valorMinimo}" style="width:100%"/>
+						</p:outputLabel>
 
-				<p:confirmDialog id="dialogExcluirProduto"
-					widgetVar="dialogExcluirProduto" severity="alert"
-					header="Excluir Produto" styleClass="ui-dialog-delete"
-					message="Você tem certeza que deseja excluir o produto?"
-					closable="true">					
-					<p:commandButton value="Sim"
-						actionListener="#{cadastroProdutoController.deletar()}"
-						update="form,form:prodSelecionado,frmPesquisa:datatablePesquisa"
-						onclick="PF('dialogExcluirProduto').hide()"
-						style="margin-left:10px" />
+						<p:outputLabel value="Valor Máximo" for="vlMaximo">
+							<p:inputText id="vlMaximo"
+										 value="#{cadastroProdutoController.produto.valorMaximo}" style="width:100%"/>
+						</p:outputLabel>
 
-					<p:button value="Não" style="margin-left:10px"
-						onclick="PF('dialogExcluirProduto').hide(); return false" />
+				</p:panelGrid>
 
-				</p:confirmDialog>
+				<p:fieldset legend="Estoque">
+					<p:panelGrid columns="3" id="estoque" columnClasses="rotulo,rotulo,rotulo" styleClass="ui-noborder">
+
+						<p:outputLabel>
+							<p:selectBooleanButton
+									value="#{cadastroProdutoController.estoque}" id="cont"
+												   onIcon="pi pi-check" offIcon="pi pi-times"/>
+							<h5 style="display: inline">Controlar Estoque?</h5>
+						</p:outputLabel>
+
+
+						<p:outputLabel value="Estoque Mínimo" for="estomi">
+							<p:inputText id="estomi" disabled="#{not cadastroProdutoController.estoque}"
+										 value="#{cadastroProdutoController.produto.estoqueMinimo}"   style="width:100%"/>
+						</p:outputLabel>
+
+						<p:outputLabel value="Estoque Máximo" for="estoma" >
+							<p:inputText id="estoma" disabled="#{not cadastroProdutoController.estoque}"
+										 value="#{cadastroProdutoController.produto.estoqueMaximo}" style="width:100%">
+
+							</p:inputText>
+						</p:outputLabel>
+
+					</p:panelGrid>
+				</p:fieldset>
 
 
 			</h:form>

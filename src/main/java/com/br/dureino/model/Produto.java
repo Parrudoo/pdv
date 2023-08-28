@@ -8,6 +8,7 @@ import javax.annotation.Generated;
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 
+import com.br.dureino.model.enums.Und;
 import org.hibernate.annotations.ManyToAny;
 
 import lombok.AllArgsConstructor;
@@ -38,7 +39,28 @@ public class Produto {
 
 	private BigDecimal valorUnitario;
 
+	private BigDecimal precoCusto;
+
+	private String ncm;
+
+	private BigDecimal lucro;
+
 	private Integer estoque;
+
+	private BigDecimal valorMinimo;
+
+	private BigDecimal valorMaximo;
+
+	private Integer estoqueMinimo;
+
+	private Integer estoqueMaximo;
+
+	private Boolean controlerEstoque = false;
+
+	private Boolean habilitado = true;
+
+
+	private Und und;
 	
 	@OneToMany
 	private List<ItemPedido> itemPedidos = new ArrayList<>();
@@ -58,5 +80,16 @@ public class Produto {
 		}
 		return result != null && estoque != null ? estoque - result : null;
 	}
-	
+
+
+	public boolean getControlerEstoque(){
+		if (controlerEstoque != null){
+			if (this.controlerEstoque){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		return false;
+	}
 }

@@ -5,6 +5,7 @@ com\br\dureino\dao\PedidoDao.class
 com\br\dureino\converter\PedidoConverter.class
 com\br\dureino\controller\PesquisaPedidoController.class
 com\br\dureino\model\Produto.class
+com\br\dureino\model\enums\Und.class
 com\br\dureino\service\JobsService.class
 com\br\dureino\controller\CadastroPedidoController.class
 com\br\dureino\converter\ProdutoConverter.class

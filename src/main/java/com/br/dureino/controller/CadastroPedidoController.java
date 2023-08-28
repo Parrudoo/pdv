@@ -186,7 +186,17 @@ public class CadastroPedidoController implements Serializable {
                          itemPedido.getProduto().getNome(),
                          itemPedido.getProduto().getSubCategoria(),
                          itemPedido.getProduto().getValorUnitario(),
+                         itemPedido.getProduto().getPrecoCusto(),
+                         itemPedido.getProduto().getNcm(),
+                         itemPedido.getProduto().getLucro(),
                          itemPedido.getProduto().getEstoque(),
+                         itemPedido.getProduto().getValorMinimo(),
+                         itemPedido.getProduto().getValorMaximo(),
+                         itemPedido.getProduto().getEstoqueMinimo(),
+                         itemPedido.getProduto().getEstoqueMaximo(),
+                         itemPedido.getProduto().getControlerEstoque(),
+                         itemPedido.getProduto().getHabilitado(),
+                         itemPedido.getProduto().getUnd(),
                          null,
                          itemPedido.getProduto().getCategoria());
             }

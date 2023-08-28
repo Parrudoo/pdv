@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.br.dureino.model.Produto;
+import com.br.dureino.model.enums.Und;
 import com.br.dureino.service.NegocioException;
 import com.br.dureino.service.ProdutoService;
 import com.br.dureino.util.jsf.FacesUtil;
@@ -46,6 +47,10 @@ public class CadastroProdutoController implements Serializable {
 	private Produto deleteProdSelecionado;
 
 	private String nomeDigitado;
+
+	private List<SelectItem> und;
+
+	private boolean estoque = false;
 
 	@Inject
 	private ProdutoService cadastroProdutoService;
@@ -119,6 +124,15 @@ public class CadastroProdutoController implements Serializable {
 
 	}
 
+	public List<SelectItem> getUnd(){
+		List<SelectItem> list = new ArrayList<>();
+		for (Und und : Und.values()){
+
+			list.add(new SelectItem(und.getDescricao(), und.getDescricao()));
+		}
+		return list;
+	}
+
 	private void listarProduto() {
 		this.produtos = cadastroProdutoService.listar();
 		
@@ -143,7 +157,17 @@ public class CadastroProdutoController implements Serializable {
 					prod.getNome(), 
 					prod.getSubCategoria(),
 					prod.getValorUnitario(),
+					prod.getPrecoCusto(),
+					prod.getNcm(),
+					prod.getLucro(),
 					prod.getEstoque(),
+					prod.getValorMinimo(),
+					prod.getValorMaximo(),
+					prod.getEstoqueMinimo(),
+					prod.getEstoqueMaximo(),
+					prod.getControlerEstoque(),
+					prod.getHabilitado(),
+					prod.getUnd(),
 					prod.getItemPedidos(),
 					prod.getCategoria()));
 		}
@@ -165,4 +189,11 @@ public class CadastroProdutoController implements Serializable {
 		this.produto = new Produto();
 	}
 
+	public boolean atualizarCampo() {
+		if (estoque){
+			return estoque = true;
+		}else{
+			return estoque = false;
+		}
+	}
 }

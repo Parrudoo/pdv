@@ -31,11 +31,24 @@ header>div {
 }
 
 .rotulo{
-	width: 300px;
+	width: 5%;
 }
 
-.campo{
-	width: 100%;
+.campoMenor{
+	width: 20%;
+}
+
+.campoespaco{
+	width: 5%;
+	margin-right: 100px;
+}
+
+.campoMaior{
+	width: 40%;
+}
+
+.campoItem{
+width: 15%;
 }
 
 .ui-panelgrid.showcase-text-align-center{
