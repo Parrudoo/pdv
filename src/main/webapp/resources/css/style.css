@@ -30,6 +30,10 @@ header>div {
 	margin-right:10px;
 }
 
+.entre{
+	width: 2%;
+}
+
 .rotulo{
 	width: 5%;
 }
@@ -37,7 +41,9 @@ header>div {
 .campoMenor{
 	width: 20%;
 }
-
+.campoEstado{
+	width: 5%;
+}
 .campoespaco{
 	width: 5%;
 	margin-right: 100px;

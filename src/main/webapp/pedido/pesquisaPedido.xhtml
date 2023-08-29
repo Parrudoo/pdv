@@ -27,7 +27,7 @@
 
 
 
-                <p:panelGrid columns="5" style="width: 100%" columnClasses="rotulo,rotulo,rotulo,rotulo,rotulo"  styleClass="ui-noborder">
+                <p:panelGrid columns="5" style="width: 100%" columnClasses="rotulo,rotulo,rotulo,rotulo,entre,rotulo"  styleClass="ui-noborder">
 
 
                     <p:outputLabel value="Numero" for="nu" style="font-weight: bold">
@@ -44,7 +44,7 @@
                         <p:calendar id="de"  value="#{pesquisaPedidoController.lazyPedido.pedidoFiltroDTO.data}" style="width: 100%" />
                     </p:outputLabel>
 
-                    <p:spacer  title="---"/>
+
                     <p:outputLabel value="Data Final" for="e" style="display: grid; font-weight: bold">
                         <p:calendar id="e"  value="#{pesquisaPedidoController.lazyPedido.pedidoFiltroDTO.data}" style="width: 100%" />
                     </p:outputLabel>

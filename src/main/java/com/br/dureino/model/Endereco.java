@@ -1,11 +1,6 @@
 package com.br.dureino.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,11 +22,15 @@ public class Endereco {
 	private String cep;
 	
 	private String cidade;
+
+	private String bairro;
 	
 	private String uf;
 	
-	@ManyToOne	
+	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 
+	@OneToOne
+	private Vendedor vendedor;
 }

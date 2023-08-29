@@ -1,0 +1,118 @@
+<ui:composition  template="/WEB-INF/template/LayoutPadrao.xhtml"
+                 xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:h="http://java.sun.com/jsf/html"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:f="http://java.sun.com/jsf/core"
+                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                 xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo">Cadastro Vendedor</ui:define>
+
+    <ui:define name="corpo">
+
+        <p:panel header="Cadastro de Vendedor">
+
+
+            <h:form id="formVendedor">
+
+                <p:messages id="messages" autoUpdate="true" closable="true" />
+
+                <p:toolbar style="margin-top: 20px">
+                    <p:toolbarGroup>
+                        <p:commandButton value="Novo" icon="pi pi-file"
+                                         style="margin-right:10px" styleClass="mr-2" update="formVendedor" />
+
+                        <p:commandButton value="Salvar" icon="pi pi-save" action="#{cadastroVendedorController.salvar()}"
+                                         styleClass="ui-button-help mr-2" update="formVendedor" />
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <p:toolbarGroup align="left">
+                            <p:commandButton value="Pesquisar"
+                                             styleClass="ui-button-help mr-2" />
+                        </p:toolbarGroup>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:panelGrid columns="3" style="width: 100%" columnClasses="campoMenor,campoMaior,campoMenor" styleClass="ui-noborder">
+
+
+                <p:outputLabel value="Código" style="font-weight: bold">
+
+                    <p:inputText value="#{cadastroVendedorController.vendedor.id}" style="width: 100%" />
+                </p:outputLabel>
+
+                <p:outputLabel value="Nome" style="font-weight: bold">
+
+                    <p:inputText value="#{cadastroVendedorController.vendedor.nome}" style="width: 100%" />
+                </p:outputLabel>
+
+
+                <p:outputLabel value="Cpf" style="font-weight: bold">
+
+                    <p:inputText value="#{cadastroVendedorController.vendedor.cpf}" style="width: 100%" />
+                </p:outputLabel>
+
+                </p:panelGrid>
+
+                <p:panelGrid columns="5" columnClasses="campoMaior,campoMenor,campoMenor,campoEstado,campoMenor" styleClass="ui-noborder">
+
+                    <p:outputLabel value="Endereço" style="font-weight: bold">
+                        <p:inputText value="#{cadastroVendedorController.vendedor.endereco.logradouro}"  style="width: 100%"/>
+                    </p:outputLabel>
+
+                    <p:outputLabel value="Bairro" style="font-weight: bold">
+                        <p:inputText value="#{cadastroVendedorController.vendedor.endereco.bairro}" style="width: 100%"/>
+                    </p:outputLabel>
+
+                    <p:outputLabel value="Cidade" style="font-weight: bold">
+                        <p:inputText value="#{cadastroVendedorController.vendedor.endereco.cidade}"  style="width: 100%"/>
+                    </p:outputLabel>
+
+                    <p:outputLabel value="Estado" for="estado" style="font-weight: bold">
+                    <p:selectOneMenu id="estado" value="#{cadastroVendedorController.vendedor.endereco.uf}" style="width: 100%">
+                        <f:selectItem itemLabel="Selecione"/>
+                        <f:selectItems value="#{cadastroVendedorController.uf}"/>
+                    </p:selectOneMenu>
+                    </p:outputLabel>
+
+                    <p:outputLabel value="Telefone" style="font-weight: bold">
+                        <p:inputText value="#{cadastroVendedorController.vendedor.telefone}"  style="width: 100%"/>
+                    </p:outputLabel>
+
+                </p:panelGrid>
+
+            </h:form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </p:panel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </ui:define>
+
+</ui:composition>
