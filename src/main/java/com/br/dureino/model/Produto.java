@@ -37,9 +37,9 @@ public class Produto {
 
 	private String subCategoria;
 
-	private BigDecimal valorUnitario;
+	private BigDecimal valorUnitario = BigDecimal.ZERO;
 
-	private BigDecimal precoCusto;
+	private BigDecimal precoCusto = BigDecimal.ZERO;
 
 	private String ncm;
 
@@ -91,5 +91,15 @@ public class Produto {
 			}
 		}
 		return false;
+	}
+
+	public BigDecimal getLucro(){
+		BigDecimal resultado = BigDecimal.ZERO;
+
+		resultado =	resultado.add(valorUnitario.subtract(precoCusto));
+			this.setLucro(resultado);
+
+
+		return resultado;
 	}
 }

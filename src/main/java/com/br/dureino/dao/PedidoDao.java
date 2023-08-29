@@ -1,6 +1,7 @@
 package com.br.dureino.dao;
 
 import com.br.dureino.dto.ItemPedidoDetalheDTO;
+import com.br.dureino.dto.PedidoDTO;
 import com.br.dureino.model.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
@@ -9,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class PedidoDao {
@@ -42,15 +44,56 @@ public class PedidoDao {
         return entityManager.merge(enderecoEntrega);
     }
 
-    public List<Pedido> buscarPedido(int first, int pageSize) {
+    public List<PedidoDTO> buscarPedido(int first, int pageSize,PedidoDTO dto) {
+
+        List<PedidoDTO> pedidoDTOS = new ArrayList<>();
+
+        if (dto != null){
+
+            JPAQuery<Tuple> query = new JPAQuery<>(entityManager);
+
+            BooleanBuilder builder = new BooleanBuilder();
+            if (dto.getId() != null){
+                builder.and(qPedido.id.eq(new Long(dto.getId())));
+            }
 
 
-      return entityManager.createQuery("select p from Pedido p")
-                .setFirstResult(first)
-                .setMaxResults(pageSize)
-                .getResultList();
+
+            JPAQuery<Tuple> tuples = query.select(  qPedido.numero,
+                            qItemPedido.qtd,
+                            qPedido.dataCriacao,
+                            qPedido.total,
+                            qPedido.valorFrete,
+                            qPedido.id).from(qPedido)
+                    .innerJoin(qItemPedido)
+                    .on(qPedido.eq(qItemPedido.pedido))
+
+                    .where(builder);
+
+            if (pageSize != 0 & first != 0){
+                tuples.limit(pageSize).offset(first);
+            }
+
+            List<Tuple> list = tuples.fetch();
 
 
+
+            for (Tuple tuple : list){
+                PedidoDTO pedidoDTO = new PedidoDTO();
+
+                pedidoDTO.setNumero(tuple.get(qPedido.numero));
+//            pedidoDTO.setItemPedidos(tuple.get(qPedido.itemPedidos));
+                pedidoDTO.setData(tuple.get(qPedido.dataCriacao));
+                pedidoDTO.setValorTotal(tuple.get(qPedido.total));
+                pedidoDTO.setId(tuple.get(qPedido.id));
+
+                pedidoDTOS.add(pedidoDTO);
+            }
+        }
+
+
+
+        return pedidoDTOS;
 
     }
 
@@ -99,4 +142,6 @@ public class PedidoDao {
 
              return itemPedidoDetalheDTOS;
     }
+
+
 }

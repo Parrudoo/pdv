@@ -16,7 +16,8 @@
         <p:messages id="messages" autoUpdate="true" closable="true"/>
                 <p:toolbar style="margin-top: 20px">
                         <p:toolbarGroup style="float: left">
-                            <p:commandButton icon="pi pi-search" value="Pesquisar" />
+                            <p:commandButton icon="pi pi-search" value="Pesquisar" action="#{pesquisaPedidoController.pesquisar()}"
+                            update="formPesquisa, formPesquisa:tablePedido"/>
                         </p:toolbarGroup>
 
                         <p:toolbarGroup style="float: right">
@@ -26,26 +27,33 @@
 
 
 
-                <p:panelGrid columns="2"  styleClass="ui-noborder">
+                <p:panelGrid columns="5" style="width: 100%" columnClasses="rotulo,rotulo,rotulo,rotulo,rotulo"  styleClass="ui-noborder">
 
 
-                    <p:outputLabel value="Numero" for="nu" />
-                    <p:inputText value="#{pesquisaPedidoController.pedidoFiltroDTO.numero}" id="nu" />
+                    <p:outputLabel value="Numero" for="nu" style="font-weight: bold">
+                    <p:inputText value="#{pesquisaPedidoController.lazyPedido.pedidoFiltroDTO.id}" id="nu" style="width: 100%" />
+                    </p:outputLabel>
 
-                   <!-- <p:outputLabel value="Código de barras" for="codBarras"/>
-                    <p:inputText value="" id="codBarras"/>-->
+                    <p:outputLabel value="Vendedor" for="vd" style="font-weight: bold">
+                    <p:inputText value="#{pesquisaPedidoController.lazyPedido.pedidoFiltroDTO.vendedor}" id="vd" style="width: 100%"  />
+                    </p:outputLabel>
 
-                   <!-- <p:outputLabel value="Data Criação" for="de" />
-                    <p:calendar id="de"  showOn="button" />-->
+                    <p:spacer/>
 
+                    <p:outputLabel value="Data Criação" for="de" style="display: grid; font-weight: bold">
+                        <p:calendar id="de"  value="#{pesquisaPedidoController.lazyPedido.pedidoFiltroDTO.data}" style="width: 100%" />
+                    </p:outputLabel>
 
-                   <!-- <p:outputLabel value="Vendedor" for="vd"/>
-                    <p:inputText value="" id="vd" />-->
+                    <p:spacer  title="---"/>
+                    <p:outputLabel value="Data Final" for="e" style="display: grid; font-weight: bold">
+                        <p:calendar id="e"  value="#{pesquisaPedidoController.lazyPedido.pedidoFiltroDTO.data}" style="width: 100%" />
+                    </p:outputLabel>
+
                 </p:panelGrid>
 
 
 
-            <p:dataTable value="#{pesquisaPedidoController.lazyPedido}" var="pedido"
+            <p:dataTable id="tablePedido" value="#{pesquisaPedidoController.lazyPedido}" var="pedido"
             paginator="true"  lazy="true" rows="5">
 
                 <f:facet name="header">

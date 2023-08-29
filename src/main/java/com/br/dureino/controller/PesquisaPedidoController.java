@@ -38,11 +38,19 @@ public class PesquisaPedidoController  implements Serializable {
     @Inject
     private LazyPedido lazyPedido;
 
+    public LazyPedido pesquisar(){
+        return this.lazyPedido;
+    }
 
 
     public List<ItemPedidoDetalheDTO> detalheItemPedido(){
 
         List<ItemPedidoDetalheDTO> detalheDTOS = pedidoService.buscarPedidoItemPedidoProduto(pedidoSelecionado.getId());
+
+        if (!itemPedidoDetalheDTOS.isEmpty()){
+            itemPedidoDetalheDTOS = new ArrayList<>();
+        }
+
 
         for (ItemPedidoDetalheDTO dto : detalheDTOS){
             itemPedidoDetalheDTOS.add(new ItemPedidoDetalheDTO(

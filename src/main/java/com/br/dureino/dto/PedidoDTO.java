@@ -1,5 +1,6 @@
 package com.br.dureino.dto;
 
+import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Vendedor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,7 +21,7 @@ public class PedidoDTO {
 
     private Integer numero;
 
-    private String data;
+    private Date data;
 
     private Vendedor vendedor;
 
@@ -28,5 +31,5 @@ public class PedidoDTO {
 
     private String nomeProduto;
 
-
+    private List<ItemPedido> itemPedidos;
 }

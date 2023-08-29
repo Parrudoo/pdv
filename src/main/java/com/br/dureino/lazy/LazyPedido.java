@@ -13,6 +13,7 @@ import org.primefaces.model.SortMeta;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class LazyPedido extends LazyDataModel<PedidoDTO> {
     @Inject
     private PedidoDao pedidoDao;
 
-    private PedidoDTO pedidoFiltroDTO;
+    private PedidoDTO pedidoFiltroDTO = new PedidoDTO();
 
     public LazyPedido(PedidoDao pedidoDao){
         this.pedidoDao = pedidoDao;
@@ -39,17 +40,21 @@ public class LazyPedido extends LazyDataModel<PedidoDTO> {
 
     @Override
     public List<PedidoDTO> load(int first, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
-        List<Pedido> pedidos = pedidoDao.buscarPedido(first, pageSize);
 
-        List<PedidoDTO> pedidoFiltroDTOS = converter(pedidos);
 
-        Long qtd = pedidoDao.buscarPedido();
-        this.setRowCount(qtd.intValue());
 
-        return pedidoFiltroDTOS;
+
+        List<PedidoDTO> pedidos = pedidoDao.buscarPedido(first, pageSize, pedidoFiltroDTO );
+
+//        List<PedidoDTO> pedidoFiltroDTOS = converter(pedidos);
+
+        int qtd = pedidoDao.buscarPedido().intValue();
+        this.setRowCount(qtd);
+
+        return pedidos;
     }
 
-    private List<PedidoDTO> converter(List<Pedido> pedidos) {
+    /*private List<PedidoDTO> converter(List<Pedido> pedidos) {
 
         List<PedidoDTO> pedidoFiltroDTOS = new ArrayList<>();
 
@@ -65,5 +70,5 @@ public class LazyPedido extends LazyDataModel<PedidoDTO> {
         }
 
         return pedidoFiltroDTOS;
-    }
+    }*/
 }

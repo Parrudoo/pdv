@@ -42,23 +42,23 @@
 				<p:panelGrid columns="6" style="width:100%; margin-top:20px"
 					columnClasses="campoMenor,campoMaior,campoMenor,campoMenor" styleClass="ui-noborder">
 
-					<p:outputLabel value="Código" for="codigo" >
+					<p:outputLabel value="Código" for="codigo" style="font-weight: bold">
 					<p:inputText id="codigo"
 						value="#{cadastroProdutoController.produto.id}"
 						style="width:100%" />
 					</p:outputLabel>
 
-					<p:outputLabel value="Nome" for="nome" >
+					<p:outputLabel value="Nome" for="nome" style="font-weight: bold" >
 						<p:inputText id="nome"
 							value="#{cadastroProdutoController.produto.nome}" style="width:100%"/>
 					</p:outputLabel>
 
-					<p:outputLabel value="NCM" for="ncm" >
+					<p:outputLabel value="NCM" for="ncm" style="font-weight: bold">
 						<p:inputText id="ncm"
 									 value="#{cadastroProdutoController.produto.ncm}" style="width:100%"/>
 					</p:outputLabel>
 
-					<p:outputLabel value="UND" for="und" >
+					<p:outputLabel value="UND" for="und" style="font-weight: bold">
 					<p:selectOneMenu id="und" value="#{cadastroProdutoController.produto.und}" style="width: 100%">
 
 						<f:selectItem itemLabel="Selecione"/>
@@ -73,52 +73,62 @@
 				<p:panelGrid columns="6" columnClasses="rotulo,rotulo,rotulo,rotulo,rotulo,rotulo" style="width: 100%" styleClass="ui-noborder">
 
 
-						<p:outputLabel value="P/ Custo" for="prCusto" >
-						<p:inputText id="prCusto"
-									 value="#{cadastroProdutoController.produto.precoCusto}" style="width:100%"/>
-						</p:outputLabel>
+						<p:outputLabel value="P/ Custo" for="prCusto" style="font-weight: bold">
+					<p:inputText id="prCusto"
+								 value="#{cadastroProdutoController.produto.precoCusto}" style="width:100%">
+						<p:ajax event="change" update="form:lucro" process="@this" listener="#{cadastroProdutoController.atualizarLucro()}"/>
+					</p:inputText>
+				</p:outputLabel>
 
-						<p:outputLabel value="P/ Venda" for="prVenda">
+						<p:outputLabel value="P/ Venda" for="prVenda" style="font-weight: bold">
 						<p:inputText id="prVenda"
-									 value="#{cadastroProdutoController.produto.valorUnitario}" style="width:100%"/>
+									 value="#{cadastroProdutoController.produto.valorUnitario}" style="width:100%">
+							<p:ajax event="change" update="form:lucro" process="@this" listener="#{cadastroProdutoController.atualizarLucro()}"/>
+
+						</p:inputText>
 						</p:outputLabel>
 
-						<p:outputLabel value="Lucro(%)" for="lucro">
+						<p:outputLabel value="Lucro(%)" for="lucro" style="font-weight: bold">
 						<p:inputText id="lucro"
-									 value="#{cadastroProdutoController.produto.lucro}" style="width:100%"/>
+									 value="#{cadastroProdutoController.produto.lucro}" style="width:100%">
+							<!--<p:ajax update="lucro" process="@this" listener="#{cadastroProdutoController.atualizarLucro()}"/>-->
+						</p:inputText>
 						</p:outputLabel>
 
 					<p:spacer/>
 
-						<p:outputLabel value="Valor Mínimo" for="vlMinimo">
+						<p:outputLabel value="Valor Mínimo" for="vlMinimo" style="font-weight: bold">
 							<p:inputText id="vlMinimo"
 										 value="#{cadastroProdutoController.produto.valorMinimo}" style="width:100%"/>
 						</p:outputLabel>
 
-						<p:outputLabel value="Valor Máximo" for="vlMaximo">
+						<p:outputLabel value="Valor Máximo" for="vlMaximo" style="font-weight: bold">
 							<p:inputText id="vlMaximo"
 										 value="#{cadastroProdutoController.produto.valorMaximo}" style="width:100%"/>
 						</p:outputLabel>
 
 				</p:panelGrid>
 
-				<p:fieldset legend="Estoque">
+				<p:fieldset >
 					<p:panelGrid columns="3" id="estoque" columnClasses="rotulo,rotulo,rotulo" styleClass="ui-noborder">
 
 						<p:outputLabel>
 							<p:selectBooleanButton
 									value="#{cadastroProdutoController.estoque}" id="cont"
-												   onIcon="pi pi-check" offIcon="pi pi-times"/>
+												   onIcon="pi pi-check" offIcon="pi pi-times">
+								<p:ajax update="estoque" process="@this" listener="#{cadastroProdutoController.atualizarCampo()}"/>
+							</p:selectBooleanButton>
 							<h5 style="display: inline">Controlar Estoque?</h5>
 						</p:outputLabel>
 
 
-						<p:outputLabel value="Estoque Mínimo" for="estomi">
+						<p:outputLabel value="Estoque Mínimo" for="estomi" style="font-weight: bold">
 							<p:inputText id="estomi" disabled="#{not cadastroProdutoController.estoque}"
-										 value="#{cadastroProdutoController.produto.estoqueMinimo}"   style="width:100%"/>
+										 value="#{cadastroProdutoController.produto.estoqueMinimo}"   style="width:100%">
+							</p:inputText>
 						</p:outputLabel>
 
-						<p:outputLabel value="Estoque Máximo" for="estoma" >
+						<p:outputLabel value="Estoque Máximo" for="estoma" style="font-weight: bold">
 							<p:inputText id="estoma" disabled="#{not cadastroProdutoController.estoque}"
 										 value="#{cadastroProdutoController.produto.estoqueMaximo}" style="width:100%">
 
@@ -194,5 +204,23 @@
 
 			</h:form>
 		</p:dialog>
+
+
+		<p:confirmDialog id="dialogExcluirProduto"
+						 widgetVar="dialogExcluirProduto" severity="alert"
+						 header="Excluir Produto" styleClass="ui-dialog-delete"
+						 message="Você tem certeza que deseja excluir o produto?"
+						 closable="true">
+			<p:commandButton value="Sim"
+							 actionListener="#{cadastroProdutoController.deletar()}"
+							 update="form,frmPesquisa:datatablePesquisa"
+							 onclick="PF('dialogExcluirProduto').hide()"
+							 style="margin-left:10px" />
+
+			<p:button value="Não" style="margin-left:10px"
+					  onclick="PF('dialogExcluirProduto').hide(); return false" />
+
+		</p:confirmDialog>
+
 	</ui:define>
 </ui:composition>

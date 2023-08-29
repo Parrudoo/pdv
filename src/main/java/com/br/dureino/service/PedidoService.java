@@ -37,9 +37,9 @@ public class PedidoService implements Serializable {
     }
 
 
-    public List<Pedido> buscarPedidos(int first, int pageSize) {
-       return pedidoDao.buscarPedido(first, pageSize);
-    }
+//    public List<Pedido> buscarPedidos(int first, int pageSize) {
+//       return pedidoDao.buscarPedido(first, pageSize);
+//    }
 
     public Long buscarPedidos() {
         return pedidoDao.buscarPedido();

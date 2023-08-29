@@ -1,6 +1,7 @@
 package com.br.dureino.controller;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,9 +180,9 @@ public class CadastroProdutoController implements Serializable {
 	public void removerDaLista() {		
 				
 		 
-		this.produtoGuardado.remove(this.produtoSelecionado);				
-					
-		
+		this.produtoGuardado.remove(this.produtoSelecionado);
+
+
 	}
 	
 
@@ -195,5 +196,9 @@ public class CadastroProdutoController implements Serializable {
 		}else{
 			return estoque = false;
 		}
+	}
+
+	public BigDecimal atualizarLucro(){
+		return this.produto.getLucro();
 	}
 }
