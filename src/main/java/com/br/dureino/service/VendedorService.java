@@ -7,6 +7,7 @@ import com.br.dureino.util.jpa.Transactional;
 
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VendedorService implements Serializable {
@@ -25,6 +26,17 @@ public class VendedorService implements Serializable {
     }
 
     public List<VendedorDTO> buscar() {
-        return vendedorDao.buscar();
+
+        List<Vendedor> vendedors = vendedorDao.buscar();
+        List<VendedorDTO> vendedorDTOS = new ArrayList<>();
+
+        for (Vendedor vendedor : vendedors){
+
+            VendedorDTO vendedorDTO = new VendedorDTO();
+            vendedorDTO.setNome(vendedor.getNome());
+            vendedorDTOS.add(vendedorDTO);
+        }
+
+        return vendedorDTOS;
     }
 }

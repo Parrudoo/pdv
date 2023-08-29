@@ -25,7 +25,7 @@ public class VendedorDao {
         return entityManager.merge(vendedor);
     }
 
-    public List<VendedorDTO> buscar() {
+    public List<Vendedor> buscar() {
         JPAQuery<Vendedor> query = new JPAQuery<>(entityManager);
 
        List<Vendedor> list = query.select(qVendedor).select(qVendedor).fetch();

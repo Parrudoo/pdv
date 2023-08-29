@@ -33,6 +33,8 @@ public class CadastroVendedorController implements Serializable {
 
     private List<SelectItem> uf = new ArrayList<>();
 
+    private List<SelectItem> items = new ArrayList<>();
+
 
 
     public List<SelectItem> getUf(){
@@ -44,6 +46,16 @@ public class CadastroVendedorController implements Serializable {
     }
 
 
+    public List<SelectItem> getItems(){
+
+        List<VendedorDTO> vendedorDTOS = buscar();
+        for (VendedorDTO vendedorDTO : vendedorDTOS){
+
+            items.add(new SelectItem(vendedorDTO.getNome(),vendedorDTO.getNome()));
+        }
+
+        return items;
+    }
 
     public void salvar(){
 
