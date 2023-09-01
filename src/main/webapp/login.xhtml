@@ -17,13 +17,13 @@
 		<h:form id="frm">
 			<h:panelGrid columns="2" styleClass="grid-login">
 				<p:outputLabel value="Usuario" for="usuario" />
-				<p:inputText id="usuario" value="" />
+				<p:inputText id="usuario" value="#{loginController.login.name}" />
 				
 				<p:outputLabel value="Senha" for="senha"/>
-				<p:inputText id="senha" value="" />
+				<p:inputText id="senha" value="#{loginController.login.senha}" />
 				
 				<h:panelGroup/>
-				<p:button value="Entrar"/>
+				<p:commandButton value="Entrar" action="#{loginController.logarNoSistema()}"/>
 			</h:panelGrid>
 
 		</h:form>
