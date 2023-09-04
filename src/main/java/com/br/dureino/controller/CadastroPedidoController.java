@@ -131,15 +131,6 @@ public class CadastroPedidoController implements Serializable {
 
 
 
-    public void addItemVazio(){
-        Pedido pedido = new Pedido();
-        Produto produto = new Produto();
-        ItemPedido itemPedido = new ItemPedido();
-        itemPedido.setProduto(produto);
-        itemPedido.setPedido(pedido);
-
-        this.pedido.getItemPedidos().add(0,itemPedido);
-    }
 
 
 
@@ -163,7 +154,7 @@ public class CadastroPedidoController implements Serializable {
         }
     }
          if (adiciona){
-//             FacesUtil.addErrorMessage("produto já existente na lista!");
+             FacesUtil.addErrorMessage("produto incrementado na lista!");
          }else{
 
              itemPedido.setProduto(this.itemPedido.getProduto());
@@ -231,6 +222,7 @@ public class CadastroPedidoController implements Serializable {
                          itemPedido.getProduto().getUnd(),
                          null,
                          itemPedido.getProduto().getCategoria());
+                produtoService.salvarProduto(produto);
             }
 
             EnderecoEntrega enderecoEntrega = new EnderecoEntrega(null,pedido.getEnderecoEntrega().getDataEntrega(),
@@ -246,7 +238,7 @@ public class CadastroPedidoController implements Serializable {
 
             pedido.setEnderecoEntrega(enderecoEntrega);
             this.pedido = pedidoService.salvar(pedido);
-            produtoService.salvarProduto(produto);
+
         }
 
 
