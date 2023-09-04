@@ -60,7 +60,9 @@ width: 15%;
 .ui-panelgrid.showcase-text-align-center{
 	text-align: center;
 }
-
+.campoCarrinho{
+	width: 5%;
+}
 
 .container{
 	width: 50%;

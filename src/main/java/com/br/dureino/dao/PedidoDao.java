@@ -59,14 +59,11 @@ public class PedidoDao {
 
 
 
-            JPAQuery<Tuple> tuples = query.select(  qPedido.numero,
-                            qItemPedido.qtd,
+              JPAQuery<Tuple> tuples = query.select(  qPedido.numero,
                             qPedido.dataCriacao,
                             qPedido.total,
                             qPedido.valorFrete,
                             qPedido.id).from(qPedido)
-                    .innerJoin(qItemPedido)
-                    .on(qPedido.eq(qItemPedido.pedido))
 
                     .where(builder);
 

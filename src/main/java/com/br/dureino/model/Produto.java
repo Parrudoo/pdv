@@ -75,7 +75,9 @@ public class Produto {
 		if (!itemPedidos.isEmpty()){
 
 		for (ItemPedido itemPedido : itemPedidos){
-			result = itemPedido.getQtd();
+			if (id.equals(itemPedido.getProduto().id)){
+				result = itemPedido.getQtd();
+			}
 		}
 		}
 		return result != null && estoque != null ? estoque - result : null;

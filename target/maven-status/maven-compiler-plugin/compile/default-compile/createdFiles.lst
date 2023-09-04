@@ -40,6 +40,7 @@ com\br\dureino\dto\ItemPedidoDetalheDTO.class
 com\br\dureino\controller\LoginController.class
 com\br\dureino\lazy\LazyPedido.class
 com\br\dureino\dto\VendedorDTO.class
+com\br\dureino\filter\FilterConfig.class
 com\br\dureino\service\NegocioException.class
 com\br\dureino\util\jsf\FacesUtil.class
 com\br\dureino\dao\ProdutoDao.class

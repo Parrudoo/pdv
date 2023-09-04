@@ -12,11 +12,13 @@ import com.br.dureino.service.ProdutoService;
 import com.br.dureino.util.jsf.FacesUtil;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Schedule;
 import javax.ejb.Schedules;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.event.ComponentSystemEvent;
 import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -71,6 +73,8 @@ public class CadastroPedidoController implements Serializable {
 
     private ItemPedido carregarProduto;
 
+
+
     public List<SelectItem> getStatus(){
           List<SelectItem> selectItems = new ArrayList<>();
           for(StatusPedido pedido : StatusPedido.values()){
@@ -111,18 +115,46 @@ public class CadastroPedidoController implements Serializable {
         return produtos.stream().filter(p-> p.getNome().toUpperCase().contains(nome.toUpperCase())).collect(Collectors.toList());
     }
 
+    public List<Produto> pesquisarItenPedidoCodigo(Long id){
+        List<Produto> produtos = produtoService.listar();
+        List<Produto> list = new ArrayList<>();
+
+       for (Produto produto : produtos){
+           if (id.equals(produto.getId())){
+               produto.setNome(produto.getId().toString().concat(" - ").concat(produto.getNome()));
+               list.add(produto);
+           }
+       }
+        return  list;
+    }
+
+
+
+
+    public void addItemVazio(){
+        Pedido pedido = new Pedido();
+        Produto produto = new Produto();
+        ItemPedido itemPedido = new ItemPedido();
+        itemPedido.setProduto(produto);
+        itemPedido.setPedido(pedido);
+
+        this.pedido.getItemPedidos().add(0,itemPedido);
+    }
+
+
+
+
 
     public void getCarregarProduto(){
     BigDecimal total = BigDecimal.ZERO;
-
     ItemPedido itemPedido = new ItemPedido();
 
     boolean adiciona = false;
 
 
-    if (!produtosGuardados.isEmpty()){
+    if (!pedido.getItemPedidos().isEmpty()){
 
-        for (ItemPedido pedido : produtosGuardados){
+        for (ItemPedido pedido : pedido.getItemPedidos()){
                 if (this.itemPedido.getProduto().getId().equals(pedido.getProduto().getId())){
                     pedido.setQtd(pedido.getQtd()+1);
                     adiciona = true;
@@ -133,17 +165,20 @@ public class CadastroPedidoController implements Serializable {
          if (adiciona){
 //             FacesUtil.addErrorMessage("produto já existente na lista!");
          }else{
+
              itemPedido.setProduto(this.itemPedido.getProduto());
 
 
-             itemPedido.getProduto().setItemPedidos(produtosGuardados);
-             this.produtosGuardados.add(itemPedido);
-             this.pedido.setItemPedidos(produtosGuardados);
+             itemPedido.getProduto().setItemPedidos(pedido.getItemPedidos());
+
+
+             this.pedido.getItemPedidos().add(itemPedido);
              this.pedido.setTotal(pedido.getTotal());
          }
 
 
         this.itemPedido.setProduto(null);
+
 //        recalcular();
     }
 
@@ -154,13 +189,10 @@ public class CadastroPedidoController implements Serializable {
 
 
     public BigDecimal recalcular(){
-//        BigDecimal result = BigDecimal.ZERO;
-//        result = result.add(this.pedido.getValorFrete().subtract(pedido.getValorDesconto()));
-//
-//        this.pedido.setTotal(result);
 
         return pedido.getTotal();
     }
+
 
 
 
@@ -221,7 +253,7 @@ public class CadastroPedidoController implements Serializable {
     }
 
     public void removerProduto() {
-        this.produtosGuardados.remove(produtoSelecionado);
+        this.pedido.getItemPedidos().remove(produtoSelecionado);
     }
 
 }
