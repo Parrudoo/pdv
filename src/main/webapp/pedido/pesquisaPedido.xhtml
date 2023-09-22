@@ -62,9 +62,14 @@
                                   style="font-weight: bold"/>
                     </span>
                 </f:facet>
-                <p:column headerText="Ação" style="width: 4%">
-                    <p:commandButton icon="pi pi-pencil" title="Editar"/>
+                <p:column headerText="Ação" style="width: 8%">
+                    <p:button icon="pi pi-pencil" title="Editar" outcome="/pedido/CadastroPedido.xhtml">
+                        <f:param value="#{pedido.id}" name="pedido" />
+                    </p:button>
+
+                    <p:commandButton icon="pi pi-print" title="Imprimir" style="margin-left: 10px"/>
                 </p:column>
+
 
                 <p:column headerText="Numero">
                     <h:outputText disabled="true" id="numero" value="#{pedido.numero}"/>

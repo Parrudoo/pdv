@@ -129,13 +129,6 @@ public class CadastroPedidoController implements Serializable {
     }
 
 
-
-
-
-
-
-
-
     public void getCarregarProduto(){
     BigDecimal total = BigDecimal.ZERO;
     ItemPedido itemPedido = new ItemPedido();
@@ -203,6 +196,7 @@ public class CadastroPedidoController implements Serializable {
                 this.pedido.setTotal(pedido.getTotal());
                 this.pedido.setItemPedidos(itemPedidos);
 
+
 //                atualizar produto
                  produto = new Produto(itemPedido.getProduto().getId(),
                          itemPedido.getProduto().getSku(),
@@ -225,20 +219,20 @@ public class CadastroPedidoController implements Serializable {
                 produtoService.salvarProduto(produto);
             }
 
-            EnderecoEntrega enderecoEntrega = new EnderecoEntrega(null,pedido.getEnderecoEntrega().getDataEntrega(),
-                    pedido.getEnderecoEntrega().getLogradouro(),
-                    pedido.getEnderecoEntrega().getComplemento(),
-                    pedido.getEnderecoEntrega().getCidade(),
-                    pedido.getEnderecoEntrega().getNumero(),
-                    pedido.getEnderecoEntrega().getCep(),
-                    pedido);
+            EnderecoEntrega enderecoEntrega = new EnderecoEntrega(pedido.getEnderecoEntrega().getId(),pedido.getEnderecoEntrega().getDataEntrega(),
+                        pedido.getEnderecoEntrega().getLogradouro(),
+                        pedido.getEnderecoEntrega().getComplemento(),
+                        pedido.getEnderecoEntrega().getCidade(),
+                        pedido.getEnderecoEntrega().getNumero(),
+                        pedido.getEnderecoEntrega().getCep(),
+                        pedido);
+
 
 
 
 
             pedido.setEnderecoEntrega(enderecoEntrega);
             this.pedido = pedidoService.salvar(pedido);
-
         }
 
 

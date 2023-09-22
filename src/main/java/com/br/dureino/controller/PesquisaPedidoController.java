@@ -2,6 +2,7 @@ package com.br.dureino.controller;
 
 import com.br.dureino.dto.ItemPedidoDetalheDTO;
 import com.br.dureino.dto.PedidoDTO;
+import com.br.dureino.dto.PedidoImpressaoDTO;
 import com.br.dureino.lazy.LazyPedido;
 import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Pedido;
@@ -30,6 +31,7 @@ public class PesquisaPedidoController  implements Serializable {
     private PedidoService pedidoService;
 
     private PedidoDTO pedidoSelecionado;
+
 
     private List<ItemPedidoDetalheDTO> itemPedidoDetalheDTOS = new ArrayList<>();
 
@@ -70,5 +72,11 @@ public class PesquisaPedidoController  implements Serializable {
     }
 
 
+    public PedidoImpressaoDTO imprimirPedido(){
+
+        PedidoImpressaoDTO pedidoImpressaoDTO = pedidoService.buscarPedidoParaImpressao(pedidoSelecionado.getId());
+
+        return pedidoImpressaoDTO;
+    }
 
 }

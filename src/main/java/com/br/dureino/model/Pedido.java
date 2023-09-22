@@ -52,7 +52,8 @@ public class Pedido {
 
 	private BigDecimal valorDesconto = BigDecimal.ZERO;
 
-	@OneToOne(cascade =  CascadeType.ALL,mappedBy = "pedido")
+
+	@OneToOne(cascade = CascadeType.ALL ,mappedBy = "pedido")
 	private EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
 
 	@ManyToOne

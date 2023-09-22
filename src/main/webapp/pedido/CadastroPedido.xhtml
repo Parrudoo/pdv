@@ -6,12 +6,15 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:o="http://omnifaces.org/ui">
 
-	<!-- <f:metadata>
-		<f:event type="preRenderView" listener="#{cadastroPedidoController.addItemVazio()}"></f:event>
-	</f:metadata>-->
+
 	<ui:define name="titulo">Cadastro de Pedido</ui:define>
 
 	<ui:define name="corpo">
+
+		<f:metadata>
+			<f:viewParam name="pedido" value="#{cadastroPedidoController.pedido}"/>
+		</f:metadata>
+
 		<p:panel header="Cadastro de Pedido">
 			<h:form id="formGeral">
 				<p:messages id="messages" autoUpdate="true" closable="true" />

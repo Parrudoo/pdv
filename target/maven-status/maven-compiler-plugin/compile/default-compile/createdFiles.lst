@@ -27,6 +27,7 @@ com\br\dureino\service\JobsService.class
 com\br\dureino\model\QPedido.class
 com\br\dureino\model\QEnderecoEntrega.class
 com\br\dureino\service\VendedorService.class
+com\br\dureino\dto\PedidoImpressaoDTO.class
 com\br\dureino\util\cdi\CDIServiceLocator.class
 com\br\dureino\controller\PesquisaProdutoController.class
 com\br\dureino\model\Categoria.class

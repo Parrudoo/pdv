@@ -2,6 +2,7 @@ package com.br.dureino.service;
 
 import com.br.dureino.dao.PedidoDao;
 import com.br.dureino.dto.ItemPedidoDetalheDTO;
+import com.br.dureino.dto.PedidoImpressaoDTO;
 import com.br.dureino.model.EnderecoEntrega;
 import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Pedido;
@@ -32,8 +33,8 @@ public class PedidoService implements Serializable {
     }
 
     @Transactional
-    public EnderecoEntrega salvar(EnderecoEntrega enderecoEntrega){
-        return pedidoDao.salvar(enderecoEntrega);
+    public void salvar(EnderecoEntrega enderecoEntrega){
+         pedidoDao.salvar(enderecoEntrega);
     }
 
 
@@ -48,5 +49,13 @@ public class PedidoService implements Serializable {
     public List<ItemPedidoDetalheDTO> buscarPedidoItemPedidoProduto(Long id) {
 
        return pedidoDao.buscarPedidoItemPedidoProduto(id);
+    }
+
+    public PedidoImpressaoDTO buscarPedidoParaImpressao(Long id) {
+
+       PedidoImpressaoDTO pedidoImpressaoDTO = pedidoDao.buscarPedidoParaImpressao(id);
+
+       return  pedidoImpressaoDTO;
+
     }
 }

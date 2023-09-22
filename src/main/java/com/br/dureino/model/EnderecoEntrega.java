@@ -36,6 +36,7 @@ public class EnderecoEntrega {
 	
 	private String cep;
 
+
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;

@@ -2,6 +2,7 @@ package com.br.dureino.dao;
 
 import com.br.dureino.dto.ItemPedidoDetalheDTO;
 import com.br.dureino.dto.PedidoDTO;
+import com.br.dureino.dto.PedidoImpressaoDTO;
 import com.br.dureino.model.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
@@ -9,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.TupleElement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,7 @@ public class PedidoDao {
     private static final QPedido qPedido = QPedido.pedido;
     private static final QProduto qProduto = QProduto.produto;
     private static final QItemPedido qItemPedido = QItemPedido.itemPedido;
+    private static final QEnderecoEntrega qEnderecoEntrega = QEnderecoEntrega.enderecoEntrega;
 
     @Inject
     private EntityManager entityManager;
@@ -40,8 +43,13 @@ public class PedidoDao {
 
     }
 
-    public EnderecoEntrega salvar(EnderecoEntrega enderecoEntrega){
-        return entityManager.merge(enderecoEntrega);
+    public void salvar(EnderecoEntrega enderecoEntrega){
+        if (enderecoEntrega.getId() == null){
+           entityManager.persist(enderecoEntrega);
+        }else{
+           entityManager.merge(enderecoEntrega);
+        }
+
     }
 
     public List<PedidoDTO> buscarPedido(int first, int pageSize,PedidoDTO dto) {
@@ -141,4 +149,45 @@ public class PedidoDao {
     }
 
 
+    public PedidoImpressaoDTO buscarPedidoParaImpressao(Long id) {
+
+        JPAQuery<Tuple> query = new JPAQuery<>(entityManager);
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qPedido.id.eq(id));
+
+
+        query.select(qPedido.cliente.nome,
+                    qPedido.total,
+                    qPedido.dataCriacao,
+                    qPedido.itemPedidos,
+                    qPedido.pagamento,
+                    qEnderecoEntrega.dataEntrega,
+                    qEnderecoEntrega.cep,
+                    qEnderecoEntrega.cidade,
+                    qEnderecoEntrega.logradouro,
+                    qEnderecoEntrega.numero,
+                    qItemPedido.produto,
+                    qItemPedido.qtd,
+                    qItemPedido.valorTotal
+               ).from(qPedido)
+                .innerJoin(qEnderecoEntrega).on(qEnderecoEntrega.pedido.id.eq(qPedido.enderecoEntrega.id))
+                .innerJoin(qItemPedido).on(qItemPedido.id.eq(qPedido.id))
+                .where(builder);
+
+
+        PedidoImpressaoDTO pedidoImpressaoDTO = new PedidoImpressaoDTO();
+
+        for(Tuple tuple : query.fetch()){
+
+
+
+            pedidoImpressaoDTO.setValorPedido(tuple.get(qPedido.total));
+            pedidoImpressaoDTO.setEndereco(tuple.get(qEnderecoEntrega.logradouro));
+            pedidoImpressaoDTO.setCidade(tuple.get(qEnderecoEntrega.cidade));
+
+        }
+
+        return pedidoImpressaoDTO;
+    }
 }
