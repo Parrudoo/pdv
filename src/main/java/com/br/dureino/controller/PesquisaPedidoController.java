@@ -4,19 +4,29 @@ import com.br.dureino.dto.ItemPedidoDetalheDTO;
 import com.br.dureino.dto.PedidoDTO;
 import com.br.dureino.dto.PedidoImpressaoDTO;
 import com.br.dureino.lazy.LazyPedido;
-import com.br.dureino.model.ItemPedido;
-import com.br.dureino.model.Pedido;
 import com.br.dureino.service.PedidoService;
+
 import lombok.Getter;
 import lombok.Setter;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.hibernate.Session;
+import org.hibernate.jdbc.Work;
 
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.*;
 
 @Getter
 @Setter
@@ -33,6 +43,7 @@ public class PesquisaPedidoController  implements Serializable {
     private PedidoDTO pedidoSelecionado;
 
 
+
     private List<ItemPedidoDetalheDTO> itemPedidoDetalheDTOS = new ArrayList<>();
 
     private PedidoDTO pedidoFiltroDTO = new PedidoDTO();
@@ -40,9 +51,13 @@ public class PesquisaPedidoController  implements Serializable {
     @Inject
     private LazyPedido lazyPedido;
 
+
     public LazyPedido pesquisar(){
         return this.lazyPedido;
     }
+
+
+
 
 
     public List<ItemPedidoDetalheDTO> detalheItemPedido(){
@@ -71,12 +86,14 @@ public class PesquisaPedidoController  implements Serializable {
 
     }
 
+    public void imprimirPedido() throws IOException, JRException {
 
-    public PedidoImpressaoDTO imprimirPedido(){
 
-        PedidoImpressaoDTO pedidoImpressaoDTO = pedidoService.buscarPedidoParaImpressao(pedidoSelecionado.getId());
+        pedidoService.buscarPedidoParaImpressao(pedidoSelecionado.getId());
 
-        return pedidoImpressaoDTO;
+
     }
+
+
 
 }

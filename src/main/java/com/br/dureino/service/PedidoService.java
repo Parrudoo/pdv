@@ -7,10 +7,25 @@ import com.br.dureino.model.EnderecoEntrega;
 import com.br.dureino.model.ItemPedido;
 import com.br.dureino.model.Pedido;
 import com.br.dureino.util.jpa.Transactional;
+import com.br.dureino.util.jsf.FacesUtil;
 
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
+import net.sf.jasperreports.view.JasperViewer;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import java.io.Serializable;
+import javax.naming.Context;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.io.*;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PedidoService implements Serializable {
 
@@ -20,12 +35,20 @@ public class PedidoService implements Serializable {
     private PedidoDao pedidoDao;
 
 
+
+
+
     @Transactional
     public Pedido salvar(Pedido pedido){
 
         return pedidoDao.salvar(pedido);
 
     }
+
+    public PedidoService(){
+
+    }
+
 
     @Transactional
     public ItemPedido salvar(ItemPedido itemPedido){
@@ -51,11 +74,34 @@ public class PedidoService implements Serializable {
        return pedidoDao.buscarPedidoItemPedidoProduto(id);
     }
 
-    public PedidoImpressaoDTO buscarPedidoParaImpressao(Long id) {
 
-       PedidoImpressaoDTO pedidoImpressaoDTO = pedidoDao.buscarPedidoParaImpressao(id);
 
-       return  pedidoImpressaoDTO;
+
+    public void buscarPedidoParaImpressao(Long id) throws IOException, JRException {
+
+        PedidoImpressaoDTO pedidoImpressaoDTO = pedidoDao.buscarPedidoParaImpressao(id);
+
+
+        InputStream template = PedidoService.class.getResourceAsStream("/relatorio/pedido.jasper");
+
+
+            JRDataSource dataSource = new JRBeanCollectionDataSource(Arrays.asList(pedidoImpressaoDTO));
+
+            InputStream logo = PedidoService.class.getResourceAsStream("/relatorio/logo.png");
+
+            Map<String, Object> map = new HashMap<>();
+
+            map.put("logo", logo);
+            JasperPrint print = JasperFillManager.fillReport(template, map, dataSource);
+
+
+
+
+
+
+        final JasperViewer jv = new JasperViewer(print,false);
+        jv.setVisible(true);
+        jv.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
 
     }
 }

@@ -151,43 +151,53 @@ public class PedidoDao {
 
     public PedidoImpressaoDTO buscarPedidoParaImpressao(Long id) {
 
-        JPAQuery<Tuple> query = new JPAQuery<>(entityManager);
-
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(qPedido.id.eq(id));
 
+        JPAQuery<Tuple> query = new JPAQuery<>(entityManager);
 
-        query.select(qPedido.cliente.nome,
+
+       List<Tuple> tuples = query.select(
+                    qPedido.id,
                     qPedido.total,
                     qPedido.dataCriacao,
-                    qPedido.itemPedidos,
-                    qPedido.pagamento,
-                    qEnderecoEntrega.dataEntrega,
-                    qEnderecoEntrega.cep,
-                    qEnderecoEntrega.cidade,
-                    qEnderecoEntrega.logradouro,
-                    qEnderecoEntrega.numero,
-                    qItemPedido.produto,
-                    qItemPedido.qtd,
-                    qItemPedido.valorTotal
+                    qItemPedido.id
                ).from(qPedido)
-                .innerJoin(qEnderecoEntrega).on(qEnderecoEntrega.pedido.id.eq(qPedido.enderecoEntrega.id))
-                .innerJoin(qItemPedido).on(qItemPedido.id.eq(qPedido.id))
-                .where(builder);
+                .innerJoin(qItemPedido).on(qItemPedido.pedido.eq(qPedido))
+                .where(builder).fetch();
 
 
         PedidoImpressaoDTO pedidoImpressaoDTO = new PedidoImpressaoDTO();
 
-        for(Tuple tuple : query.fetch()){
+        for(Tuple tuple : tuples){
 
-
+        Long idItem = tuple.get(qItemPedido.id);
+        List<ItemPedido> itemPedidos = buscarItensPedidos(idItem);
 
             pedidoImpressaoDTO.setValorPedido(tuple.get(qPedido.total));
+            pedidoImpressaoDTO.setDataEmissao(tuple.get(qPedido.dataCriacao));
             pedidoImpressaoDTO.setEndereco(tuple.get(qEnderecoEntrega.logradouro));
+            pedidoImpressaoDTO.setQtdItem(tuple.get(qItemPedido.qtd));
+            pedidoImpressaoDTO.setQtdTotalItens(tuple.get(qItemPedido.qtd.sum()));
             pedidoImpressaoDTO.setCidade(tuple.get(qEnderecoEntrega.cidade));
+            pedidoImpressaoDTO.setDescricao(tuple.get(qItemPedido.produto.nome));
+            pedidoImpressaoDTO.setValorItem(tuple.get(qItemPedido.produto.valorUnitario));
+            pedidoImpressaoDTO.setCodigo(tuple.get(qItemPedido.produto.id));
+            pedidoImpressaoDTO.setItemPedidos(itemPedidos);
 
         }
 
         return pedidoImpressaoDTO;
+    }
+
+    private List<ItemPedido> buscarItensPedidos(Long aLong) {
+        JPAQuery<Tuple> query = new JPAQuery<>();
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qItemPedido.id.eq(aLong));
+
+       List<ItemPedido> itemPedidos = query.select(qItemPedido).from(qItemPedido).where(builder).fetch();
+
+       return  itemPedidos;
     }
 }

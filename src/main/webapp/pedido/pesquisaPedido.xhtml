@@ -67,7 +67,10 @@
                         <f:param value="#{pedido.id}" name="pedido" />
                     </p:button>
 
-                    <p:commandButton icon="pi pi-print" title="Imprimir" style="margin-left: 10px"/>
+                    <p:commandButton icon="pi pi-print" title="Imprimir" action="#{pesquisaPedidoController.imprimirPedido()}"
+                                     style="margin-left: 10px">
+                        <f:setPropertyActionListener value="#{pedido}" target="#{pesquisaPedidoController.pedidoSelecionado}"/>
+                    </p:commandButton>
                 </p:column>
 
 
