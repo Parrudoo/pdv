@@ -31,5 +31,5 @@ public class PedidoDTO {
 
     private String nomeProduto;
 
-    private List<ItemPedido> itemPedidos;
+    private List<ItemPedidoDetalheDTO> itemPedidos;
 }

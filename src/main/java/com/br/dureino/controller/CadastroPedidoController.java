@@ -187,7 +187,7 @@ public class CadastroPedidoController implements Serializable {
         Produto produto = null;
         if (!pedido.getItemPedidos().isEmpty()){
             for (ItemPedido itemPedido : pedido.getItemPedidos()){
-                ItemPedido pedidao = new ItemPedido(null,
+                ItemPedido pedidao = new ItemPedido(itemPedido.getId(),
                         itemPedido.getQtd(),
                         itemPedido.getValorTotal(),
                         itemPedido.getProduto(),
@@ -198,25 +198,28 @@ public class CadastroPedidoController implements Serializable {
 
 
 //                atualizar produto
-                 produto = new Produto(itemPedido.getProduto().getId(),
-                         itemPedido.getProduto().getSku(),
-                         itemPedido.getProduto().getNome(),
-                         itemPedido.getProduto().getSubCategoria(),
-                         itemPedido.getProduto().getValorUnitario(),
-                         itemPedido.getProduto().getPrecoCusto(),
-                         itemPedido.getProduto().getNcm(),
-                         itemPedido.getProduto().getLucro(),
-                         itemPedido.getProduto().getEstoque(),
-                         itemPedido.getProduto().getValorMinimo(),
-                         itemPedido.getProduto().getValorMaximo(),
-                         itemPedido.getProduto().getEstoqueMinimo(),
-                         itemPedido.getProduto().getEstoqueMaximo(),
-                         itemPedido.getProduto().getControlerEstoque(),
-                         itemPedido.getProduto().getHabilitado(),
-                         itemPedido.getProduto().getUnd(),
-                         null,
-                         itemPedido.getProduto().getCategoria());
+                if (itemPedido.getProduto().getEstoque() != null) {
+                    produto = new Produto(itemPedido.getProduto().getId(),
+                            itemPedido.getProduto().getSku(),
+                            itemPedido.getProduto().getNome(),
+                            itemPedido.getProduto().getSubCategoria(),
+                            itemPedido.getProduto().getValorUnitario(),
+                            itemPedido.getProduto().getPrecoCusto(),
+                            itemPedido.getProduto().getNcm(),
+                            itemPedido.getProduto().getLucro(),
+                            itemPedido.getProduto().getEstoque(),
+                            itemPedido.getProduto().getValorMinimo(),
+                            itemPedido.getProduto().getValorMaximo(),
+                            itemPedido.getProduto().getEstoqueMinimo(),
+                            itemPedido.getProduto().getEstoqueMaximo(),
+                            itemPedido.getProduto().getControlerEstoque(),
+                            itemPedido.getProduto().getHabilitado(),
+                            itemPedido.getProduto().getUnd(),
+                            null,
+                            itemPedido.getProduto().getCategoria());
+
                 produtoService.salvarProduto(produto);
+                }
             }
 
             EnderecoEntrega enderecoEntrega = new EnderecoEntrega(pedido.getEnderecoEntrega().getId(),pedido.getEnderecoEntrega().getDataEntrega(),

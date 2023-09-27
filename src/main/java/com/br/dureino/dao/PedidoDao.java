@@ -10,9 +10,7 @@ import com.querydsl.jpa.impl.JPAQuery;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.TupleElement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class PedidoDao {
@@ -159,11 +157,12 @@ public class PedidoDao {
 
        List<Tuple> tuples = query.select(
                     qPedido.id,
+                    qPedido,
                     qPedido.total,
                     qPedido.dataCriacao,
-                    qItemPedido.id
+               qItemPedido.pedido
                ).from(qPedido)
-                .innerJoin(qItemPedido).on(qItemPedido.pedido.eq(qPedido))
+               .innerJoin(qItemPedido).on(qItemPedido.pedido.eq(qPedido))
                 .where(builder).fetch();
 
 
@@ -171,8 +170,8 @@ public class PedidoDao {
 
         for(Tuple tuple : tuples){
 
-        Long idItem = tuple.get(qItemPedido.id);
-        List<ItemPedido> itemPedidos = buscarItensPedidos(idItem);
+        Pedido idItem = tuple.get(qItemPedido.pedido);
+        List<ItemPedido> itemPedidos = idItem.getItemPedidos();
 
             pedidoImpressaoDTO.setValorPedido(tuple.get(qPedido.total));
             pedidoImpressaoDTO.setDataEmissao(tuple.get(qPedido.dataCriacao));
@@ -190,14 +189,35 @@ public class PedidoDao {
         return pedidoImpressaoDTO;
     }
 
-    private List<ItemPedido> buscarItensPedidos(Long aLong) {
-        JPAQuery<Tuple> query = new JPAQuery<>();
+    private List<ItemPedidoDetalheDTO> buscarItensPedidos(Pedido aLong) {
 
         BooleanBuilder builder = new BooleanBuilder();
-        builder.and(qItemPedido.id.eq(aLong));
+        builder.and(qItemPedido.pedido.eq(aLong));
+
+        JPAQuery<Tuple> query = new JPAQuery<>();
+
+
 
        List<ItemPedido> itemPedidos = query.select(qItemPedido).from(qItemPedido).where(builder).fetch();
 
-       return  itemPedidos;
+
+       List<ItemPedidoDetalheDTO> itemPedidoDetalheDTOS = new ArrayList<>();
+
+
+
+       for (ItemPedido itemPedido : itemPedidos){
+
+           ItemPedidoDetalheDTO dto = new ItemPedidoDetalheDTO();
+
+           dto.setId(itemPedido.getId());
+           dto.setValorTotal(itemPedido.getValorTotal());
+           dto.setQtd(itemPedido.getQtd());
+           dto.setValorUnitario(itemPedido.getProduto().getValorUnitario());
+
+           itemPedidoDetalheDTOS.add(dto);
+       }
+
+
+       return  itemPedidoDetalheDTOS;
     }
 }

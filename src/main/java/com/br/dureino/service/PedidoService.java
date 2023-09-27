@@ -82,16 +82,17 @@ public class PedidoService implements Serializable {
         PedidoImpressaoDTO pedidoImpressaoDTO = pedidoDao.buscarPedidoParaImpressao(id);
 
 
-        InputStream template = PedidoService.class.getResourceAsStream("/relatorio/pedido.jasper");
+            InputStream template = PedidoService.class.getResourceAsStream("/relatorio/pedido.jasper");
 
 
-            JRDataSource dataSource = new JRBeanCollectionDataSource(Arrays.asList(pedidoImpressaoDTO));
+            JRDataSource dataSource = new JRBeanCollectionDataSource(pedidoImpressaoDTO.getItemPedidos());
 
             InputStream logo = PedidoService.class.getResourceAsStream("/relatorio/logo.png");
 
             Map<String, Object> map = new HashMap<>();
 
             map.put("logo", logo);
+            map.put("pedidoImpressaoDTO",pedidoImpressaoDTO);
             JasperPrint print = JasperFillManager.fillReport(template, map, dataSource);
 
 

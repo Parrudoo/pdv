@@ -2,30 +2,18 @@ package com.br.dureino.controller;
 
 import com.br.dureino.dto.ItemPedidoDetalheDTO;
 import com.br.dureino.dto.PedidoDTO;
-import com.br.dureino.dto.PedidoImpressaoDTO;
 import com.br.dureino.lazy.LazyPedido;
 import com.br.dureino.service.PedidoService;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import org.hibernate.Session;
-import org.hibernate.jdbc.Work;
 
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.*;
 
 @Getter
