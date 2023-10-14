@@ -6,6 +6,7 @@ import com.br.dureino.dto.PedidoImpressaoDTO;
 import com.br.dureino.model.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
+import com.querydsl.jpa.impl.JPADeleteClause;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import javax.inject.Inject;
@@ -219,5 +220,19 @@ public class PedidoDao {
 
 
        return  itemPedidoDetalheDTOS;
+    }
+
+    public void deletarItensRemovidos(Long idPedido, Long idItem) {
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        builder.and(qItemPedido.id.notIn(idItem));
+        builder.and(qItemPedido.pedido.id.eq(idPedido));
+
+        JPADeleteClause deleteClause = new JPADeleteClause(entityManager, qItemPedido);
+
+        deleteClause.where(builder).execute();
+
+
     }
 }

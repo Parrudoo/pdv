@@ -196,6 +196,9 @@ public class CadastroPedidoController implements Serializable {
                 this.pedido.setTotal(pedido.getTotal());
                 this.pedido.setItemPedidos(itemPedidos);
 
+        if (itemPedido.getId() != null){
+            pedidoService.deletarItensRevomidos(pedido.getId(),itemPedido.getId());
+        }
 
 //                atualizar produto
                 if (itemPedido.getProduto().getEstoque() != null) {
@@ -240,6 +243,26 @@ public class CadastroPedidoController implements Serializable {
 
 
     }
+
+    @PostConstruct
+    public void init(){
+        if (verificarEdicaoPedido()){
+            edicaoPedido();
+        }
+    }
+
+    public boolean verificarEdicaoPedido(){
+        if (pedido.getId() != null){
+           return true;
+        }
+        return false;
+    }
+
+
+    public void edicaoPedido(){
+
+    }
+
 
     public void removerProduto() {
         this.pedido.getItemPedidos().remove(produtoSelecionado);

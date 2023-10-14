@@ -62,7 +62,7 @@ public class Produto {
 
 	private Und und;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<ItemPedido> itemPedidos = new ArrayList<>();
 
 	@ManyToOne

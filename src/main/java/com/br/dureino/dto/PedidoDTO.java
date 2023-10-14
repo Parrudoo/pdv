@@ -32,4 +32,6 @@ public class PedidoDTO {
     private String nomeProduto;
 
     private List<ItemPedidoDetalheDTO> itemPedidos;
+
+    private boolean disable;
 }

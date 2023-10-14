@@ -105,4 +105,9 @@ public class PedidoService implements Serializable {
         jv.setModalExclusionType(Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
 
     }
+
+    @Transactional
+    public void deletarItensRevomidos(Long idPedido, Long idItem) {
+        pedidoDao.deletarItensRemovidos(idPedido,idItem);
+    }
 }
