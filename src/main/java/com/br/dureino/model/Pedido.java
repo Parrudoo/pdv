@@ -17,7 +17,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Type;
 
 
 @Getter
@@ -39,6 +40,9 @@ public class Pedido {
 	@Enumerated(EnumType.STRING)
 	private StatusPedido status;
 
+	@Lob
+	private String detalhamentoPedido;
+
 	@Enumerated(EnumType.STRING)
 	private FormaPagamento pagamento;
 
@@ -52,12 +56,13 @@ public class Pedido {
 
 	private BigDecimal valorDesconto = BigDecimal.ZERO;
 
+	private String nomeVendedor;
 
 	@OneToOne(cascade = CascadeType.ALL ,mappedBy = "pedido")
 	private EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
 
 	@ManyToOne
-	private Vendedor vendendor;
+	private Usuario usuario = new Usuario();
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<ItemPedido>  itemPedidos = new ArrayList<>();

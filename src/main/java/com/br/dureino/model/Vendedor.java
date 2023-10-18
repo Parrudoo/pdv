@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.br.dureino.controller.LoginController;
+import com.br.dureino.security.Seguranca;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,5 +34,6 @@ public class Vendedor {
 	@OneToOne(mappedBy = "vendedor",cascade = CascadeType.ALL)
 	@JoinColumn(name = "vendedor_id")
 	private Endereco endereco = new Endereco();
+
 
 }
