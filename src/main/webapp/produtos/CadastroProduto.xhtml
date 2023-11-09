@@ -118,9 +118,9 @@
 					<p:panelGrid columns="3" id="estoque" columnClasses="rotulo,rotulo,rotulo" styleClass="ui-noborder">
 
 						<p:outputLabel>
-							<p:selectBooleanButton
+							<p:selectBooleanButton disabled="true"
 									value="#{cadastroProdutoController.estoque}" id="cont"
-												   onIcon="pi pi-check" offIcon="pi pi-times">
+											   onIcon="pi pi-check" offIcon="pi pi-times">
 								<p:ajax update="estoque" process="@this" listener="#{cadastroProdutoController.atualizarCampo()}"/>
 							</p:selectBooleanButton>
 							<h5 style="display: inline">Controlar Estoque?</h5>

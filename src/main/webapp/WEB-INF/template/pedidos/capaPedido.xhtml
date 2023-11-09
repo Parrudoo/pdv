@@ -8,7 +8,7 @@
 		style="margin-top:20px">
 
 		<p:outputLabel value="Numero" for="numero" />
-		<p:inputText id="numero" value="#{cadastroPedidoController.pedido.numero}"/>
+		<p:inputText id="numero" value="#{cadastroPedidoController.pedido.id}"/>
 
 		<p:outputLabel value="Data Criação" for="dtCriacao" />
 		<p:inputText id="dtCriacao" value="#{cadastroPedidoController.pedido.dataCriacao}"
@@ -27,9 +27,8 @@
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Vendedor" for="vendedor" />
-		<p:selectOneMenu id="vendedor">
-			<f:selectItem itemLabel="Selecione" />
-			<f:selectItems itemValue="Diego Oliveira Dias" />
+		<p:selectOneMenu value="#{cadastroPedidoController.pedido.usuario}" id="vendedor">
+			<f:selectItems value="#{cadastroPedidoController.usuarioLogado}"/>
 		</p:selectOneMenu>
 
 		<p:outputLabel value="Forma de Pagamento" for="fpg" />

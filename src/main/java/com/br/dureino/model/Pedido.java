@@ -74,7 +74,7 @@ public class Pedido {
 
 		return  date;
 	}
-
+	/*encapsulamento*/
 	public BigDecimal getTotal() {
 		BigDecimal total = BigDecimal.ZERO;
 		BigDecimal totalProdutos = BigDecimal.ZERO;

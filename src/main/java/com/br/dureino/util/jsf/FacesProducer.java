@@ -1,4 +1,4 @@
-package com.vitormarcal.empresarial.util.jsf;
+package com.br.dureino.util.jsf;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;

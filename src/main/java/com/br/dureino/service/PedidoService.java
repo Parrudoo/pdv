@@ -110,4 +110,10 @@ public class PedidoService implements Serializable {
     public void deletarItensRevomidos(Long idPedido, Long idItem) {
         pedidoDao.deletarItensRemovidos(idPedido,idItem);
     }
+
+
+    public Pedido buscarPedidoEdicao(Long id) {
+
+        return pedidoDao.buscarEdicaoPedido(id);
+    }
 }

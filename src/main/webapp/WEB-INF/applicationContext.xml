@@ -9,12 +9,21 @@
 
 	<beans:bean id="appUserDetailsService" class="com.br.dureino.security.AppUserDetailsService"/>
 
+	<http pattern="/seguranca/login.xhtml" security="none"/>
+	<http pattern="/seguranca/Erro.xhtml" security="none"/>
 	<http pattern="/javax.faces.resource/**" security="none"/>
-	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/index.xhtml" access="isAuthenticated()"/>
+
+	<http auto-config="false" use-expressions="true">
+		<intercept-url pattern="/home.xhtml" access="isAuthenticated()"/>
 		<intercept-url pattern="/pedido/**" access="hasAnyRole('VENDEDORES','ADMIN')"/>
+		<intercept-url pattern="/vendedor/**" access="hasAnyRole('ADMIN')"/>
 		<intercept-url pattern="/produtos/**" access="hasAnyRole('ADMIN')"/>
 		<intercept-url pattern="/**" access="denyAll()"/>
+
+		<form-login login-page="/seguranca/login.xhtml" authentication-failure-url="/index.xhtml.xhtml?invalid=true"
+					default-target-url="/" always-use-default-target="true"/>
+		<logout logout-url="/j_spring_security_logout" invalidate-session="true"/>
+
 	</http>
 
 	<authentication-manager>

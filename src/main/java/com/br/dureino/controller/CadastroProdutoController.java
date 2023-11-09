@@ -51,7 +51,7 @@ public class CadastroProdutoController implements Serializable {
 
 	private List<SelectItem> und;
 
-	private boolean estoque = false;
+	private boolean estoque;
 
 	@Inject
 	private ProdutoService cadastroProdutoService;

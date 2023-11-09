@@ -20,6 +20,8 @@ public class PedidoDao {
     private static final QProduto qProduto = QProduto.produto;
     private static final QItemPedido qItemPedido = QItemPedido.itemPedido;
     private static final QEnderecoEntrega qEnderecoEntrega = QEnderecoEntrega.enderecoEntrega;
+    private static final QUsuario qUsuario = QUsuario.usuario;
+    private static final QGrupo qGrupo = QGrupo.grupo;
 
     @Inject
     private EntityManager entityManager;
@@ -72,7 +74,7 @@ public class PedidoDao {
                             qPedido.valorFrete,
                             qPedido.id).from(qPedido)
 
-                    .where(builder);
+                    .where(builder).orderBy(qPedido.dataCriacao.desc());
 
             if (pageSize != 0 & first != 0){
                 tuples.limit(pageSize).offset(first);
@@ -234,5 +236,21 @@ public class PedidoDao {
         deleteClause.where(builder).execute();
 
 
+    }
+
+    public Pedido buscarEdicaoPedido(Long id) {
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        builder.and(qPedido.id.eq(id));
+
+        JPAQuery<Pedido> pedido = new JPAQuery<>(entityManager);
+
+      pedido.select(qPedido).from(qPedido)
+                .innerJoin(qItemPedido).on(qPedido.id.eq(qItemPedido.pedido.id))
+                .innerJoin(qProduto).on(qProduto.id.eq(qItemPedido.produto.id))
+                .where(builder);
+
+        return pedido.fetchOne();
     }
 }

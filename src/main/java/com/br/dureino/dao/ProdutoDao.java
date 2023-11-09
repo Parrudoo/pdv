@@ -21,7 +21,7 @@ public class ProdutoDao implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1716975848882203808L;
-	
+
 	private static final QProduto qProduto = QProduto.produto;
 	
 	@Inject

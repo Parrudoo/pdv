@@ -19,31 +19,31 @@
 			<h:graphicImage library="img" name="logo.png" />
 		</h:link>
 	</div>
-	<div style="float: right; margin-top: 20px; margin-right: 30px">
-		<p:menubar>
-			<p:submenu label="Novo" icon="pi pi-fw pi-file">
-				<p:menuitem value="Produto" icon="pi pi-fw pi-plus" outcome="/produtos/CadastroProduto.xhtml"/>
-				<p:menuitem value="Pedido" icon="pi pi-fw pi-trash" outcome="/pedido/CadastroPedido.xhtml" />
-				<p:menuitem value="Vendedor" icon="pi pi-fw pi-plus" outcome="/vendedor/Vendedor.xhtml"/>
-				<p:divider />
-				<p:menuitem value="Logout" icon="pi pi-fw pi-external-link" >
-					<h:form>
-						<p:commandButton value="Deslogar" action="#{loginController.logout()}"/>
-					</h:form>
-
-				</p:menuitem>
-			</p:submenu>
-
-			<p:submenu label="Edit" icon="pi pi-fw pi-pencil">
-				<p:menuitem value="Left" icon="pi pi-fw pi-align-left" />
-				<p:menuitem value="Right" icon="pi pi-fw pi-align-right" />
-				<p:menuitem value="Center" icon="pi pi-fw pi-align-center" />
-				<p:menuitem value="Justify" icon="pi pi-fw pi-align-justify" />
-			</p:submenu>
-		</p:menubar>
-
-
-	</div>
+		<div style="float: right; margin-right: 110px">
+			<span style="float: left; height: 30px; line-height: 30px; margin-right: 60px">
+				Olá ! #{seguranca.usuario.nome}
+			</span>
+			<h:form style="display: inline-block">
+				<p:menubar styleClass="menu-sistema">
+					<p:submenu label="Cadastros">
+						<p:menuitem value="Vendedores" outcome="/vendedor/Vendedor.xhtml"/>
+						<p:menuitem value="Usuários"/>
+						<p:separator/>
+						<p:menuitem value="Categorias"/>
+						<p:menuitem value="Produtos" outcome="/produtos/CadastroProduto.xhtml"/>
+					</p:submenu>
+					<p:submenu label="Pedidos">
+						<p:menuitem value="Novo Pedido" outcome="/pedido/CadastroPedido.xhtml"/>
+						<p:menuitem value="Pesquisa" outcome="/pedido/pesquisaPedido.xhtml"/>
+					</p:submenu>
+					<p:submenu label="Relatórios">
+						<p:menuitem value="Pedidos Emitidos"/>
+					</p:submenu>
+					<p:menuitem value="Sair" url="/dureino_war/j_spring_security_logout"/>
+				</p:menubar>
+			</h:form>
+		</div>
+		<div style="cleat: both"></div>
 	</header>
 
 	<div id="conteudo">

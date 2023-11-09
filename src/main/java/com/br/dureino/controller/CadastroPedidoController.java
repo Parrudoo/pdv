@@ -1,11 +1,10 @@
 package com.br.dureino.controller;
 
-import com.br.dureino.model.EnderecoEntrega;
-import com.br.dureino.model.ItemPedido;
-import com.br.dureino.model.Pedido;
-import com.br.dureino.model.Produto;
+import com.br.dureino.dto.DetalhamentoPedidoDTO;
+import com.br.dureino.model.*;
 import com.br.dureino.model.enums.FormaPagamento;
 import com.br.dureino.model.enums.StatusPedido;
+import com.br.dureino.security.Seguranca;
 import com.br.dureino.service.NegocioException;
 import com.br.dureino.service.PedidoService;
 import com.br.dureino.service.ProdutoService;
@@ -23,6 +22,7 @@ import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.swing.text.html.parser.Parser;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -41,6 +41,8 @@ public class CadastroPedidoController implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Pedido pedido = new Pedido();
+
+    private Pedido pedidoEdicao;
 
     private EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
 
@@ -69,6 +71,9 @@ public class CadastroPedidoController implements Serializable {
     private ProdutoService produtoService;
 
     @Inject
+    private Seguranca seguranca;
+
+    @Inject
     private PedidoService pedidoService;
 
     private ItemPedido carregarProduto;
@@ -83,6 +88,18 @@ public class CadastroPedidoController implements Serializable {
               selectItems.add(new SelectItem(value,label));
           }
           return selectItems;
+    }
+
+    public List<SelectItem> getUsuarioLogado(){
+        List<SelectItem> user = new ArrayList<>();
+
+
+
+        String label = seguranca.getUsuario().getEmail();
+
+        user.add(new SelectItem(null,label));
+
+        return user;
     }
 
     public List<SelectItem> getFormaPagamento(){
@@ -181,11 +198,20 @@ public class CadastroPedidoController implements Serializable {
 
 
 
+    public boolean editarPedido(){
+        if (pedido.getId() != null){
+            return true;
+        }
+        return false;
+    }
+
+
     public void salvarPedido(){
 
         List<ItemPedido> itemPedidos = new ArrayList<>();
         Produto produto = null;
         if (!pedido.getItemPedidos().isEmpty()){
+            detalharPedido();
             for (ItemPedido itemPedido : pedido.getItemPedidos()){
                 ItemPedido pedidao = new ItemPedido(itemPedido.getId(),
                         itemPedido.getQtd(),
@@ -193,12 +219,10 @@ public class CadastroPedidoController implements Serializable {
                         itemPedido.getProduto(),
                         pedido);
                 itemPedidos.add(pedidao);
+
                 this.pedido.setTotal(pedido.getTotal());
                 this.pedido.setItemPedidos(itemPedidos);
 
-        if (itemPedido.getId() != null){
-            pedidoService.deletarItensRevomidos(pedido.getId(),itemPedido.getId());
-        }
 
 //                atualizar produto
                 if (itemPedido.getProduto().getEstoque() != null) {
@@ -235,7 +259,13 @@ public class CadastroPedidoController implements Serializable {
 
 
 
+            Usuario usuario = new Usuario();
+            usuario.setNome(seguranca.getUsuario().getNome());
+            usuario.setEmail(seguranca.getUsuario().getEmail());
+            usuario.setSenha(seguranca.getUsuario().getSenha());
+            usuario.setId(seguranca.getUsuario().getId());
 
+            pedido.setUsuario(usuario);
 
             pedido.setEnderecoEntrega(enderecoEntrega);
             this.pedido = pedidoService.salvar(pedido);
@@ -247,21 +277,79 @@ public class CadastroPedidoController implements Serializable {
     @PostConstruct
     public void init(){
         if (verificarEdicaoPedido()){
-            edicaoPedido();
+
         }
     }
 
+    public void carregarDadosDodetalhamento(String xml) {
+
+        Pedido pedido = new Pedido();
+        if (xml != null){
+
+
+        DetalhamentoPedidoDTO parser = new DetalhamentoPedidoDTO(xml);
+
+
+
+
+        List<ItemPedido> itemPedidos = new ArrayList<>();
+        ItemPedido itemPedido = new ItemPedido();
+        Produto produto = new Produto();
+
+
+        Usuario usuario = new Usuario();
+
+        usuario.setNome(parser.getAsString("USUARIO"));
+        pedido.setTotal(parser.getAsBigDecimal("VALOR_TOTAL_PEDIDO"));
+        itemPedido.setValorTotal(parser.getAsBigDecimal("VL_TOTAL"));
+        produto.setEstoque(parser.getAsInteger("QUANTIDADE_PRODUTO"));
+        produto.setNome(parser.getAsString("NOME_PRODUTO"));
+
+        itemPedido.setProduto(produto);
+
+        itemPedidos.add(itemPedido);
+
+        pedido.setItemPedidos(itemPedidos);
+        }
+
+        this.pedido = pedido;
+
+    }
+
+
+
     public boolean verificarEdicaoPedido(){
-        if (pedido.getId() != null){
+        if (pedido != null && pedido.getDetalhamentoPedido() != null){
+         configEdicaoPedido(pedido.getDetalhamentoPedido());
            return true;
+
         }
         return false;
     }
 
+    private void configEdicaoPedido(String detalhamentoPedido) {
 
-    public void edicaoPedido(){
-
+        carregarDadosDodetalhamento(detalhamentoPedido);
     }
+
+
+    public void detalharPedido(){
+        DetalhamentoPedidoDTO dto = new DetalhamentoPedidoDTO();
+                dto.addParametro("USUARIO",pedido.getUsuario(),false,false,true)
+                .addParametro("STATUS",pedido.getStatus(),false,false,true)
+                .addParametro("VALOR_TOTAL_PEDIDO",pedido.getTotal(),false,false,true);
+                        for (ItemPedido itemPedido : pedido.getItemPedidos()){
+                            dto.addParametro("ITEM",itemPedido.getValorTotal(),true,false,false)
+                            .addParametro("PRODUTO_NOME",itemPedido.getProduto().getNome(),false,true,false)
+                            .addParametro("QUANTIDADE_PRODUTO",itemPedido.getProduto().getEstoque(),false,true,false)
+                            .addParametro("LUCRO",itemPedido.getProduto().getLucro(),false,true,false);
+                            dto.addLista(itemPedido);
+
+                        }
+
+                pedido.setDetalhamentoPedido(dto.toXML());
+
+        }
 
 
     public void removerProduto() {

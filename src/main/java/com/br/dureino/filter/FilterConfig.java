@@ -29,7 +29,7 @@ public class FilterConfig implements Filter {
         if (login == null){
            chain.doFilter(request,response);
         }else {
-            res.sendRedirect(req.getContextPath() + "index.xhtml");
+            res.sendRedirect(req.getContextPath() + "home.xhtml");
         }
     }
 
